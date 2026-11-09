@@ -1,0 +1,426 @@
+{
+  "schema": "particle-slider-scoped-finished-output-rate-guidance-v1",
+  "as_of": "2026-11-09",
+  "product_id": "klein-particle-sliders",
+  "status": "two_separate_completed_provisional_model_instrument_ties",
+  "concept": "Soft diffuse illumination",
+  "selection_metric": "Equal-case arithmetic mean of finished intended-effect intensity ON minus matched OFF; higher wins.",
+  "reuse_completed_searches": true,
+  "additional_fresh_confirmation_required": false,
+  "weight_EMA": null,
+  "selection": "raw",
+  "teacher_SSE_used_for_selection": false,
+  "negative_zero_and_exact_ties_preserved": true,
+  "catastrophic_gate": "Separate qualified catastrophic-only eligibility; weak effect, preservation and beauty are not failures or ranking terms.",
+  "package_defaults_changed": false,
+  "ordinary_Generate": false,
+  "released_weights": 0,
+  "trait_qualified": false,
+  "formal_semantic_validation": false,
+  "provisional": true,
+  "selected_unique_G": null,
+  "tied_best_G": [
+    0.001,
+    0.0001
+  ],
+  "tied_common_rate_overrides": [
+    {
+      "lr": 0.001,
+      "d_lr_mult": 18.0,
+      "prior_lr_mult": 30.0,
+      "ema_decay": null
+    },
+    {
+      "lr": 0.0001,
+      "d_lr_mult": 180.0,
+      "prior_lr_mult": 300.0,
+      "ema_decay": null
+    }
+  ],
+  "training_profile": {
+    "completed_updates": 32,
+    "horizon": 128,
+    "batch": 2,
+    "rank": 8,
+    "seed": 7,
+    "particles": 128,
+    "particle_dim": 4
+  },
+  "profiles": [
+    {
+      "native_resolution": 512,
+      "inference_steps": 8,
+      "guidance_scale": 1.0,
+      "ON_strength": 1.0,
+      "OFF_strength": 0.0,
+      "max_sequence_length": 128,
+      "text_encoder_out_layers": [
+        9,
+        18,
+        27
+      ],
+      "case_order": [
+        "teapot-7",
+        "woman-19",
+        "plant-7",
+        "bedroom-19"
+      ],
+      "tied_best_G": [
+        0.001,
+        0.0001
+      ],
+      "selected_unique_G": null,
+      "mean_gain": 0.0625,
+      "per_arm": [
+        {
+          "arm_id": "G001",
+          "rate_overrides": {
+            "lr": 0.001,
+            "d_lr_mult": 18.0,
+            "prior_lr_mult": 30.0,
+            "ema_decay": null
+          },
+          "actual_rates": {
+            "G": 0.001,
+            "D": 0.018000000000000002,
+            "bank": 0.03
+          },
+          "mean_gain": 0.0625,
+          "cases": [
+            {
+              "case_id": "teapot-7",
+              "weight": 0.25,
+              "ON": 1.0,
+              "OFF": 0.75,
+              "gain": 0.25
+            },
+            {
+              "case_id": "woman-19",
+              "weight": 0.25,
+              "ON": 1.0,
+              "OFF": 1.0,
+              "gain": 0.0
+            },
+            {
+              "case_id": "plant-7",
+              "weight": 0.25,
+              "ON": 0.75,
+              "OFF": 0.75,
+              "gain": 0.0
+            },
+            {
+              "case_id": "bedroom-19",
+              "weight": 0.25,
+              "ON": 1.0,
+              "OFF": 1.0,
+              "gain": 0.0
+            }
+          ],
+          "RAW": {
+            "role": "RAW_metadata_only",
+            "campaign_record": "RAW-000032.pt",
+            "bytes": 36277598,
+            "sha256": "d73576849138a7025d31ad19dd5f642033471f843ac17db54b8c0d14e5f6b3e5",
+            "availability": "Private retained evidence; not bundled or a public download URL."
+          },
+          "FULL": {
+            "role": "FULL_metadata_only",
+            "campaign_record": "FULL-000032.pt",
+            "bytes": 36983623,
+            "sha256": "06f5345808b727d3ebb2cae093ab2db2c7df1a59807a96d34f859f8c5417368a",
+            "availability": "Private retained evidence; not bundled or a public download URL."
+          }
+        },
+        {
+          "arm_id": "G0001",
+          "rate_overrides": {
+            "lr": 0.0001,
+            "d_lr_mult": 180.0,
+            "prior_lr_mult": 300.0,
+            "ema_decay": null
+          },
+          "actual_rates": {
+            "G": 0.0001,
+            "D": 0.018000000000000002,
+            "bank": 0.030000000000000002
+          },
+          "mean_gain": 0.0625,
+          "cases": [
+            {
+              "case_id": "teapot-7",
+              "weight": 0.25,
+              "ON": 1.0,
+              "OFF": 0.75,
+              "gain": 0.25
+            },
+            {
+              "case_id": "woman-19",
+              "weight": 0.25,
+              "ON": 1.0,
+              "OFF": 1.0,
+              "gain": 0.0
+            },
+            {
+              "case_id": "plant-7",
+              "weight": 0.25,
+              "ON": 0.75,
+              "OFF": 0.75,
+              "gain": 0.0
+            },
+            {
+              "case_id": "bedroom-19",
+              "weight": 0.25,
+              "ON": 1.0,
+              "OFF": 1.0,
+              "gain": 0.0
+            }
+          ],
+          "RAW": {
+            "role": "RAW_metadata_only",
+            "campaign_record": "RAW-000032.pt",
+            "bytes": 36277598,
+            "sha256": "16ea54dd83686329aca0ba8d3b068a87ba4ed6a2694f0ab2b9506b80e253368a",
+            "availability": "Private retained evidence; not bundled or a public download URL."
+          },
+          "FULL": {
+            "role": "FULL_metadata_only",
+            "campaign_record": "FULL-000032.pt",
+            "bytes": 36983623,
+            "sha256": "65152dfb7bbb8845b6ef2f61fe335cfc90c3604935406241ae9b1af31bd6c266",
+            "availability": "Private retained evidence; not bundled or a public download URL."
+          }
+        }
+      ],
+      "trait_qualified": false,
+      "formal_semantic_validation": false,
+      "catastrophic_observations": "Both original four-case photographic checks and exact FULL32 guards passed.",
+      "limitation": "Frozen provisional soft-diffuse model instrument; no formal trait qualification.",
+      "source_records": [
+        {
+          "role": "measurement_result",
+          "campaign_record": "output-effect-scoring/klein-soft-diffuse-Qwen3VL8B-two-RAW32-actual-v1/measurement/result.json",
+          "bytes": 13492,
+          "sha256": "c7fcd3ebcac4b058839e5c4ee2f4be7fbbb9d93054a6932d1314dcca52a6a23a",
+          "availability": "Private retained evidence; not bundled or a public download URL."
+        }
+      ]
+    },
+    {
+      "native_resolution": 512,
+      "inference_steps": 50,
+      "guidance_scale": 4.0,
+      "ON_strength": 1.0,
+      "OFF_strength": 0.0,
+      "max_sequence_length": 128,
+      "text_encoder_out_layers": [
+        9,
+        18,
+        27
+      ],
+      "case_order": [
+        "teapot-7",
+        "woman-19",
+        "plant-7",
+        "bedroom-19"
+      ],
+      "tied_best_G": [
+        0.001,
+        0.0001
+      ],
+      "selected_unique_G": null,
+      "mean_gain": 0.0,
+      "per_arm": [
+        {
+          "arm_id": "G001",
+          "rate_overrides": {
+            "lr": 0.001,
+            "d_lr_mult": 18.0,
+            "prior_lr_mult": 30.0,
+            "ema_decay": null
+          },
+          "actual_rates": {
+            "G": 0.001,
+            "D": 0.018000000000000002,
+            "bank": 0.03
+          },
+          "mean_gain": 0.0,
+          "cases": [
+            {
+              "case_id": "teapot-7",
+              "weight": 0.25,
+              "ON": 1.0,
+              "OFF": 1.0,
+              "gain": 0.0
+            },
+            {
+              "case_id": "woman-19",
+              "weight": 0.25,
+              "ON": 1.0,
+              "OFF": 1.0,
+              "gain": 0.0
+            },
+            {
+              "case_id": "plant-7",
+              "weight": 0.25,
+              "ON": 1.0,
+              "OFF": 1.0,
+              "gain": 0.0
+            },
+            {
+              "case_id": "bedroom-19",
+              "weight": 0.25,
+              "ON": 1.0,
+              "OFF": 1.0,
+              "gain": 0.0
+            }
+          ],
+          "RAW": {
+            "role": "RAW_metadata_only",
+            "campaign_record": "RAW-000032.pt",
+            "bytes": 36277598,
+            "sha256": "d73576849138a7025d31ad19dd5f642033471f843ac17db54b8c0d14e5f6b3e5",
+            "availability": "Private retained evidence; not bundled or a public download URL."
+          },
+          "FULL": {
+            "role": "FULL_metadata_only",
+            "campaign_record": "FULL-000032.pt",
+            "bytes": 36983623,
+            "sha256": "06f5345808b727d3ebb2cae093ab2db2c7df1a59807a96d34f859f8c5417368a",
+            "availability": "Private retained evidence; not bundled or a public download URL."
+          }
+        },
+        {
+          "arm_id": "G0001",
+          "rate_overrides": {
+            "lr": 0.0001,
+            "d_lr_mult": 180.0,
+            "prior_lr_mult": 300.0,
+            "ema_decay": null
+          },
+          "actual_rates": {
+            "G": 0.0001,
+            "D": 0.018000000000000002,
+            "bank": 0.030000000000000002
+          },
+          "mean_gain": 0.0,
+          "cases": [
+            {
+              "case_id": "teapot-7",
+              "weight": 0.25,
+              "ON": 1.0,
+              "OFF": 1.0,
+              "gain": 0.0
+            },
+            {
+              "case_id": "woman-19",
+              "weight": 0.25,
+              "ON": 1.0,
+              "OFF": 1.0,
+              "gain": 0.0
+            },
+            {
+              "case_id": "plant-7",
+              "weight": 0.25,
+              "ON": 1.0,
+              "OFF": 1.0,
+              "gain": 0.0
+            },
+            {
+              "case_id": "bedroom-19",
+              "weight": 0.25,
+              "ON": 1.0,
+              "OFF": 1.0,
+              "gain": 0.0
+            }
+          ],
+          "RAW": {
+            "role": "RAW_metadata_only",
+            "campaign_record": "RAW-000032.pt",
+            "bytes": 36277598,
+            "sha256": "16ea54dd83686329aca0ba8d3b068a87ba4ed6a2694f0ab2b9506b80e253368a",
+            "availability": "Private retained evidence; not bundled or a public download URL."
+          },
+          "FULL": {
+            "role": "FULL_metadata_only",
+            "campaign_record": "FULL-000032.pt",
+            "bytes": 36983623,
+            "sha256": "65152dfb7bbb8845b6ef2f61fe335cfc90c3604935406241ae9b1af31bd6c266",
+            "availability": "Private retained evidence; not bundled or a public download URL."
+          }
+        }
+      ],
+      "trait_qualified": false,
+      "formal_semantic_validation": false,
+      "catastrophic_observations": "All eight new ON categorical checks passed; no new-profile FULL-bound guard or old guard transfer is claimed.",
+      "limitation": "All twelve first intensities saturated at normalized1.0 (rubric4/4), including every OFF. Zero tie is complete; no rerating/calibration/confirmation gate is imposed.",
+      "source_records": [
+        {
+          "role": "profile_decision",
+          "campaign_record": "recommendations/klein-native512-50step-CFG4-RAW32-provisional-tie.json",
+          "bytes": 16847,
+          "sha256": "878aab5d831b72dbb35776781d2b7a9eeff3287f76ee940b5969b726433af486",
+          "availability": "Private retained evidence; not bundled or a public download URL."
+        },
+        {
+          "role": "measurement_result",
+          "campaign_record": "output-effect-scoring/klein-base50-CFG4-guard-effect-GPU0-actual-v1/measurement/result.json",
+          "bytes": 14128,
+          "sha256": "6ba5d73e7e11c826c244e60fa4c242f7e3c35d79c4e606007c0ead315c7f217d",
+          "availability": "Private retained evidence; not bundled or a public download URL."
+        },
+        {
+          "role": "worker_result",
+          "campaign_record": "output-effect-scoring/klein-base50-CFG4-guard-effect-GPU0-actual-v1/result.json",
+          "bytes": 19038,
+          "sha256": "6655d93b029bf7375602e3f85b27d3a1caaf081f132748007d2efb7bfc1e34ab",
+          "availability": "Private retained evidence; not bundled or a public download URL."
+        }
+      ]
+    }
+  ],
+  "manual_stop": {
+    "G": 0.012,
+    "status": "manually_stopped_after_catastrophic_outputs",
+    "included_in_tied_eligible_arms": false,
+    "old_false_negative_judgments_preserved": true
+  },
+  "source_identity": {
+    "product_scientific_commit": "8308d9ce87590b9c79521c4ad6e3193095f5b80c",
+    "core_commit": "4cc412d6ab6d01bb14b5f1e889ea6b79d3a2098d",
+    "ParticleGAN": "0.9.5",
+    "native_model": "black-forest-labs/FLUX.2-klein-base-4B",
+    "native_model_revision": "a3b4f4849157f664bdbc776fd7453c2783562f4d"
+  },
+  "public_renderer_scope": "The committed klein-slider render API fixes CFG1; no --guidance-scale flag. Saved 50-step/CFG4 outputs came from a separately bound execution profile, not this CLI.",
+  "source_records": [
+    {
+      "role": "frozen_effect_protocol",
+      "campaign_record": "source-reviews/klein-soft-diffuse-first-effect-source-v1/protocol.json",
+      "bytes": 25146,
+      "sha256": "2879da5cbac2f8f43e59e358eec72728834624bc36926646cd8d78b67b40a1df",
+      "availability": "Private retained evidence; not bundled or a public download URL."
+    },
+    {
+      "role": "frozen_effect_instrument",
+      "campaign_record": "source-reviews/klein-soft-diffuse-first-effect-source-v1/instrument.py",
+      "bytes": 5047,
+      "sha256": "0d87dc0f60a616f40245a666603ddb8a74d7d51f32880165b8368d1e17852e1b",
+      "availability": "Private retained evidence; not bundled or a public download URL."
+    },
+    {
+      "role": "original_measurement_terminal",
+      "campaign_record": "output-effect-scoring/klein-soft-diffuse-Qwen3VL8B-two-RAW32-actual-v1/root-actual-terminal-reap-resource0-v1.json",
+      "bytes": 3449,
+      "sha256": "91d583d33bee2ffc7ff00f6ab3a087235a5694747783d826c70d67e85466f420",
+      "availability": "Private retained evidence; not bundled or a public download URL."
+    },
+    {
+      "role": "settings_pack_snapshot",
+      "campaign_record": "recommendations/finished-output-best-tested.json",
+      "bytes": 190197,
+      "sha256": "3fb053c6c8a6fde992f7dd602ba56b68fa46a1c62fd0ad65250fd39c67475e4e",
+      "availability": "Private retained evidence; not bundled or a public download URL."
+    }
+  ],
+  "checkpoint_availability": "Retained source-bound RAW/FULL/cache/output records are private; no released weights, public download or current factory migration is implied."
+}
