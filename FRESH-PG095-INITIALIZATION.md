@@ -63,7 +63,7 @@ RNG state. No packet is retagged or rewritten. Supplied fresh/restore context mu
 be truthful; neither the product nor helper claims to detect arbitrary hidden
 loads or an optimizer a caller omits.
 
-## Distribution and pending checks
+## Distribution and historical check plan
 
 Core0.14 intentionally excludes historical embedded `pg09_images`. This product
 owns its conditioning provider, so `conditioning.py` extracts only the original
@@ -73,7 +73,9 @@ collision rules and policy name are unchanged; no GAN code is copied. Source
 provenance is recorded in `validation/conditioning-extraction.json`. This source
 comparison does not substitute for native numerical checks.
 
-Pending in an isolated matching dependency environment, with GPUs disabled:
+The following new-cohort checks subsequently passed among the28 native CPU cases
+([actual receipt](NATIVE-CPU-20261109.md)); this paragraph preserves the original
+check plan, not a request to rerun completed tests:
 actual tiny random native Klein full2 vs split1/exact-resume1, RAW-only export and
 response inference, fresh zero-output/nonzero-down/frozen-base/actual-bank
 ownership, original receipt reuse with initializer forbidden on restore/inference,
@@ -89,4 +91,5 @@ The product options accept the literal common `lr`, `d_lr_mult` and
 unchanged through the shared `ConditionalPG095(recipe_overrides=...)` API:
 G=`lr`, D=`lr*d_lr_mult`, bank=`lr*prior_lr_mult`. Omitted options preserve
 upstream recipe defaults. These are configurable defaults, not measured or
-optimized rates for this new initialization cohort; no LR search runs here.
+optimized rates by omission. The later [completed provisional ties](docs/finished-output-learning-rates.md)
+provide explicit measured fragments without changing defaults or old states.

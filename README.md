@@ -1,13 +1,29 @@
 # Klein Particle Sliders
 
-**Experimental source publication.** Tiny random native CPU qualification only; no pretrained model training, images, GPU-memory or quality result. This is FLUX.2-klein-base-4B (Apache model identity), not gated Flux3.
+**Current measured guidance — 2026-11-09:** saved RAW32 **G0.001/G0.0001 tie**,
+each **+0.0625** at eight-step/CFG1 and **0.0** in the separate50-step/CFG4
+comparison. Both are complete provisional model-instrument results with
+`trait_qualified:false`; the50-step instrument saturated on all OFF/ONs.
+No unique G, new default, formal trait validation or released weights is claimed.
+See [rates, exact scopes and actual how-to](docs/finished-output-learning-rates.md)
+and [portable choice/evidence metadata](docs/finished-output-rate.json).
+G0.012 remains manually stopped; old results and false-negative records remain.
+
+The retained pretrained cohort used explicit PG0.9.5 scoped initialization and
+RAW/noEMA. Its matched native images and separate categorical results supersede
+old “not yet run” statements as historical progress, without changing captured
+factories or transferring a score/guard between sampling profiles.
+
+## Source integration and historical qualification instructions
+
+**Original publication snapshot:** tiny random native CPU qualification only; later retained execution is scoped in the guide above. This is FLUX.2-klein-base-4B (Apache model identity), not gated Flux3.
 
 See [PUBLICATION.md](PUBLICATION.md) for sanitation, lineage and current CPU/CI limits.
 
 
 Native routed Particle Sliders for **[FLUX.2-klein-base-4B](https://huggingface.co/black-forest-labs/FLUX.2-klein-base-4B)**, the undistilled Apache 2.0 model.
 
-This is a source integration ready for bounded pretrained qualification. **No pretrained training, image quality or GPU-memory result is claimed.** The original qualification used a small, randomly initialized native Klein transformer on CPU. This fresh Source cohort requires `ema_decay=None`, refuses any non-None value before model/cache allocation, and exports RAW weights only. The original `.995`/EMA cohort is retained under `configs/historical/`; its old Source, packets and CPU receipt remain historical. They are not migrated or relabeled by this change. The combined PG0.9.5/scoped-init/RAW-render source passed 28 native CPU checks on 2026-11-09 in its matching isolated environment. The old18-test receipt remains historical. See [the current CPU receipt](NATIVE-CPU-20261109.md).
+This source integration retains its historical CPU qualification; later pretrained results are documented separately above. The original qualification used a small, randomly initialized native Klein transformer on CPU. This fresh Source cohort requires `ema_decay=None`, refuses any non-None value before model/cache allocation, and exports RAW weights only. The original `.995`/EMA cohort is retained under `configs/historical/`; its old Source, packets and CPU receipt remain historical. They are not migrated or relabeled by this change. The combined PG0.9.5/scoped-init/RAW-render source passed 28 native CPU checks on 2026-11-09 in its matching isolated environment. The old18-test receipt remains historical. See [the current CPU receipt](NATIVE-CPU-20261109.md).
 
 The first recipe learns **neutral → soft diffuse lighting** at strengths 0..1. It is unipolar: strength 0 preserves the base model and strength 1 applies the learned adapter. Negative strengths, reference-image edits and ordinary LoRA/ComfyUI loading are outside this interface. Native finished-image rendering is exposed below and CPU-qualified with tiny random components; pretrained quality remains unqualified. The four example prompt pairs are a starter dataset for qualification, not a production training set.
 
@@ -34,9 +50,9 @@ CUDA_VISIBLE_DEVICES='' .venv/bin/python -m pytest -q
 
 Dependencies are exact source pins in `pyproject.toml` and `backend.lock.json`. The core is installed from its repository subdirectory at `4cc412d6ab6d01bb14b5f1e889ea6b79d3a2098d`, not an assumed PyPI release. **The new PG0.9.5/fresh-init/RAW-render cohort passed 28 native CPU checks.** The old18-test receipt used Python3.12.15/Torch2.13/Transformers5.22.1/Diffusers35087 with PG0.9.4 and EMA; it remains historical. The new source retains the exact Diffusers35087 guards; its actual isolated qualification used the dependencies recorded in [NATIVE-CPU-20261109.md](NATIVE-CPU-20261109.md).
 
-## Prepare for a bounded GPU qualification
+## Historical first-qualification commands (do not repeat completed work)
 
-No GPU command has been run by this task. Coordinate admission with your existing training scheduler before cache generation or training. An explicit `cuda:1` in the example is a planned device, not a reservation or evidence it is idle. Preserve existing workloads, their leases and admission rules. This product does not override them or choose a GPU automatically. No live GPU inventory was available in the task sandbox.
+This section records the original source-publication plan; actual retained work is now linked above. Coordinate admission with your existing training scheduler before cache generation or training. An explicit `cuda:1` in the example is a planned device, not a reservation or evidence it is idle. Preserve existing workloads, their leases and admission rules. This product does not override them or choose a GPU automatically. No live GPU inventory was available in the task sandbox.
 
 1. Download and checksum the exact model snapshot. This is an explicit, potentially large download and does not allocate GPU memory:
 
@@ -68,9 +84,9 @@ No GPU command has been run by this task. Coordinate admission with your existin
      --output runs/diffuse-light --resume runs/diffuse-light/training.pt
    ```
 
-The CLI emits `metrics.jsonl`, a shared-core `training.pt` packet and a RAW `native-inference.pt`. It checkpoints every 10 updates and at normal exit. Resume only its exact last completed fresh RAW checkpoint; there is no elapsed training deadline. Files remain local; no upload or weight publication code is provided.
+The CLI emits `metrics.jsonl`, a shared-core `training.pt` packet and a RAW `native-inference.pt`. It checkpoints every 10 updates and at normal exit. Resume only its exact latest complete FULL training checkpoint; RAW exports are inference-only; there is no elapsed training deadline. Files remain local; no upload or weight publication code is provided.
 
-The explicit [fresh initialization profile](FRESH-PG095-INITIALIZATION.md) uses the published shared helper before optimizer construction: named Kaiming-RMS QR for declared added adapter/field-critic leaves, exactly zero up weights retained, and R2Normal(std1) for the existing128×4 bank. This is a new experimental training recipe, not an improvement claim or reuse of an old LR optimum. `klein-slider train` and product `open_training(config, resume=...)` bind fresh/restore intent before the factory; exact resume skips initialization and retains the original receipt. Direct generic `BACKEND.open` without that explicit intent refuses. Native inference loads RAW and never calls the initializer. No universal initialization CLI flag is introduced. Native CPU checks and the tiny native rendered-image test pass. Pretrained training, GPU fit and image quality remain pending.
+The explicit [fresh initialization profile](FRESH-PG095-INITIALIZATION.md) uses the published shared helper before optimizer construction: named Kaiming-RMS QR for declared added adapter/field-critic leaves, exactly zero up weights retained, and R2Normal(std1) for the existing128×4 bank. This is a new experimental training recipe, not an improvement claim or reuse of an old LR optimum. `klein-slider train` and product `open_training(config, resume=...)` bind fresh/restore intent before the factory; exact resume skips initialization and retains the original receipt. Direct generic `BACKEND.open` without that explicit intent refuses. Native inference loads RAW and never calls the initializer. No universal initialization CLI flag is introduced. Native CPU checks and the tiny native rendered-image test pass. Later pretrained execution is recorded in the current guide; it does not change these CPU checks into a quality proof.
 
 The core's source/policy pins, model manifest, cache index/row checksums and adapter target names participate in identities. Replacing source, configuration, data or model bytes is a new cohort, not an implicit checkpoint migration. Checkpoints include native training runtime details; exact CPU/GPU or precision migration is not claimed.
 
@@ -143,7 +159,7 @@ and adapter, rather than only the DiT. There is no CPU offload/device proxy or
 second base transformer. Root must admit the actual full render memory profile.
 This command does not acquire its own host/GPU resource authority.
 
-**Pretrained/GPU render is unqualified.** The 28 current CPU checks pass, including
+**Original CPU qualification boundary:** later retained pretrained rendering has the separate scopes in the current guide. The 28 current CPU checks pass, including
 `tests/test_native_render.py` with the actual pinned pipeline, random tiny
 DiT/VAE/Qwen3 and a synthetic tokenizer. This establishes native software
 conformance for the combined source, not pretrained image quality or memory
