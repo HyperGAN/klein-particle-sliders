@@ -10,7 +10,7 @@ import unittest
 from unittest.mock import patch
 
 from klein_sliders.cli import main
-from klein_sliders.contracts import WEIGHT_POLICY, validate_options, validate_weight_policy
+from klein_sliders.contracts import WEIGHT_POLICY, INITIALIZATION_POLICY, validate_options, validate_weight_policy, validate_source_profile
 
 
 class RawWeightPolicy(unittest.TestCase):
@@ -43,7 +43,7 @@ class RawWeightPolicy(unittest.TestCase):
             root = Path(temporary)
             config = root / "raw.json"
             config.write_text(json.dumps(dict(backend="flux2_klein", cohort="fresh-RAW",
-                options=dict(ema_decay=None, model_dir=str(root / "model"), cache_dir=str(root / "cache")))))
+                options=dict(ema_decay=None, model_dir=str(root / "model"), cache_dir=str(root / "cache"), pg_version="0.9.5", pg_source_profile="release-0.9.5", initialization_policy=INITIALIZATION_POLICY))))
             output = io.StringIO()
             with contextlib.redirect_stdout(output):
                 main(["plan", "--config", str(config)])
@@ -72,15 +72,23 @@ class RawWeightPolicy(unittest.TestCase):
         shared.SessionConfig = Config
         shared.read_packet = lambda path: None
         product = ModuleType("klein_sliders.lifecycle")
-        product.BACKEND = SimpleNamespace(open=lambda config: Session())
+        product.open_training = lambda config, resume=None: Session()
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary); config = root / "raw.json"
             config.write_text(json.dumps(dict(backend="flux2_klein", cohort="fresh-RAW",
-                                               options=dict(ema_decay=None))))
+                                               options=dict(ema_decay=None, pg_version="0.9.5", pg_source_profile="release-0.9.5", initialization_policy=INITIALIZATION_POLICY))))
             with patch.dict(sys.modules, {"particle_sliders.lifecycle": shared,
                                           "klein_sliders.lifecycle": product}), contextlib.redirect_stdout(io.StringIO()):
                 main(["train", "--config", str(config), "--output", str(root / "run")])
         self.assertEqual(exports, ["raw"])
+
+    def test_new_cohort_policy_is_explicit_before_filesystem_or_native_import(self):
+        for options in ({}, {"pg_version": "0.9.4"},
+                        {"pg_version": "0.9.5", "pg_source_profile": "release-0.9.5"}):
+            with self.subTest(options=options), self.assertRaisesRegex(ValueError, "new PG0.9.5"):
+                validate_source_profile(options)
+        validate_source_profile(dict(pg_version="0.9.5", pg_source_profile="release-0.9.5",
+                                     initialization_policy=INITIALIZATION_POLICY, ema_decay=None))
 
 
 if __name__ == "__main__":

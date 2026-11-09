@@ -1,0 +1,9 @@
+{
+  "schema": "klein-conditioning-source-extraction-v1",
+  "original_core_commit": "3e8052250d593a55d9f071cebae503e764342d05",
+  "original_file": "packages/particle-sliders-core/src/particle_sliders/pg09_images.py",
+  "extracted_block_sha256": "53bb414d38e2090bb18dad1bc8cf6b88a7ec253a16bb46b5304ef92c391fb409",
+  "extracted_block_bytes": 4515,
+  "equality": "literal original conditioning block with final separator blank lines omitted; all statements byte-exact. Source equality only, not native CPU numerical qualification",
+  "current_core_reason": "core0.14 distribution excludes embedded pg09_images; product owns its native conditioning provider"
+}

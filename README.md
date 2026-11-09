@@ -13,7 +13,7 @@ The first recipe learns **neutral → soft diffuse lighting** at strengths 0..1.
 
 ## Architecture
 
-Dependency direction is this product → pinned `particle-sliders-core` → released ParticleGAN 0.9.4. The product owns native model loading, frozen teacher data, Klein latent/position geometry and adapter hooks. The shared core owns all GAN objectives, regularizers, optimizer laws, sampling, EMA, training/resume packets and native inference exports. There is no copied GAN trainer.
+Dependency direction is this product → pinned `particle-sliders-core` → released ParticleGAN 0.9.5. The product owns native model loading, frozen teacher data, Klein latent/position geometry and adapter hooks. The shared core owns all GAN objectives, regularizers, optimizer laws, sampling, EMA, training/resume packets and native inference exports. There is no copied GAN trainer.
 
 Adapters follow Anima's rank-8 routed-branch structure, calling the shared `winning_formulation().bridge()` and exposing the actual 128×4 particle parameter to the shared game's prior. Klein targets are double-stream attention Q/K/V/output and single-stream fused QKV/MLP-input/output projections. Text conditioning and the pretrained transformer stay frozen; adapter leaves and the spatial field critic are FP32. This is a new source/policy cohort, not an adoption of Anima checkpoints or its quality receipts. It uses the core's native `FieldCritic`, not Anima's historical global-mix error critic.
 
@@ -32,7 +32,7 @@ CUDA_VISIBLE_DEVICES='' .venv/bin/python -m pytest -q
 .venv/bin/klein-slider plan --config configs/diffuse-light.json
 ```
 
-Dependencies are exact source pins in `pyproject.toml` and `backend.lock.json`. The core is installed from its repository subdirectory, not an assumed PyPI release. CPU checks were executed with Python 3.12.15, Torch 2.13.0+cu126, Transformers 5.22.1 and Diffusers at commit `35087a6`. Other runtime combinations need their own checks.
+Dependencies are exact source pins in `pyproject.toml` and `backend.lock.json`. The core is installed from its repository subdirectory at `4cc412d6ab6d01bb14b5f1e889ea6b79d3a2098d`, not an assumed PyPI release. **This new PG0.9.5/fresh-init cohort has not yet passed native CPU conformance.** The old18-test receipt used Python3.12.15/Torch2.13/Transformers5.22.1/Diffusers35087 with PG0.9.4 and EMA; it remains historical. The new source retains the exact Diffusers35087 guards and requires a separately admitted compatible environment before its native tests run.
 
 ## Prepare for a bounded GPU qualification
 
@@ -70,7 +70,7 @@ No GPU command has been run by this task. Coordinate admission with your existin
 
 The CLI emits `metrics.jsonl`, a shared-core `training.pt` packet and a RAW `native-inference.pt`. It checkpoints every 10 updates and at normal exit. Resume only its exact last completed fresh RAW checkpoint; there is no elapsed training deadline. Files remain local; no upload or weight publication code is provided.
 
-Fresh initialization adoption is a separate reviewed step before native training. Initialize only the added adapter/critic/existing bank before optimizer construction, preserving the actual Kaiming-down scale and exactly zero up weights; leave pretrained modules and restored states unchanged. No blanket QR/zero reset or unsupported universal initialization option is enabled here. The native renderer and modern-core compatibility remain pending.
+The explicit [fresh initialization profile](FRESH-PG095-INITIALIZATION.md) uses the published shared helper before optimizer construction: named Kaiming-RMS QR for declared added adapter/field-critic leaves, exactly zero up weights retained, and R2Normal(std1) for the existing128×4 bank. This is a new experimental training recipe, not an improvement claim or reuse of an old LR optimum. `klein-slider train` and product `open_training(config, resume=...)` bind fresh/restore intent before the factory; exact resume skips initialization and retains the original receipt. Direct generic `BACKEND.open` without that explicit intent refuses. Native inference loads RAW and never calls the initializer. No universal initialization CLI flag is introduced. Native CPU checks, pretrained training and rendered-image support remain pending.
 
 The core's source/policy pins, model manifest, cache index/row checksums and adapter target names participate in identities. Replacing source, configuration, data or model bytes is a new cohort, not an implicit checkpoint migration. Checkpoints include native training runtime details; exact CPU/GPU or precision migration is not claimed.
 
@@ -98,6 +98,6 @@ This returns a native velocity field. A production image sampler/decoder and ref
 
 Source code is MIT, with the upstream Anima notice preserved in `LICENSE` and attribution in `NOTICE`. The pretrained model is separately Apache 2.0. Model weights are neither included nor published. This is an independent integration and does not imply Black Forest Labs endorsement.
 
-- [Pinned shared core](https://github.com/HyperGAN/particle-sliders/tree/3e8052250d593a55d9f071cebae503e764342d05/packages/particle-sliders-core)
+- [Pinned shared core](https://github.com/HyperGAN/particle-sliders/tree/4cc412d6ab6d01bb14b5f1e889ea6b79d3a2098d/packages/particle-sliders-core)
 - [Anima routed-branch reference](https://github.com/HyperGAN/anima-particle-sliders/blob/c018f32759f49a05c2360a04b4a83924a6851913/lumen_studio/particles.py)
 - [Native Klein pipeline](https://github.com/huggingface/diffusers/blob/35087a644038eb531f48581708d4763044cb4852/src/diffusers/pipelines/flux2/pipeline_flux2_klein.py)

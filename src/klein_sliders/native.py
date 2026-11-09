@@ -100,7 +100,8 @@ class KleinResponseAdapter(FrozenResponseAdapter):
         return dict(super().metadata(), protocol=PROTOCOL, diffusers_revision=DIFFUSERS_REVISION,
                     particle_bank="actual product ParticleAdapter.particles", targets=list(self.adapter.names),
                     response_coordinates="BN-normalized patchified VAE field [1,128,H/16,W/16]",
-                    image_conditioning=False, kv_cache=False, guidance_embedding=False)
+                    image_conditioning=False, kv_cache=False, guidance_embedding=False,
+                    fresh_initialization=getattr(self, "fresh_initialization", None))
 
 
 @contextmanager

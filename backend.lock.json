@@ -8,16 +8,16 @@
   },
   "core": {
     "repository": "https://github.com/HyperGAN/particle-sliders",
-    "revision": "3e8052250d593a55d9f071cebae503e764342d05",
+    "revision": "4cc412d6ab6d01bb14b5f1e889ea6b79d3a2098d",
     "package": "particle-sliders-core",
-    "version": "0.12.0",
+    "version": "0.14.1",
     "subdirectory": "packages/particle-sliders-core"
   },
   "engine": {
     "package": "particlegan",
-    "version": "0.9.4",
-    "profile": "release-0.9.4",
-    "wheel_sha256": "ad21eeaea861cf0582fc39aa96eb3fd8ab8cf21e8e0f0179f0597a9c42eb99b6"
+    "version": "0.9.5",
+    "profile": "release-0.9.5",
+    "wheel_sha256": "c1c0de7a635ac1b1634ba158eed050b6f6aed993e01f9b463435430c77d846ae"
   },
   "native": {
     "diffusers_revision": "35087a644038eb531f48581708d4763044cb4852",
@@ -31,15 +31,18 @@
     "use": "MIT routed branch and hook structure; shared bridge imported"
   },
   "qualification": {
-    "cpu_tiny_native": true,
+    "cpu_tiny_native": false,
     "pretrained": false,
     "gpu": false,
     "reference_images": false,
-    "render": false
+    "render": false,
+    "status": "new source cohort; matching native CPU conformance pending"
   },
   "remote": {
     "repository": "https://github.com/HyperGAN/klein-particle-sliders",
     "visibility": "public",
-    "scope": "source only; historical experimental EMA candidate"
-  }
+    "scope": "source only; explicit new PG0.9.5 RAW/fresh-init cohort"
+  },
+  "source_profile": "klein-current-core-pg095-fresh-scoped-init-v1",
+  "initialization_policy": "klein-kaiming-RMS-QR-zero-up-bank-R2-std1-v1"
 }

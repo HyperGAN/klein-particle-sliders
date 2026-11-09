@@ -3,7 +3,7 @@ import argparse
 import json
 from pathlib import Path
 from .contracts import (MODEL, MODEL_REVISION, CORE_REVISION, DIFFUSERS_REVISION,
-                        PROTOCOL, WEIGHT_POLICY, file_hash, load_pairs, validate_weight_policy)
+                        PROTOCOL, WEIGHT_POLICY, SOURCE_PROFILE, INITIALIZATION_POLICY, file_hash, load_pairs, validate_source_profile)
 
 
 def main(argv=None):
@@ -31,14 +31,14 @@ def main(argv=None):
     if args.command == "plan":
         config = json.loads(Path(args.config).read_text())
         options = config["options"]
-        validate_weight_policy(options)
+        validate_source_profile(options)
         print(json.dumps(dict(model=MODEL, model_revision=MODEL_REVISION, core_revision=CORE_REVISION,
             diffusers_revision=DIFFUSERS_REVISION, protocol=PROTOCOL,
-            weight_policy=WEIGHT_POLICY, selection="raw", config=config,
+            weight_policy=WEIGHT_POLICY, source_profile=SOURCE_PROFILE, initialization_policy=INITIALIZATION_POLICY, selection="raw", config=config,
             staged_model=Path(options["model_dir"], "klein-model.lock.json").is_file(),
             frozen_cache=Path(options["cache_dir"], "index.json").is_file(),
-            qualification="CPU source conformance only; no pretrained/GPU quality claim",
-            next="Stage model, prepare cache, bind index SHA256, coordinate bounded GPU qualification with scheduler"),
+            qualification="New source: stdlib policy checks only; matching native CPU/pretrained/GPU conformance pending",
+            next="Qualify matching isolated native CPU environment first; then stage model/cache and coordinate bounded native GPU work"),
             indent=2))
         return
 
@@ -84,9 +84,9 @@ def main(argv=None):
         return
 
     raw_config = json.loads(Path(args.config).read_text())
-    validate_weight_policy(raw_config["options"])
-    from particle_sliders.lifecycle import SessionConfig, read_packet
-    from .lifecycle import BACKEND
+    validate_source_profile(raw_config["options"])
+    from particle_sliders.lifecycle import SessionConfig
+    from .lifecycle import open_training
     config = SessionConfig.from_dict(raw_config)
     root = Path(args.output)
     if root.exists():
@@ -97,9 +97,7 @@ def main(argv=None):
     else:
         root.mkdir(parents=True)
         (root / "session.json").write_text(json.dumps(config.as_dict(), indent=2) + "\n")
-    with BACKEND.open(config) as session:
-        if args.resume:
-            session.restore(read_packet(args.resume))
+    with open_training(config, resume=args.resume) as session:
         def record(metrics):
             with (root / "metrics.jsonl").open("a") as stream:
                 stream.write(json.dumps(metrics, sort_keys=True) + "\n")
