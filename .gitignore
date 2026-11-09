@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+models/
+cache/
+runs/
+*.safetensors
+*.pt
+.env
+.env.*
+HANDOFF.md
+validation/local-duplication-check.json
+validation/pytest.xml

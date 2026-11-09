@@ -1,0 +1,75 @@
+{
+  "public_repos_checked": 27,
+  "matching": [
+    {
+      "name": "particle-sliders",
+      "url": "https://github.com/HyperGAN/particle-sliders"
+    },
+    {
+      "name": "anima-particle-sliders",
+      "url": "https://github.com/HyperGAN/anima-particle-sliders"
+    },
+    {
+      "name": "supra-particle-sliders",
+      "url": "https://github.com/HyperGAN/supra-particle-sliders"
+    },
+    {
+      "name": "krea2-particle-sliders",
+      "url": "https://github.com/HyperGAN/krea2-particle-sliders"
+    },
+    {
+      "name": "ming-particle-sliders",
+      "url": "https://github.com/HyperGAN/ming-particle-sliders"
+    },
+    {
+      "name": "music3-particle-sliders",
+      "url": "https://github.com/HyperGAN/music3-particle-sliders"
+    },
+    {
+      "name": "yue2-particle-sliders",
+      "url": "https://github.com/HyperGAN/yue2-particle-sliders"
+    },
+    {
+      "name": "iris-particle-sliders",
+      "url": "https://github.com/HyperGAN/iris-particle-sliders"
+    },
+    {
+      "name": "qwen-image-particle-sliders",
+      "url": "https://github.com/HyperGAN/qwen-image-particle-sliders"
+    },
+    {
+      "name": "moss-image-sliders",
+      "url": "https://github.com/HyperGAN/moss-image-sliders"
+    },
+    {
+      "name": "Fibo-particle-slider",
+      "url": "https://github.com/HyperGAN/Fibo-particle-slider"
+    },
+    {
+      "name": "tinyqwen-particle-sliders",
+      "url": "https://github.com/HyperGAN/tinyqwen-particle-sliders"
+    },
+    {
+      "name": "glimmer-particle-sliders",
+      "url": "https://github.com/HyperGAN/glimmer-particle-sliders"
+    },
+    {
+      "name": "zimage-particle-sliders",
+      "url": "https://github.com/HyperGAN/zimage-particle-sliders"
+    },
+    {
+      "name": "sd-particle-sliders",
+      "url": "https://github.com/HyperGAN/sd-particle-sliders"
+    },
+    {
+      "name": "cascade-particle-sliders",
+      "url": "https://github.com/HyperGAN/cascade-particle-sliders"
+    },
+    {
+      "name": "p-h3-image-particle-sliders",
+      "url": "https://github.com/HyperGAN/p-h3-image-particle-sliders"
+    }
+  ],
+  "exact_klein_repos": [],
+  "private_repos": "Not exhaustively checked: authenticated GitHub connector unavailable; local checkouts inspected separately"
+}

@@ -1,0 +1,11 @@
+The routed branch and reversible hook arrangement in src/klein_sliders/adapter.py
+is adapted from HyperGAN/anima-particle-sliders lumen_studio/particles.py,
+commit c018f32759f49a05c2360a04b4a83924a6851913, under the MIT license.
+The original source license is preserved in LICENSE.
+
+ParticleGAN mathematics and shared routed bridge implementations are imported
+from separately installed upstream dependencies, not copied into this product.
+
+Black Forest Labs' FLUX.2-klein-base-4B model is separately licensed under
+Apache 2.0. No pretrained model or adapter weights are included in this repository.
+This independent integration is not an official Black Forest Labs release.

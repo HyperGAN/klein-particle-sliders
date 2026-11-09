@@ -1,0 +1,52 @@
+{
+  "schema": "klein-source-qualification-v1",
+  "utc": "2026-11-04T01:43:47.516039+00:00",
+  "python": "3.12.15",
+  "versions": {
+    "torch": "2.13.0+cu126",
+    "numpy": "2.5.2",
+    "pytest": "9.1.1",
+    "diffusers": "0.42.0.dev0",
+    "transformers": "5.22.1",
+    "particle-sliders-core": "0.12.0",
+    "particlegan": "0.9.4",
+    "safetensors": "0.8.0",
+    "accelerate": "1.15.0",
+    "huggingface-hub": "2.4.0"
+  },
+  "cpu_tests": {
+    "tests": 18,
+    "failures": 0,
+    "errors": 0,
+    "command": "CUDA_VISIBLE_DEVICES='' python -m pytest -q",
+    "native_model": "random tiny Flux2Transformer2DModel on CPU",
+    "pretrained": false
+  },
+  "other_checks": {
+    "editable_install": true,
+    "training_entrypoint": true,
+    "inference_entrypoint": true,
+    "native_helper_source_hashes": true,
+    "pip_check": "No broken requirements found",
+    "allocation_free_plan": true
+  },
+  "not_executed": [
+    "pretrained model download",
+    "pretrained teacher cache generation",
+    "GPU qualification",
+    "full training",
+    "image rendering",
+    "reference editing",
+    "remote repository creation or push",
+    "weight publication"
+  ],
+  "gpu_inventory": {
+    "queried_read_only": true,
+    "available": false,
+    "reason": "nvidia-smi could not communicate with the driver in the task sandbox"
+  },
+  "remote": {
+    "created": false,
+    "visibility": "pending parent decision"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "schema": "klein-particle-sliders-source-lock-v1",
+  "model": {
+    "repo": "black-forest-labs/FLUX.2-klein-base-4B",
+    "revision": "a3b4f4849157f664bdbc776fd7453c2783562f4d",
+    "license": "Apache-2.0",
+    "downloaded": false
+  },
+  "core": {
+    "repository": "https://github.com/HyperGAN/particle-sliders",
+    "revision": "3e8052250d593a55d9f071cebae503e764342d05",
+    "package": "particle-sliders-core",
+    "version": "0.12.0",
+    "subdirectory": "packages/particle-sliders-core"
+  },
+  "engine": {
+    "package": "particlegan",
+    "version": "0.9.4",
+    "profile": "release-0.9.4",
+    "wheel_sha256": "ad21eeaea861cf0582fc39aa96eb3fd8ab8cf21e8e0f0179f0597a9c42eb99b6"
+  },
+  "native": {
+    "diffusers_revision": "35087a644038eb531f48581708d4763044cb4852",
+    "transformers": "5.22.1",
+    "accelerate": "1.15.0",
+    "safetensors": "0.8.0"
+  },
+  "anima_reference": {
+    "repository": "https://github.com/HyperGAN/anima-particle-sliders",
+    "revision": "c018f32759f49a05c2360a04b4a83924a6851913",
+    "use": "MIT routed branch and hook structure; shared bridge imported"
+  },
+  "qualification": {
+    "cpu_tiny_native": true,
+    "pretrained": false,
+    "gpu": false,
+    "reference_images": false,
+    "render": false
+  },
+  "remote": {
+    "repository": "https://github.com/HyperGAN/klein-particle-sliders",
+    "visibility": "public",
+    "scope": "source only; historical experimental EMA candidate"
+  }
+}

@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "klein-particle-sliders"
+version = "0.1.0a1"
+description = "Native routed Particle Sliders for FLUX.2 Klein base 4B"
+requires-python = ">=3.11,<3.15"
+license = {file = "LICENSE"}
+dependencies = [
+  "particle-sliders-core @ git+https://github.com/HyperGAN/particle-sliders.git@3e8052250d593a55d9f071cebae503e764342d05#subdirectory=packages/particle-sliders-core",
+  "diffusers @ git+https://github.com/huggingface/diffusers.git@35087a644038eb531f48581708d4763044cb4852",
+  "transformers==5.22.1", "accelerate==1.15.0", "safetensors==0.8.0",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<10"]
+
+[project.scripts]
+klein-slider = "klein_sliders.cli:main"
+
+[project.entry-points."particle_sliders.image_backends"]
+flux2_klein = "klein_sliders.lifecycle:BACKEND"
+
+[project.entry-points."particle_sliders.inference_backends"]
+flux2_klein = "klein_sliders.lifecycle:NATIVE_BACKEND"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

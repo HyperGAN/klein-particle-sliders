@@ -1,0 +1,18 @@
+{
+  "backend": "flux2_klein",
+  "cohort": "klein-base4b-diffuse-light-pg094-v1",
+  "options": {
+    "model_dir": "models/klein-base4b",
+    "cache_dir": "cache/diffuse-light",
+    "cache_index_sha256": "REPLACE_WITH_CACHE_COMMAND_OUTPUT",
+    "device": "cuda:1",
+    "base_precision": "bfloat16",
+    "steps": 1000,
+    "batch": 2,
+    "seed": 7,
+    "ema_decay": 0.995,
+    "critic_width": 32,
+    "response_scale": 1.0,
+    "sigma": 1.0
+  }
+}
