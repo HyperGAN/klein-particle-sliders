@@ -3,7 +3,7 @@ import argparse
 import json
 from pathlib import Path
 from .contracts import (MODEL, MODEL_REVISION, CORE_REVISION, DIFFUSERS_REVISION,
-                        PROTOCOL, file_hash, load_pairs)
+                        PROTOCOL, WEIGHT_POLICY, SOURCE_PROFILE, INITIALIZATION_POLICY, file_hash, load_pairs, validate_source_profile)
 
 
 def main(argv=None):
@@ -26,17 +26,38 @@ def main(argv=None):
     train.add_argument("--output", required=True)
     train.add_argument("--resume")
     train.add_argument("--stop-after", type=int)
+    render = sub.add_parser("render", help="native cache-independent RAW export to matched OFF/ON PNGs")
+    render.add_argument("--model-dir", required=True)
+    render.add_argument("--export", dest="artifact", required=True)
+    render.add_argument("--output", required=True)
+    render.add_argument("--prompt", required=True)
+    render.add_argument("--seed", type=int, default=7)
+    render.add_argument("--size", type=int, choices=[256,512], default=512)
+    render.add_argument("--steps", type=int, default=8)
+    render.add_argument("--strength", type=float, default=1.)
+    render.add_argument("--device", choices=["cpu","cuda:0","cuda:1"], required=True)
+    render.add_argument("--base-precision", choices=["float32","bfloat16"], default="bfloat16")
     args = parser.parse_args(argv)
+
+    if args.command == "render":
+        from .render import render_pair
+        result = render_pair(artifact=args.artifact, model_dir=args.model_dir, output=args.output,
+            prompt=args.prompt, seed=args.seed, size=args.size, steps=args.steps,
+            strength=args.strength, device=args.device, precision=args.base_precision)
+        print(json.dumps(result, indent=2))
+        return
 
     if args.command == "plan":
         config = json.loads(Path(args.config).read_text())
         options = config["options"]
+        validate_source_profile(options)
         print(json.dumps(dict(model=MODEL, model_revision=MODEL_REVISION, core_revision=CORE_REVISION,
-            diffusers_revision=DIFFUSERS_REVISION, protocol=PROTOCOL, config=config,
+            diffusers_revision=DIFFUSERS_REVISION, protocol=PROTOCOL,
+            weight_policy=WEIGHT_POLICY, source_profile=SOURCE_PROFILE, initialization_policy=INITIALIZATION_POLICY, selection="raw", config=config,
             staged_model=Path(options["model_dir"], "klein-model.lock.json").is_file(),
             frozen_cache=Path(options["cache_dir"], "index.json").is_file(),
-            qualification="CPU source conformance only; no pretrained/GPU quality claim",
-            next="Stage model, prepare cache, bind index SHA256, coordinate bounded GPU qualification with scheduler"),
+            qualification="New source: stdlib policy checks only; matching native CPU/pretrained/GPU conformance pending",
+            next="Qualify matching isolated native CPU environment first; then stage model/cache and coordinate bounded native GPU work"),
             indent=2))
         return
 
@@ -81,9 +102,11 @@ def main(argv=None):
             runtime.close()
         return
 
-    from particle_sliders.lifecycle import SessionConfig, read_packet
-    from .lifecycle import BACKEND
-    config = SessionConfig.from_dict(json.loads(Path(args.config).read_text()))
+    raw_config = json.loads(Path(args.config).read_text())
+    validate_source_profile(raw_config["options"])
+    from particle_sliders.lifecycle import SessionConfig
+    from .lifecycle import open_training
+    config = SessionConfig.from_dict(raw_config)
     root = Path(args.output)
     if root.exists():
         if not args.resume or not (root / "session.json").is_file():
@@ -93,9 +116,7 @@ def main(argv=None):
     else:
         root.mkdir(parents=True)
         (root / "session.json").write_text(json.dumps(config.as_dict(), indent=2) + "\n")
-    with BACKEND.open(config) as session:
-        if args.resume:
-            session.restore(read_packet(args.resume))
+    with open_training(config, resume=args.resume) as session:
         def record(metrics):
             with (root / "metrics.jsonl").open("a") as stream:
                 stream.write(json.dumps(metrics, sort_keys=True) + "\n")
@@ -104,7 +125,7 @@ def main(argv=None):
                 session.checkpoint(root / "training.pt")
         session.train(stop_after=args.stop_after, on_step=record)
         session.checkpoint(root / "training.pt")
-        session.export_inference(root / "native-inference.pt", selection="ema")
+        session.export_inference(root / "native-inference.pt", selection="raw")
     print(json.dumps(dict(output=str(root), checkpoint="training.pt", export="native-inference.pt")))
 
 

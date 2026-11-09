@@ -18,9 +18,11 @@ class NativeRuntime:
             raise ValueError("installed native Klein source differs from the pinned Diffusers revision")
         self.identity = verify_model(directory)
         self.identity["native_sources"] = sources
+        self.identity["finished_renderer_source_sha256"] = file_hash(Path(__file__).with_name("render.py"))
         from importlib.metadata import version
         self.identity["runtime_versions"] = {name: version(name) for name in
                                              ("torch", "diffusers", "transformers", "accelerate")}
+        self.model_directory = str(Path(directory).absolute())
         self.device = torch.device(device)
         self.dtype = getattr(torch, precision)
         self.pipe = None
@@ -44,6 +46,26 @@ class NativeRuntime:
             raise RuntimeError("encoding requires a separately loaded frozen text encoder")
         embeds, ids = self.pipe.encode_prompt(text, device="cpu", max_sequence_length=128)
         return dict(embeds=embeds.detach(), text_ids=ids.detach())
+
+    def load_renderer(self):
+        """Load local text/VAE once, reusing the already bound ONE transformer.
+
+        Rendering uses the pinned public pipeline on the explicit selected
+        device. All three BF16 components total roughly16GB before activations;
+        caller resource admission must budget that full render placement.
+        """
+        if file_hash(Path(__file__).with_name("render.py")) != self.identity["finished_renderer_source_sha256"]:
+            raise RuntimeError("finished renderer Source changed after native identity validation")
+        if self.pipe is None:
+            self.pipe = self.helper.from_pretrained(self.model_directory,
+                transformer=self.transformer, torch_dtype=self.dtype,
+                local_files_only=True, is_distilled=False)
+        if self.pipe.transformer is not self.transformer:
+            raise RuntimeError("native renderer cannot replace the bound transformer")
+        for module in (self.pipe.transformer, self.pipe.text_encoder, self.pipe.vae):
+            module.requires_grad_(False).eval()
+        self.pipe.to(self.device)
+        return self.pipe
 
     def close(self):
         self.pipe = None
@@ -100,7 +122,8 @@ class KleinResponseAdapter(FrozenResponseAdapter):
         return dict(super().metadata(), protocol=PROTOCOL, diffusers_revision=DIFFUSERS_REVISION,
                     particle_bank="actual product ParticleAdapter.particles", targets=list(self.adapter.names),
                     response_coordinates="BN-normalized patchified VAE field [1,128,H/16,W/16]",
-                    image_conditioning=False, kv_cache=False, guidance_embedding=False)
+                    image_conditioning=False, kv_cache=False, guidance_embedding=False,
+                    fresh_initialization=getattr(self, "fresh_initialization", None))
 
 
 @contextmanager

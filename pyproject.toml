@@ -9,7 +9,7 @@ description = "Native routed Particle Sliders for FLUX.2 Klein base 4B"
 requires-python = ">=3.11,<3.15"
 license = {file = "LICENSE"}
 dependencies = [
-  "particle-sliders-core @ git+https://github.com/HyperGAN/particle-sliders.git@3e8052250d593a55d9f071cebae503e764342d05#subdirectory=packages/particle-sliders-core",
+  "particle-sliders-core @ git+https://github.com/HyperGAN/particle-sliders.git@4cc412d6ab6d01bb14b5f1e889ea6b79d3a2098d#subdirectory=packages/particle-sliders-core",
   "diffusers @ git+https://github.com/huggingface/diffusers.git@35087a644038eb531f48581708d4763044cb4852",
   "transformers==5.22.1", "accelerate==1.15.0", "safetensors==0.8.0",
 ]

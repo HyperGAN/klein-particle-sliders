@@ -6,13 +6,16 @@ import math
 
 MODEL = "black-forest-labs/FLUX.2-klein-base-4B"
 MODEL_REVISION = "a3b4f4849157f664bdbc776fd7453c2783562f4d"
-CORE_REVISION = "3e8052250d593a55d9f071cebae503e764342d05"
+CORE_REVISION = "4cc412d6ab6d01bb14b5f1e889ea6b79d3a2098d"
 DIFFUSERS_REVISION = "35087a644038eb531f48581708d4763044cb4852"
 NATIVE_SOURCE_HASHES = {
     "pipeline_flux2_klein.py": "8afefd06451d2bed0f34b59e930e60383c6a47fc8cebbec74ea30bfcdc7b79a9",
     "transformer_flux2.py": "88cbc0569409698efbdaa5cd25403b78fb6607b9cf1b15855bc392b2ad0c1607",
 }
 PROTOCOL = "flux2-klein-base4b-native-velocity-v1"
+WEIGHT_POLICY = "klein-fresh-raw-no-weight-ema-v1"
+SOURCE_PROFILE = "klein-current-core-pg095-fresh-scoped-init-v1"
+INITIALIZATION_POLICY = "klein-kaiming-RMS-QR-zero-up-bank-R2-std1-v1"
 EXPECTED = dict(in_channels=128, joint_attention_dim=7680, num_layers=5,
                 num_single_layers=20, guidance_embeds=False, patch_size=1)
 
@@ -69,9 +72,34 @@ def load_pairs(path):
     return pairs
 
 
+def validate_weight_policy(options):
+    """Refuse weight averaging before inspecting caches or allocating a model."""
+    if options.get("ema_decay") is not None:
+        raise ValueError("Klein fresh training requires ema_decay=None and RAW weights; historical EMA cohorts require their original source")
+
+
+def validate_source_profile(options):
+    validate_weight_policy(options)
+    if (options.get("pg_version") != "0.9.5" or options.get("pg_source_profile") != "release-0.9.5"
+            or options.get("initialization_policy") != INITIALIZATION_POLICY):
+        raise ValueError("explicit new PG0.9.5/scoped-initialization cohort required; historical packets retain original source")
+
+
+def rate_overrides(options):
+    """Exact common G rate and D/bank multipliers; omission retains PG defaults."""
+    result = {key: options[key] for key in ("lr", "d_lr_mult", "prior_lr_mult") if key in options}
+    for key, value in result.items():
+        if type(value) not in (int, float) or not math.isfinite(value) or value <= 0:
+            raise ValueError(key + " must be a finite positive non-bool common rate option")
+    return result
+
+
 def validate_options(options):
+    validate_source_profile(options)
+    rate_overrides(options)
     allowed = {"model_dir", "cache_dir", "cache_index_sha256", "device", "base_precision",
-               "steps", "batch", "seed", "ema_decay", "critic_width", "response_scale", "sigma"}
+               "steps", "batch", "seed", "ema_decay", "critic_width", "response_scale", "sigma",
+               "pg_version", "pg_source_profile", "initialization_policy", "lr", "d_lr_mult", "prior_lr_mult"}
     if set(options) - allowed:
         raise ValueError("unknown Klein options: " + str(sorted(set(options) - allowed)))
     for key in ("model_dir", "cache_dir"):
