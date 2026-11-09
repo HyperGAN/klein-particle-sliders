@@ -101,3 +101,51 @@ Source code is MIT, with the upstream Anima notice preserved in `LICENSE` and at
 - [Pinned shared core](https://github.com/HyperGAN/particle-sliders/tree/4cc412d6ab6d01bb14b5f1e889ea6b79d3a2098d/packages/particle-sliders-core)
 - [Anima routed-branch reference](https://github.com/HyperGAN/anima-particle-sliders/blob/c018f32759f49a05c2360a04b4a83924a6851913/lumen_studio/particles.py)
 - [Native Klein pipeline](https://github.com/huggingface/diffusers/blob/35087a644038eb531f48581708d4763044cb4852/src/diffusers/pipelines/flux2/pipeline_flux2_klein.py)
+
+## Native finished-image render source proposal
+
+The `render` command now has a cache-independent RAW-inference path that calls
+this repository's exact pinned `Flux2KleinPipeline` and genuinely decodes a PIL
+image. It uses the shared native export validator and strict network binding;
+no game, critic, optimizer, teacher cache or initialization hook is reconstructed.
+The training backend remains response/cache-only (`render=False`); the separate
+native inference backend advertises its finished PIL callback for **new exports**.
+Old source-bound exports remain tied to their original factory. They are not
+normalized or relabeled to make them load with changed code.
+
+```sh
+klein-slider render --model-dir /absolute/staged/klein4b \
+  --export /absolute/new-cohort/native-inference.pt --output /absolute/fresh/render \
+  --prompt 'A watering can on a garden table' --seed 7 --size 256 \
+  --steps 8 --strength 1 --device cuda:0 --base-precision bfloat16
+```
+
+This produces matched `OFF.png` (strength0) and `ON.png` (requested strength) from
+one loaded RAW inference session. It records exact artifact bytes/internal
+identity, original specification/cohort, prompt/native settings and both PNG
+hashes. Both use independently constructed generators with the same seed. The
+native scheduler is copied/restored per output, and the adapter strength and
+common observation state are restored even if a call fails. Completed files and
+an explicit failed receipt remain if the second output fails; there is no retry.
+
+Only256/512 dimensions,2..50 native steps and unipolar strengths0..1 are exposed.
+CFG remains1, text length128, Qwen3 layers9/18/27, no reference images/FLUX1
+packing/guidance embedding. The original public pipeline owns four-axis IDs,
+empirical-mu Euler schedule, BN inversion, unpatchification, VAE decode and image
+postprocessing. A native hidden response is never presented as a finished image.
+The renderer Source hash is part of verified model identity and checked again
+before lazy loading. The pipeline reuses the **same already-bound transformer**;
+only local text/VAE components are loaded on first render.
+
+Rendering deliberately calls the public pipeline `.to(selected_device)` for
+all three components. Budget roughly16GB BF16 model weights plus live activations
+and adapter, rather than only the DiT. There is no CPU offload/device proxy or
+second base transformer. Root must admit the actual full render memory profile.
+This command does not acquire its own host/GPU resource authority.
+
+**Pretrained/GPU render is unqualified.** The stdlib driver/mock checks pass;
+`tests/test_native_render.py` is an authored CPU test with the actual pinned
+pipeline, random tiny DiT/VAE/Qwen3 and a synthetic tokenizer. It has not been run
+in a matching native environment. It is not pretrained evidence. Merge with the
+separate reviewed current-PG/fresh-initialization cohort before its honest native
+qualification; do not mutate historical packets or infer training permission.

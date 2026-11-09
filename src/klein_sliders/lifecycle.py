@@ -1,4 +1,5 @@
 """Thin product factories; shared core owns updates, optimizer, EMA and packets."""
+from dataclasses import replace
 from pathlib import Path
 import torch
 from particle_sliders.lifecycle import Backend, Binding, Capabilities, UnsupportedOperation, native_cleanup
@@ -15,6 +16,13 @@ CAPABILITIES = Capabilities("routed_particle_gan", render=False, render_outputs=
     base_precisions=("bfloat16", "float32"),
     qualification="New PG0.9.5/fresh-init source; matching native CPU, pretrained and GPU checks pending",
     unavailable_reasons=(("render", "Pretrained native sampler/decoder and reference editing need qualification"),))
+
+
+# Training remains response/cache-only. New native exports advertise a real
+# finished-image callback, with empirical native qualification still pending.
+INFERENCE_CAPABILITIES = replace(CAPABILITIES, render=True, render_outputs=("pil",),
+    unavailable_reasons=(),
+    qualification="Native public-pipeline finished-image source integration; pretrained/GPU render qualification pending")
 
 
 def preflight(options, request, staged):
@@ -119,6 +127,15 @@ def validate_inference(options, spec):
 
 def preflight_inference(options, request, spec):
     native = request["native"]
+    if request["operation"] == "render":
+        from .render import validate_render_request
+        allowed = {"prompt", "height", "width", "steps", "images"}
+        if set(native) - allowed:
+            raise ValueError("unknown native finished-render arguments")
+        validate_render_request(prompt=native.get("prompt"), height=native.get("height", 512),
+            width=native.get("width", 512), steps=native.get("steps", 8), seed=0,
+            strength=request["strength"], images=native.get("images"), output_type=request["output_type"])
+        return
     required = {"latent", "embedding", "text_ids", "timestep"}
     if native and set(native) != required:
         raise ValueError("native response requires latent, embedding, text_ids and timestep together")
@@ -149,14 +166,18 @@ def prepare_inference(options, spec):
             with backend.network.scaled(strength):
                 return backend._velocity(dict(embeds=embedding, text_ids=text_ids), latent,
                                          torch.as_tensor(timestep)).detach().clone()
-        return InferenceBinding(backend.network, identity, close, response=response,
+        def render(*, strength, seed, images=None, output_type="pil", **native):
+            from .render import render_image
+            return render_image(runtime, adapter, strength=strength, seed=seed,
+                                images=images, output_type=output_type, **native)
+        return InferenceBinding(backend.network, identity, close, response=response, render=render,
                                 observation=lambda: observation(runtime, adapter))
     except BaseException:
         close()
         raise
 
 
-NATIVE_BACKEND = InferenceBackend("flux2_klein", CAPABILITIES, prepare_inference, validate_inference,
+NATIVE_BACKEND = InferenceBackend("flux2_klein", INFERENCE_CAPABILITIES, prepare_inference, validate_inference,
                                   preflight=preflight_inference)
 BACKEND = Backend("flux2_klein", CAPABILITIES, prepare, validate_options, preflight=preflight)
 

@@ -26,7 +26,26 @@ def main(argv=None):
     train.add_argument("--output", required=True)
     train.add_argument("--resume")
     train.add_argument("--stop-after", type=int)
+    render = sub.add_parser("render", help="native cache-independent RAW export to matched OFF/ON PNGs")
+    render.add_argument("--model-dir", required=True)
+    render.add_argument("--export", dest="artifact", required=True)
+    render.add_argument("--output", required=True)
+    render.add_argument("--prompt", required=True)
+    render.add_argument("--seed", type=int, default=7)
+    render.add_argument("--size", type=int, choices=[256,512], default=512)
+    render.add_argument("--steps", type=int, default=8)
+    render.add_argument("--strength", type=float, default=1.)
+    render.add_argument("--device", choices=["cpu","cuda:0","cuda:1"], required=True)
+    render.add_argument("--base-precision", choices=["float32","bfloat16"], default="bfloat16")
     args = parser.parse_args(argv)
+
+    if args.command == "render":
+        from .render import render_pair
+        result = render_pair(artifact=args.artifact, model_dir=args.model_dir, output=args.output,
+            prompt=args.prompt, seed=args.seed, size=args.size, steps=args.steps,
+            strength=args.strength, device=args.device, precision=args.base_precision)
+        print(json.dumps(result, indent=2))
+        return
 
     if args.command == "plan":
         config = json.loads(Path(args.config).read_text())
