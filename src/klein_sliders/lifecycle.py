@@ -6,7 +6,7 @@ from particle_sliders.lifecycle import Backend, Binding, Capabilities, Unsupport
 from particle_sliders.inference import InferenceBackend, InferenceBinding, native_identity
 from particle_sliders.pg094 import ConditionalPG094
 from particle_sliders.field_critic import FieldCritic
-from .contracts import PROTOCOL, validate_options
+from .contracts import PROTOCOL, WEIGHT_POLICY, validate_options, validate_weight_policy
 from .adapter import ParticleAdapter
 from .native import NativeRuntime, KleinResponseAdapter, observation
 from .cache import CachedResponses
@@ -18,6 +18,7 @@ CAPABILITIES = Capabilities("routed_particle_gan", render=False, render_outputs=
 
 
 def preflight(options, request, staged):
+    validate_weight_policy(options)
     if set(staged) - {"runtime"}:
         raise ValueError("only a staged native runtime may be borrowed")
     if request["native"]:
@@ -76,7 +77,7 @@ def prepare(options, *, runtime=None):
             seed=options.get("seed", 7), sigma=options.get("sigma", 1.),
             response_scale=options.get("response_scale", 1.))
         specification = NATIVE_BACKEND.specification(backend, model_identity=runtime.identity,
-                                                   protocol=PROTOCOL, configuration={})
+            protocol=PROTOCOL, configuration={"weight_policy": WEIGHT_POLICY})
         return Binding(game, close, inference=specification,
                        before_update=lambda request: bool(rows.identity()),
                        observation=lambda: observation(runtime, adapter))
@@ -94,8 +95,9 @@ def validate_inference(options, spec):
         raise ValueError("explicit CPU or single GPU device required")
     if options.get("base_precision", "bfloat16") not in ("float32", "bfloat16"):
         raise ValueError("only FP32/BF16 native bases are supported")
-    if spec.identity["protocol"] != PROTOCOL or spec.configuration:
-        raise ValueError("unsupported native Klein export protocol")
+    if (spec.identity["protocol"] != PROTOCOL
+            or spec.configuration != {"weight_policy": WEIGHT_POLICY}):
+        raise ValueError("requires the fresh RAW-only Klein export; historical artifacts retain their original source")
 
 
 def preflight_inference(options, request, spec):

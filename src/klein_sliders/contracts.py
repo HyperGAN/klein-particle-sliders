@@ -13,6 +13,7 @@ NATIVE_SOURCE_HASHES = {
     "transformer_flux2.py": "88cbc0569409698efbdaa5cd25403b78fb6607b9cf1b15855bc392b2ad0c1607",
 }
 PROTOCOL = "flux2-klein-base4b-native-velocity-v1"
+WEIGHT_POLICY = "klein-fresh-raw-no-weight-ema-v1"
 EXPECTED = dict(in_channels=128, joint_attention_dim=7680, num_layers=5,
                 num_single_layers=20, guidance_embeds=False, patch_size=1)
 
@@ -69,7 +70,14 @@ def load_pairs(path):
     return pairs
 
 
+def validate_weight_policy(options):
+    """Refuse weight averaging before inspecting caches or allocating a model."""
+    if options.get("ema_decay") is not None:
+        raise ValueError("Klein fresh training requires ema_decay=None and RAW weights; historical EMA cohorts require their original source")
+
+
 def validate_options(options):
+    validate_weight_policy(options)
     allowed = {"model_dir", "cache_dir", "cache_index_sha256", "device", "base_precision",
                "steps", "batch", "seed", "ema_decay", "critic_width", "response_scale", "sigma"}
     if set(options) - allowed:

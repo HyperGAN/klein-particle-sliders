@@ -1,6 +1,6 @@
 {
   "backend": "flux2_klein",
-  "cohort": "klein-base4b-diffuse-light-pg094-v1",
+  "cohort": "klein-base4b-diffuse-light-pg094-raw-noema-v2",
   "options": {
     "model_dir": "models/klein-base4b",
     "cache_dir": "cache/diffuse-light",
@@ -10,7 +10,7 @@
     "steps": 1000,
     "batch": 2,
     "seed": 7,
-    "ema_decay": 0.995,
+    "ema_decay": null,
     "critic_width": 32,
     "response_scale": 1.0,
     "sigma": 1.0

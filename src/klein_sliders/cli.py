@@ -3,7 +3,7 @@ import argparse
 import json
 from pathlib import Path
 from .contracts import (MODEL, MODEL_REVISION, CORE_REVISION, DIFFUSERS_REVISION,
-                        PROTOCOL, file_hash, load_pairs)
+                        PROTOCOL, WEIGHT_POLICY, file_hash, load_pairs, validate_weight_policy)
 
 
 def main(argv=None):
@@ -31,8 +31,10 @@ def main(argv=None):
     if args.command == "plan":
         config = json.loads(Path(args.config).read_text())
         options = config["options"]
+        validate_weight_policy(options)
         print(json.dumps(dict(model=MODEL, model_revision=MODEL_REVISION, core_revision=CORE_REVISION,
-            diffusers_revision=DIFFUSERS_REVISION, protocol=PROTOCOL, config=config,
+            diffusers_revision=DIFFUSERS_REVISION, protocol=PROTOCOL,
+            weight_policy=WEIGHT_POLICY, selection="raw", config=config,
             staged_model=Path(options["model_dir"], "klein-model.lock.json").is_file(),
             frozen_cache=Path(options["cache_dir"], "index.json").is_file(),
             qualification="CPU source conformance only; no pretrained/GPU quality claim",
@@ -81,9 +83,11 @@ def main(argv=None):
             runtime.close()
         return
 
+    raw_config = json.loads(Path(args.config).read_text())
+    validate_weight_policy(raw_config["options"])
     from particle_sliders.lifecycle import SessionConfig, read_packet
     from .lifecycle import BACKEND
-    config = SessionConfig.from_dict(json.loads(Path(args.config).read_text()))
+    config = SessionConfig.from_dict(raw_config)
     root = Path(args.output)
     if root.exists():
         if not args.resume or not (root / "session.json").is_file():
@@ -104,7 +108,7 @@ def main(argv=None):
                 session.checkpoint(root / "training.pt")
         session.train(stop_after=args.stop_after, on_step=record)
         session.checkpoint(root / "training.pt")
-        session.export_inference(root / "native-inference.pt", selection="ema")
+        session.export_inference(root / "native-inference.pt", selection="raw")
     print(json.dumps(dict(output=str(root), checkpoint="training.pt", export="native-inference.pt")))
 
 

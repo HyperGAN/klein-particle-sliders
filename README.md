@@ -7,9 +7,7 @@ See [PUBLICATION.md](PUBLICATION.md) for sanitation, lineage and current CPU/CI 
 
 Native routed Particle Sliders for **[FLUX.2-klein-base-4B](https://huggingface.co/black-forest-labs/FLUX.2-klein-base-4B)**, the undistilled Apache 2.0 model.
 
-This is a source integration ready for bounded pretrained qualification. **No pretrained training, image quality or GPU-memory result is claimed.** The test suite uses a small, randomly initialized native Klein transformer on CPU. This public source is a historical/experimental EMA candidate: the existing
-config uses `ema_decay=.995` and the CLI exports selection `ema`. It is not
-RAW-only compliant. Publication does not alter that behavior or qualify it.
+This is a source integration ready for bounded pretrained qualification. **No pretrained training, image quality or GPU-memory result is claimed.** The original qualification used a small, randomly initialized native Klein transformer on CPU. This fresh Source cohort requires `ema_decay=None`, refuses any non-None value before model/cache allocation, and exports RAW weights only. The original `.995`/EMA cohort is retained under `configs/historical/`; its old Source, packets and CPU receipt remain historical. They are not migrated or relabeled by this change. New native state/export checks require an admitted matching dependency environment; the old18-test receipt is not a pass for this new Source.
 
 The first recipe learns **neutral → soft diffuse lighting** at strengths 0..1. It is unipolar: strength 0 preserves the base model and strength 1 applies the learned adapter. Negative strengths, reference-image edits, rendered image inference and ordinary LoRA/ComfyUI loading are outside this initial qualified interface. The four example prompt pairs are a starter dataset for qualification, not a production training set.
 
@@ -49,7 +47,7 @@ No GPU command has been run by this task. Coordinate admission with your existin
 2. After scheduler admission, first try a bounded low-resolution cache. The text encoder and VAE remain on CPU; the transformer goes on the explicitly chosen device. The normal starter is 512 px, 8 Euler steps, four prompt pairs and two seeds (64 rows). For first qualification use 256 px, 2 steps and one seed (8 rows):
 
    ```bash
-   timeout 10m klein-slider cache \
+   klein-slider cache \
      --model-dir models/klein-base4b \
      --pairs configs/diffuse-light-pairs.json \
      --output cache/diffuse-light \
@@ -59,7 +57,7 @@ No GPU command has been run by this task. Coordinate admission with your existin
 3. Put the command's `cache_index_sha256` into `configs/diffuse-light.json`; use the admitted device. The placeholder deliberately refuses training. Keep model/cache paths and the total step budget fixed when resuming. Then qualify only the first two updates:
 
    ```bash
-   timeout 10m klein-slider train --config configs/diffuse-light.json \
+   klein-slider train --config configs/diffuse-light.json \
      --output runs/diffuse-light --stop-after 2
    ```
 
@@ -70,7 +68,9 @@ No GPU command has been run by this task. Coordinate admission with your existin
      --output runs/diffuse-light --resume runs/diffuse-light/training.pt
    ```
 
-The CLI emits `metrics.jsonl`, a shared-core `training.pt` packet and an EMA `native-inference.pt`. It checkpoints every 10 updates and at normal exit. A timeout may require resuming the last completed checkpoint. Files remain local; no upload or weight publication code is provided.
+The CLI emits `metrics.jsonl`, a shared-core `training.pt` packet and a RAW `native-inference.pt`. It checkpoints every 10 updates and at normal exit. Resume only its exact last completed fresh RAW checkpoint; there is no elapsed training deadline. Files remain local; no upload or weight publication code is provided.
+
+Fresh initialization adoption is a separate reviewed step before native training. Initialize only the added adapter/critic/existing bank before optimizer construction, preserving the actual Kaiming-down scale and exactly zero up weights; leave pretrained modules and restored states unchanged. No blanket QR/zero reset or unsupported universal initialization option is enabled here. The native renderer and modern-core compatibility remain pending.
 
 The core's source/policy pins, model manifest, cache index/row checksums and adapter target names participate in identities. Replacing source, configuration, data or model bytes is a new cohort, not an implicit checkpoint migration. Checkpoints include native training runtime details; exact CPU/GPU or precision migration is not claimed.
 
