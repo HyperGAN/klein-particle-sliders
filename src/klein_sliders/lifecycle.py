@@ -6,7 +6,7 @@ from particle_sliders.lifecycle import Backend, Binding, Capabilities, Unsupport
 from particle_sliders.inference import InferenceBackend, InferenceBinding, native_identity
 from particle_sliders.pg095 import ConditionalPG095, engine_options
 from particle_sliders.field_critic import FieldCritic
-from .contracts import PROTOCOL, WEIGHT_POLICY, SOURCE_PROFILE, INITIALIZATION_POLICY, digest, validate_options, validate_weight_policy
+from .contracts import PROTOCOL, WEIGHT_POLICY, SOURCE_PROFILE, INITIALIZATION_POLICY, digest, rate_overrides, validate_options, validate_weight_policy
 from .initialization import Construction, initialize_owned, construction_for, validate_receipt
 from .adapter import ParticleAdapter
 from .native import NativeRuntime, KleinResponseAdapter, observation
@@ -92,7 +92,8 @@ def prepare(options, *, runtime=None, construction=None):
         game = ConditionalPG095(backend, rows, critic, particles=adapter.particles,
             batch_size=options.get("batch", 2), total_steps=options.get("steps", 4),
             seed=options.get("seed", 7), sigma=options.get("sigma", 1.),
-            response_scale=options.get("response_scale", 1.), **engine_options(options))
+            response_scale=options.get("response_scale", 1.),
+            recipe_overrides=rate_overrides(options), **engine_options(options))
         specification = NATIVE_BACKEND.specification(backend, model_identity=runtime.identity,
             protocol=PROTOCOL, configuration={"weight_policy": WEIGHT_POLICY,
                            "source_profile": SOURCE_PROFILE,

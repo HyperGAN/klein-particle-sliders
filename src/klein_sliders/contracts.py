@@ -85,11 +85,21 @@ def validate_source_profile(options):
         raise ValueError("explicit new PG0.9.5/scoped-initialization cohort required; historical packets retain original source")
 
 
+def rate_overrides(options):
+    """Exact common G rate and D/bank multipliers; omission retains PG defaults."""
+    result = {key: options[key] for key in ("lr", "d_lr_mult", "prior_lr_mult") if key in options}
+    for key, value in result.items():
+        if type(value) not in (int, float) or not math.isfinite(value) or value <= 0:
+            raise ValueError(key + " must be a finite positive non-bool common rate option")
+    return result
+
+
 def validate_options(options):
     validate_source_profile(options)
+    rate_overrides(options)
     allowed = {"model_dir", "cache_dir", "cache_index_sha256", "device", "base_precision",
                "steps", "batch", "seed", "ema_decay", "critic_width", "response_scale", "sigma",
-               "pg_version", "pg_source_profile", "initialization_policy"}
+               "pg_version", "pg_source_profile", "initialization_policy", "lr", "d_lr_mult", "prior_lr_mult"}
     if set(options) - allowed:
         raise ValueError("unknown Klein options: " + str(sorted(set(options) - allowed)))
     for key in ("model_dir", "cache_dir"):

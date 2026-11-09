@@ -44,7 +44,8 @@ def test_native_core_training_resume_and_export(tmp_path, bound):
     root, sha = make_cache(tmp_path, bound)
     config = klein_config("flux2_klein", "tiny-cpu-only-v1", model_dir=str(tmp_path),
         cache_dir=str(root), cache_index_sha256=sha, device="cpu", base_precision="float32",
-        steps=2, batch=2, seed=7, critic_width=4, ema_decay=None)
+        steps=2, batch=2, seed=7, critic_width=4, ema_decay=None,
+        lr=.004, d_lr_mult=4.500000000000001, prior_lr_mult=7.499999999999999)
     before = torch.get_rng_state().clone()
     full_runtime, split_runtime, resume_runtime = TinyRuntime(), TinyRuntime(), TinyRuntime()
     sessions = []
@@ -54,6 +55,12 @@ def test_native_core_training_resume_and_export(tmp_path, bound):
         assert full.game.prior.z is full.game.network.particles
         assert full.game._signature["generator_arm"] == "routed_particle_gan"
         assert full.game._signature["pg_version"] == "0.9.5"
+        overrides = {key: config.options[key] for key in ("lr", "d_lr_mult", "prior_lr_mult")}
+        assert all(getattr(full.game.recipe, key) == value for key, value in overrides.items())
+        assert [group["lr"] for group in full.game.opt_g.param_groups] == [
+            overrides["lr"], overrides["lr"] * overrides["prior_lr_mult"]]
+        assert {group["lr"] for group in full.game.opt_d.param_groups} == {
+            overrides["lr"] * overrides["d_lr_mult"]}
         full.train()
         split.train(stop_after=1)
         resumed = open_training(config, resume=split.checkpoint(), runtime=resume_runtime); sessions.append(resumed)

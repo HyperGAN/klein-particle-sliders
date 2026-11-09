@@ -10,7 +10,7 @@ import unittest
 from unittest.mock import patch
 
 from klein_sliders.cli import main
-from klein_sliders.contracts import WEIGHT_POLICY, INITIALIZATION_POLICY, validate_options, validate_weight_policy, validate_source_profile
+from klein_sliders.contracts import WEIGHT_POLICY, INITIALIZATION_POLICY, validate_options, validate_weight_policy, validate_source_profile, rate_overrides
 
 
 class RawWeightPolicy(unittest.TestCase):
@@ -89,6 +89,24 @@ class RawWeightPolicy(unittest.TestCase):
                 validate_source_profile(options)
         validate_source_profile(dict(pg_version="0.9.5", pg_source_profile="release-0.9.5",
                                      initialization_policy=INITIALIZATION_POLICY, ema_decay=None))
+
+    def test_exact_common_rate_literals_and_omission(self):
+        wanted = dict(lr=.004, d_lr_mult=4.500000000000001, prior_lr_mult=7.499999999999999)
+        self.assertEqual(rate_overrides(wanted), wanted)
+        self.assertEqual({key: value.hex() for key, value in rate_overrides(wanted).items()},
+                         {key: value.hex() for key, value in wanted.items()})
+        self.assertEqual(rate_overrides({}), {})
+        for key in wanted:
+            for value in (0, -1, True, False, None, "0.004", float("nan"), float("inf")):
+                with self.subTest(key=key, value=value), self.assertRaisesRegex(ValueError, "finite positive"):
+                    rate_overrides({key: value})
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary); cache = root / "index.json"; cache.write_text("{}")
+            from klein_sliders.contracts import file_hash
+            options = dict(model_dir=str(root), cache_dir=str(root), cache_index_sha256=file_hash(cache),
+                           pg_version="0.9.5", pg_source_profile="release-0.9.5",
+                           initialization_policy=INITIALIZATION_POLICY, **wanted)
+            validate_options(options)  # Real full option validator, no native imports.
 
 
 if __name__ == "__main__":

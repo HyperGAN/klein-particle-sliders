@@ -81,3 +81,12 @@ initialization-refusal cleanup before optimizers, and source/EMA/cohort refusals
 These are new-source CPU conformance checks, not pretrained/model quality proof,
 new LR training, a renderer, an automatic catastrophic-output qualification or a
 repetition of completed historical experiments.
+
+## Common rates
+
+The product options accept the literal common `lr`, `d_lr_mult` and
+`prior_lr_mult` values, each finite, positive and non-bool. They are passed
+unchanged through the shared `ConditionalPG095(recipe_overrides=...)` API:
+G=`lr`, D=`lr*d_lr_mult`, bank=`lr*prior_lr_mult`. Omitted options preserve
+upstream recipe defaults. These are configurable defaults, not measured or
+optimized rates for this new initialization cohort; no LR search runs here.
