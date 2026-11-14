@@ -1,0 +1,117 @@
+{
+  "model_id": "black-forest-labs/FLUX.2-klein-base-4B",
+  "revision": "a3b4f4849157f664bdbc776fd7453c2783562f4d",
+  "frozen_component_bytes": {
+    "transformer_serialized_upper": 7751109744,
+    "Qwen_tensor_bytes": 8044936192,
+    "VAE_serialized_upper": 168120878
+  },
+  "adapter": {
+    "rank": 8,
+    "hosts": 60,
+    "lora_parameters": 8355840,
+    "bridge_parameters_each": 6476,
+    "bank_parameters": 512
+  },
+  "critic_parameters": 21313,
+  "trainable_parameters": 8766225,
+  "checkpoint_boundaries_bytes": 368050176,
+  "active_block_unrounded_bytes": 353894400,
+  "cache_bound_rows": 128,
+  "schema": "calculated-memory-inputs-v1",
+  "repository": "klein-particle-sliders",
+  "calculated_on": "2026-11-14",
+  "unit": "GiB=2^30 bytes",
+  "measured": false,
+  "profiles": [
+    {
+      "operation": "Native cached-response training",
+      "gpu_count": 1,
+      "vram_gib_per_gpu": 16,
+      "host_ram_gib": 24,
+      "limits": "B2; 512\u00b2; text128; BF16; native block checkpointing",
+      "ledger": {
+        "frozen_gib": 7.218783482909203,
+        "trainable_and_update_gib": 0.6531346589326859,
+        "checkpoint_boundaries_gib": 0.3427734375,
+        "active_block_and_routing_gib": 2,
+        "workspace_gib": 4
+      },
+      "calculated_vram_subtotal_gib": 14.214691579341888,
+      "host_ledger_gib": {
+        "CPU_DiT": 7.219,
+        "loading_copy": 7.219,
+        "cache": 2,
+        "runtime": 4
+      },
+      "host_subtotal_gib": 20.438000000000002
+    },
+    {
+      "operation": "Finished-image sampling",
+      "gpu_count": 1,
+      "vram_gib_per_gpu": 24,
+      "host_ram_gib": 32,
+      "limits": "B1; 256\u00b2/512\u00b2; text128; BF16; all components resident",
+      "ledger": {
+        "frozen_gib": 14.867788938805461,
+        "live_forward_and_decode_gib": 4,
+        "workspace_gib": 4
+      },
+      "calculated_vram_subtotal_gib": 22.86778893880546,
+      "host_ledger_gib": {
+        "CPU_pipeline": 14.868,
+        "largest_component_copy": 7.219,
+        "cache": 2,
+        "runtime": 4
+      },
+      "host_subtotal_gib": 28.087
+    },
+    {
+      "operation": "Conditioning / teacher preparation",
+      "gpu_count": 1,
+      "vram_gib_per_gpu": 12,
+      "host_ram_gib": 32,
+      "limits": "512\u00b2; one teacher at a time; Qwen/VAE on CPU",
+      "ledger": {
+        "frozen_gpu_gib": 7.218783482909203,
+        "live_forward_gib": 1,
+        "workspace_gib": 3
+      },
+      "calculated_vram_subtotal_gib": 11.218783482909203,
+      "host_ledger_gib": {
+        "CPU_pipeline": 14.868,
+        "largest_component_copy": 7.219,
+        "cache": 2,
+        "runtime": 4
+      },
+      "host_subtotal_gib": 28.087
+    }
+  ],
+  "source_records": [
+    {
+      "path": "src/klein_sliders/contracts.py",
+      "bytes": 6357,
+      "sha256": "f2565902e2d3540137d5dca14f2e7bdfc35379e61b8a0633dbbda4b2357eef3f"
+    },
+    {
+      "path": "src/klein_sliders/native.py",
+      "bytes": 7789,
+      "sha256": "8a198c8fa7f617805f15843e31af861fcf8a3dbd60343de14d6b2a85f77a8226"
+    },
+    {
+      "path": "src/klein_sliders/adapter.py",
+      "bytes": 2842,
+      "sha256": "1585aa7465a30eaf88048c0ee8a3401310f5b4746f9c4dfc20303987830cf8ba"
+    },
+    {
+      "path": "src/klein_sliders/conditioning.py",
+      "bytes": 4810,
+      "sha256": "625e8c6e55f01aace6276ad4eae2a70dbb74badbff901beded9687f834fddd32"
+    },
+    {
+      "path": "src/klein_sliders/lifecycle.py",
+      "bytes": 11085,
+      "sha256": "d1a25afe937eba830621563421535e2eec29576f59fdc3b120fb168b3aa18a87"
+    }
+  ]
+}
