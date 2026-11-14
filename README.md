@@ -1,5 +1,11 @@
 # Klein Particle Sliders
 
+**Memory (calculated):** native BF16 batch2 training at512²: **16 GiB VRAM /24 GiB RAM**; finished sampling: **24 GiB VRAM /32 GiB RAM**. See [MEMORY.md](MEMORY.md) for the complete budgets and assumptions.
+
+
+
+
+
 **Current measured guidance — 2026-11-09:** saved RAW32 **G0.001/G0.0001 tie**,
 each **+0.0625** at eight-step/CFG1 and **0.0** in the separate50-step/CFG4
 comparison. Both are complete provisional model-instrument results with
