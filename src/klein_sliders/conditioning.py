@@ -1,7 +1,7 @@
 """Product conditioning projection, extracted without numerical changes.
 
 Source: HyperGAN/particle-sliders core commit
-3e8052250d593a55d9f071cebae503e764342d05, pg09_images.py's conditioning block.
+3e8052250d593a55d9f071cebae503e764342d05, the historical shared image conditioning block.
 MIT; see LICENSE/NOTICE. No image-model binding or GAN implementation copied.
 """
 import torch

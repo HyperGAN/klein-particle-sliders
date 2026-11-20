@@ -1,6 +1,6 @@
 {
   "backend": "flux2_klein",
-  "cohort": "klein-base4b-diffuse-light-pg095-raw-scoped-init-v3",
+  "cohort": "klein-base4b-diffuse-light-engine-raw-scoped-init-v1",
   "options": {
     "model_dir": "models/klein-base4b",
     "cache_dir": "cache/diffuse-light",
@@ -14,8 +14,8 @@
     "critic_width": 32,
     "response_scale": 1.0,
     "sigma": 1.0,
-    "pg_version": "0.9.5",
-    "pg_source_profile": "release-0.9.5",
+    "pg_version": "0.11.0",
+    "pg_source_profile": "release-0.11.0",
     "initialization_policy": "klein-kaiming-RMS-QR-zero-up-bank-R2-std1-v1"
   }
 }

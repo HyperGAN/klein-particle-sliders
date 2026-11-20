@@ -4,7 +4,7 @@ from pathlib import Path
 import torch
 from particle_sliders.lifecycle import Backend, Binding, Capabilities, UnsupportedOperation, native_cleanup
 from particle_sliders.inference import InferenceBackend, InferenceBinding, native_identity
-from particle_sliders.pg095 import ConditionalPG095, engine_options
+from particle_sliders.engine import ConditionalParticleGAN, engine_options
 from particle_sliders.field_critic import FieldCritic
 from .contracts import PROTOCOL, WEIGHT_POLICY, SOURCE_PROFILE, INITIALIZATION_POLICY, digest, rate_overrides, validate_options, validate_weight_policy
 from .initialization import Construction, initialize_owned, construction_for, validate_receipt
@@ -14,7 +14,7 @@ from .cache import CachedResponses
 
 CAPABILITIES = Capabilities("routed_particle_gan", render=False, render_outputs=(),
     base_precisions=("bfloat16", "float32"),
-    qualification="New PG0.9.5/fresh-init source; matching native CPU, pretrained and GPU checks pending",
+    qualification="New ParticleGAN 0.11.0/fresh-init source; matching native CPU, pretrained and GPU checks pending",
     unavailable_reasons=(("render", "Pretrained native sampler/decoder and reference editing need qualification"),))
 
 
@@ -89,7 +89,7 @@ def prepare(options, *, runtime=None, construction=None):
                                  options.get("critic_width", 32)).to(runtime.device)
             receipt = initialize_owned(adapter, critic, construction, options)
             backend.fresh_initialization = receipt.as_dict()
-        game = ConditionalPG095(backend, rows, critic, particles=adapter.particles,
+        game = ConditionalParticleGAN(backend, rows, critic, particles=adapter.particles,
             batch_size=options.get("batch", 2), total_steps=options.get("steps", 4),
             seed=options.get("seed", 7), sigma=options.get("sigma", 1.),
             response_scale=options.get("response_scale", 1.),
@@ -122,7 +122,7 @@ def validate_inference(options, spec):
             or configuration["weight_policy"] != WEIGHT_POLICY
             or configuration["source_profile"] != SOURCE_PROFILE
             or configuration["initialization_policy"] != INITIALIZATION_POLICY):
-        raise ValueError("requires the new PG0.9.5 RAW-only Klein export; historical artifacts retain original source")
+        raise ValueError("requires the new ParticleGAN 0.11.0 RAW-only Klein export; historical artifacts retain original source")
     validate_receipt(configuration["initialization"], cohort=configuration["initialization"].get("cohort_id"))
 
 

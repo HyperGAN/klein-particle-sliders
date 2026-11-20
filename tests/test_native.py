@@ -77,7 +77,7 @@ def test_invalid_native_input_refused(bound, change):
     elif change == "guidance":
         row = replace(row, guidance=4.)
     else:
-        from particle_sliders.pg09_backends import FlowSchedule
+        from particle_sliders.backends import FlowSchedule
         row = replace(row, timestep=None, schedule=FlowSchedule.linear(2, time_scale=1000))
     with pytest.raises(ValueError):
         backend.prepare(row)
@@ -92,7 +92,7 @@ def test_exact_model_family_gate():
 
 
 def test_checkpoint_recompute_retains_forward_strength(bound):
-    from particle_sliders.pg09_backends import bind_native_gradient_checkpointing
+    from particle_sliders.backends import bind_native_gradient_checkpointing
     runtime, adapter, backend = bound
     row = response_row(runtime)
     with torch.no_grad():

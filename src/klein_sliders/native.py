@@ -3,7 +3,7 @@ from copy import deepcopy
 from contextlib import contextmanager
 from pathlib import Path
 import torch
-from particle_sliders.pg09_backends import (AdapterParameters, FrozenResponseAdapter,
+from particle_sliders.backends import (AdapterParameters, FrozenResponseAdapter,
                                           bind_native_gradient_checkpointing)
 from .contracts import PROTOCOL, DIFFUSERS_REVISION, NATIVE_SOURCE_HASHES, file_hash, verify_model
 

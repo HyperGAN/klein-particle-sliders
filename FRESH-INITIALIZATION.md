@@ -1,7 +1,7 @@
-# New explicit PG0.9.5/fresh initialization cohort
+# Current raw-weight initialization cohort
 
 This source profile pins shared core main merge
-`4cc412d6ab6d01bb14b5f1e889ea6b79d3a2098d` and uses its public
+`c13890f8e2a1ecf1dc8eb9f2a37f9187cb9fea78` and uses its public
 `initialize_fresh_components` helper. It does not migrate original PG0.9.4/EMA
 or intermediate RAW-only packets. Keep their original loaders and source pins.
 The new config, source profile and complete initialization receipt participate in
@@ -65,7 +65,7 @@ loads or an optimizer a caller omits.
 
 ## Distribution and historical check plan
 
-Core0.14 intentionally excludes historical embedded `pg09_images`. This product
+The shared core wheel excludes the historical model-specific image bindings. This product
 owns its conditioning provider, so `conditioning.py` extracts only the original
 fixed policy/projection/context/features block byte-exact from pinned core
 `3e8052250d593a55d9f071cebae503e764342d05`. Cache geometry, numeric operations,
@@ -73,7 +73,7 @@ collision rules and policy name are unchanged; no GAN code is copied. Source
 provenance is recorded in `validation/conditioning-extraction.json`. This source
 comparison does not substitute for native numerical checks.
 
-The following new-cohort checks subsequently passed among the28 native CPU cases
+The previous ParticleGAN 0.9.5 cohort passed the following checks among its 28 native CPU cases
 ([actual receipt](NATIVE-CPU-20261109.md)); this paragraph preserves the original
 check plan, not a request to rerun completed tests:
 actual tiny random native Klein full2 vs split1/exact-resume1, RAW-only export and
@@ -88,7 +88,7 @@ repetition of completed historical experiments.
 
 The product options accept the literal common `lr`, `d_lr_mult` and
 `prior_lr_mult` values, each finite, positive and non-bool. They are passed
-unchanged through the shared `ConditionalPG095(recipe_overrides=...)` API:
+unchanged through the shared `ConditionalParticleGAN(recipe_overrides=...)` API:
 G=`lr`, D=`lr*d_lr_mult`, bank=`lr*prior_lr_mult`. Omitted options preserve
 upstream recipe defaults. These are configurable defaults, not measured or
 optimized rates by omission. The later [completed provisional ties](docs/finished-output-learning-rates.md)

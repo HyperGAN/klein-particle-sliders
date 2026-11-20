@@ -1,10 +1,10 @@
-# Current source cohort — 2026-11-09
+# Historical source cohort — 2026-11-09
 
-The current branch is a NEW RAW/no-EMA, PG0.9.5 and explicit fresh-initialization
-cohort pinned in `backend.lock.json`. Its matching native CPU full/resume/export
+The November 9 source introduced a RAW-only ParticleGAN 0.9.5 cohort with
+explicit fresh initialization. Its matching native CPU full/resume/export
 checks are pending a separately admitted environment. Six allocation-free stdlib
 policy/CLI checks pass; those do not qualify native training or rendering.
-See [the fresh profile](FRESH-PG095-INITIALIZATION.md).
+See [the current fresh profile](FRESH-INITIALIZATION.md).
 
 The publication record below describes the original PG0.9.4/EMA snapshot only.
 Its source/config/results remain historical, not a current RAW/init qualification.
