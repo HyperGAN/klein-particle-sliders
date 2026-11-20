@@ -10,7 +10,7 @@ from conftest import TinyRuntime, response_row
 
 
 def klein_config(*args, **options):
-    return SessionConfig(*args, **(dict(pg_version="0.9.5", pg_source_profile="release-0.9.5",
+    return SessionConfig(*args, **(dict(pg_version="0.11.0", pg_source_profile="release-0.11.0",
                                       initialization_policy=INITIALIZATION_POLICY) | options))
 
 
@@ -54,7 +54,7 @@ def test_native_core_training_resume_and_export(tmp_path, bound):
         split = open_training(config, runtime=split_runtime); sessions.append(split)
         assert full.game.prior.z is full.game.network.particles
         assert full.game._signature["generator_arm"] == "routed_particle_gan"
-        assert full.game._signature["pg_version"] == "0.9.5"
+        assert full.game._signature["pg_version"] == "0.11.0"
         overrides = {key: config.options[key] for key in ("lr", "d_lr_mult", "prior_lr_mult")}
         assert all(getattr(full.game.recipe, key) == value for key, value in overrides.items())
         assert [group["lr"] for group in full.game.opt_g.param_groups] == [
@@ -141,7 +141,7 @@ def test_native_inference_roundtrip_needs_no_cache_or_game(tmp_path, bound, monk
         raise AssertionError("native-only inference must not reconstruct training/cache")
     monkeypatch.setattr(product, "NativeRuntime", lambda *a, **kw: TinyRuntime())
     monkeypatch.setattr(product, "CachedResponses", no_game)
-    monkeypatch.setattr(product, "ConditionalPG095", no_game)
+    monkeypatch.setattr(product, "ConditionalParticleGAN", no_game)
     import klein_sliders.initialization as initialization
     monkeypatch.setattr(initialization, "initialize_fresh_components", no_game)
     with open_inference(artifact, backend=product.NATIVE_BACKEND, operation="response",
@@ -168,7 +168,7 @@ def test_weight_ema_refused_before_native_allocation(tmp_path, monkeypatch, deca
 def test_ema_state_cannot_load_into_raw_session(tmp_path, bound):
     from copy import deepcopy
     from particle_sliders.lifecycle import CheckpointError
-    from particle_sliders.pg09 import _hash
+    from particle_sliders.engine import _hash
     root, sha = make_cache(tmp_path, bound)
     config = klein_config("flux2_klein", "tiny-fresh-RAW-packet-test", model_dir=str(tmp_path),
         cache_dir=str(root), cache_index_sha256=sha, device="cpu", base_precision="float32",
@@ -247,7 +247,7 @@ def test_missing_intent_and_old_source_refused_before_native_allocation(tmp_path
     with pytest.raises(ValueError, match="open_training"):
         product.prepare(config.options)
     historical = SessionConfig("flux2_klein", "old094", model_dir=str(tmp_path), cache_dir=str(cache))
-    with pytest.raises(ValueError, match="new PG0.9.5"):
+    with pytest.raises(ValueError, match="new ParticleGAN 0.11.0"):
         open_training(historical)
 
 
@@ -265,7 +265,7 @@ def test_initialization_failure_unhooks_borrowed_native_without_optimizer(tmp_pa
     def no_optimizer_game(*args, **kwargs):
         raise AssertionError("game/optimizers must not be constructed after init failure")
     monkeypatch.setattr(initialization, "initialize_fresh_components", fail_initializer)
-    monkeypatch.setattr(product, "ConditionalPG095", no_optimizer_game)
+    monkeypatch.setattr(product, "ConditionalParticleGAN", no_optimizer_game)
     with pytest.raises(ValueError, match="staging failure"):
         open_training(config, runtime=runtime)
     assert all(not module._forward_hooks for module in runtime.transformer.modules())

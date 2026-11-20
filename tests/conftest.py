@@ -5,7 +5,7 @@ import pytest
 from diffusers import Flux2KleinPipeline, Flux2Transformer2DModel
 from klein_sliders.adapter import ParticleAdapter
 from klein_sliders.native import KleinResponseAdapter
-from particle_sliders.pg09_backends import ResponseRow
+from particle_sliders.backends import ResponseRow
 
 
 class TinyRuntime:

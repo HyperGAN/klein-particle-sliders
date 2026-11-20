@@ -43,7 +43,7 @@ class RawWeightPolicy(unittest.TestCase):
             root = Path(temporary)
             config = root / "raw.json"
             config.write_text(json.dumps(dict(backend="flux2_klein", cohort="fresh-RAW",
-                options=dict(ema_decay=None, model_dir=str(root / "model"), cache_dir=str(root / "cache"), pg_version="0.9.5", pg_source_profile="release-0.9.5", initialization_policy=INITIALIZATION_POLICY))))
+                options=dict(ema_decay=None, model_dir=str(root / "model"), cache_dir=str(root / "cache"), pg_version="0.11.0", pg_source_profile="release-0.11.0", initialization_policy=INITIALIZATION_POLICY))))
             output = io.StringIO()
             with contextlib.redirect_stdout(output):
                 main(["plan", "--config", str(config)])
@@ -76,7 +76,7 @@ class RawWeightPolicy(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary); config = root / "raw.json"
             config.write_text(json.dumps(dict(backend="flux2_klein", cohort="fresh-RAW",
-                                               options=dict(ema_decay=None, pg_version="0.9.5", pg_source_profile="release-0.9.5", initialization_policy=INITIALIZATION_POLICY))))
+                                               options=dict(ema_decay=None, pg_version="0.11.0", pg_source_profile="release-0.11.0", initialization_policy=INITIALIZATION_POLICY))))
             with patch.dict(sys.modules, {"particle_sliders.lifecycle": shared,
                                           "klein_sliders.lifecycle": product}), contextlib.redirect_stdout(io.StringIO()):
                 main(["train", "--config", str(config), "--output", str(root / "run")])
@@ -84,10 +84,10 @@ class RawWeightPolicy(unittest.TestCase):
 
     def test_new_cohort_policy_is_explicit_before_filesystem_or_native_import(self):
         for options in ({}, {"pg_version": "0.9.4"},
-                        {"pg_version": "0.9.5", "pg_source_profile": "release-0.9.5"}):
-            with self.subTest(options=options), self.assertRaisesRegex(ValueError, "new PG0.9.5"):
+                        {"pg_version": "0.11.0", "pg_source_profile": "release-0.11.0"}):
+            with self.subTest(options=options), self.assertRaisesRegex(ValueError, "new ParticleGAN 0.11.0"):
                 validate_source_profile(options)
-        validate_source_profile(dict(pg_version="0.9.5", pg_source_profile="release-0.9.5",
+        validate_source_profile(dict(pg_version="0.11.0", pg_source_profile="release-0.11.0",
                                      initialization_policy=INITIALIZATION_POLICY, ema_decay=None))
 
     def test_exact_common_rate_literals_and_omission(self):
@@ -104,7 +104,7 @@ class RawWeightPolicy(unittest.TestCase):
             root = Path(temporary); cache = root / "index.json"; cache.write_text("{}")
             from klein_sliders.contracts import file_hash
             options = dict(model_dir=str(root), cache_dir=str(root), cache_index_sha256=file_hash(cache),
-                           pg_version="0.9.5", pg_source_profile="release-0.9.5",
+                           pg_version="0.11.0", pg_source_profile="release-0.11.0",
                            initialization_policy=INITIALIZATION_POLICY, **wanted)
             validate_options(options)  # Real full option validator, no native imports.
 

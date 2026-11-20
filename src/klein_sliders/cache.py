@@ -3,7 +3,7 @@ from copy import deepcopy
 from pathlib import Path
 import json
 import torch
-from particle_sliders.pg09_backends import PreparedResponse, ResponseRow
+from particle_sliders.backends import PreparedResponse, ResponseRow
 from .conditioning import image_condition_features, _condition_identity
 from .contracts import PROTOCOL, digest, file_hash
 
