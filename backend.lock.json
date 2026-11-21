@@ -8,16 +8,16 @@
   },
   "core": {
     "repository": "https://github.com/HyperGAN/particle-sliders",
-    "revision": "c13890f8e2a1ecf1dc8eb9f2a37f9187cb9fea78",
+    "revision": "ec1161f5d74481be3540cb0dfa63d0e8f8b54e90",
     "package": "particle-sliders-core",
-    "version": "0.15.1",
+    "version": "0.15.2",
     "subdirectory": "packages/particle-sliders-core"
   },
   "engine": {
     "package": "particlegan",
-    "version": "0.11.0",
-    "profile": "release-0.11.0",
-    "wheel_sha256": "218ac69efd42e092367b4c7a5c4abb4685dc63a73ccc23223a8bb4dd1543e327"
+    "version": "0.11.1",
+    "profile": "release-0.11.1",
+    "wheel_sha256": "ce9dd51cf2bf0067751c9e6409d05d149ce41c1df98fe3edb0412e3df430de52"
   },
   "native": {
     "diffusers_revision": "35087a644038eb531f48581708d4763044cb4852",
@@ -41,7 +41,7 @@
   "remote": {
     "repository": "https://github.com/HyperGAN/klein-particle-sliders",
     "visibility": "public",
-    "scope": "source only; explicit new ParticleGAN 0.11.0 RAW/fresh-init cohort"
+    "scope": "source only; explicit new ParticleGAN 0.11.1 RAW/fresh-init cohort"
   },
   "source_profile": "klein-engine-fresh-scoped-init-v1",
   "initialization_policy": "klein-kaiming-RMS-QR-zero-up-bank-R2-std1-v1"

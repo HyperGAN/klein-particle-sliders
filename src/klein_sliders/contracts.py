@@ -6,7 +6,7 @@ import math
 
 MODEL = "black-forest-labs/FLUX.2-klein-base-4B"
 MODEL_REVISION = "a3b4f4849157f664bdbc776fd7453c2783562f4d"
-CORE_REVISION = "c13890f8e2a1ecf1dc8eb9f2a37f9187cb9fea78"
+CORE_REVISION = "ec1161f5d74481be3540cb0dfa63d0e8f8b54e90"
 DIFFUSERS_REVISION = "35087a644038eb531f48581708d4763044cb4852"
 NATIVE_SOURCE_HASHES = {
     "pipeline_flux2_klein.py": "8afefd06451d2bed0f34b59e930e60383c6a47fc8cebbec74ea30bfcdc7b79a9",
@@ -80,9 +80,9 @@ def validate_weight_policy(options):
 
 def validate_source_profile(options):
     validate_weight_policy(options)
-    if (options.get("pg_version") != "0.11.0" or options.get("pg_source_profile") != "release-0.11.0"
+    if (options.get("pg_version") != "0.11.1" or options.get("pg_source_profile") != "release-0.11.1"
             or options.get("initialization_policy") != INITIALIZATION_POLICY):
-        raise ValueError("explicit new ParticleGAN 0.11.0/scoped-initialization cohort required; historical packets retain original source")
+        raise ValueError("explicit new ParticleGAN 0.11.1/scoped-initialization cohort required; historical packets retain original source")
 
 
 def rate_overrides(options):
