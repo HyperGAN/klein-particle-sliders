@@ -152,6 +152,13 @@ constant, −0.00583 early-heavy and −0.00208 late-heavy on the same cases.
 All 24 new images passed integrity. Constant strength 1.0 remains the
 best tested profile. [Per-case evidence](evidence/final-boss-raw64-scheduled-strength.json)
 
+A separate Soft Diffuse Light RAW8 panel used the native 50-step sampler
+and two cases with registered shadow boundaries. At equal mean strength
+0.5, constant averaged −0.00585, early-heavy −0.00527 and late-heavy
+−0.00266. Saved constant strength 1 averaged −0.02450. All six new images
+passed integrity. The measured gains against OFF were negative on average.
+[Soft Diffuse Light evidence](evidence/soft-diffuse-light-raw8-scheduled-strength.json)
+
 ```sh
 klein-slider render --model-dir /absolute/staged/klein4b \
   --export /absolute/new-cohort/native-inference.pt --output /absolute/fresh/render \
