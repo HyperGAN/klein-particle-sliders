@@ -75,25 +75,40 @@ def test_real_native_pipeline_driver_matches_exact_OFF_and_finishes_ON():
         adapter.close();runtime.close()
 
 
-def test_scheduled_render_uses_native_pipeline_and_restores_the_original_scope():
-    runtime = TinyRuntime()
-    pipe = tiny_native_pipeline(runtime)
-    adapter = ParticleAdapter(runtime.transformer)
-    view = SimpleNamespace(device=runtime.device, transformer=runtime.transformer,
-                           pipe=pipe, load_renderer=lambda: pipe)
+def test_scheduled_render_uses_native_pipeline_and_restores_the_original_scope(tmp_path, bound, monkeypatch):
+    from particle_sliders.inference import open_inference
+    from klein_sliders import lifecycle
+    from klein_sliders.native import NativeRuntime
+    from test_lifecycle import klein_config, make_cache
+
+    class FixtureRuntime(TinyRuntime, NativeRuntime):
+        def __init__(self):
+            super().__init__()
+            self.pipe = tiny_native_pipeline(self)
+
+        def load_renderer(self):
+            return self.pipe
+
+    cache, cache_sha = make_cache(tmp_path, bound)
+    options = dict(model_dir=str(tmp_path), device="cpu", base_precision="float32")
+    config = klein_config("flux2_klein", "tiny-scheduled-RAW", **options, cache_dir=str(cache),
+                          cache_index_sha256=cache_sha, steps=1, batch=2, critic_width=4)
+    with lifecycle.open_training(config, runtime=FixtureRuntime()) as training:
+        raw = training.export_inference(selection="raw")
+    runtime = FixtureRuntime()
+    monkeypatch.setattr(lifecycle, "NativeRuntime", lambda *_args, **_kwargs: runtime)
     request = dict(prompt="A watering can", height=256, width=256, steps=2,
                    seed=7, strength=0.5)
-    scheduler = pipe.scheduler
-    try:
-        before = render_image(view, adapter, **request)
-        constant = render_scheduled(view, adapter, **request, step_gains=[1.0, 1.0])
+    scheduler = runtime.pipe.scheduler
+    preview = {key: request[key] for key in ("prompt", "height", "width", "steps")}
+    with open_inference(raw, backend=lifecycle.NATIVE_BACKEND, options=options,
+                        native_request=preview) as session:
+        before = session.render(**request)
+        constant = render_scheduled(session, **request, step_gains=[1.0, 1.0])
         assert constant.tobytes() == before.tobytes()
-        scheduled = render_scheduled(view, adapter, **request, step_gains=[1.5, 0.5])
+        scheduled = render_scheduled(session, **request, step_gains=[1.5, 0.5])
         receipt = scheduled.info["strength_schedule"]
         assert receipt["effective_strengths"] == [0.75, 0.25]
         assert len(receipt["sigmas"]) == 3
-        assert pipe.scheduler is scheduler and adapter.strength == 0.0
+        assert runtime.pipe.scheduler is scheduler
         assert not runtime.transformer._forward_pre_hooks and not runtime.transformer._forward_hooks
-    finally:
-        adapter.close()
-        runtime.close()

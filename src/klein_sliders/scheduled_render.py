@@ -5,7 +5,8 @@ from itertools import pairwise
 from math import isfinite
 from sys import float_info
 
-from .render import render_image
+from .adapter import ParticleAdapter
+from .native import NativeRuntime
 
 
 def resolve(strength, steps, step_gains):
@@ -19,7 +20,23 @@ def resolve(strength, steps, step_gains):
     return strengths
 
 
-def render(runtime, adapter, *, step_gains, strength, steps=8, **request):
+def render(session, *, step_gains, strength=1.0, steps=8, **request):
+    """Schedule an already opened strict RAW session and keep its native factory."""
+    session._open()
+    if session.selection != "raw" or session.binding.render is None:
+        raise ValueError("Klein scheduling requires an open RAW render session")
+    # The original factory retains the actual native owners in this callback.
+    # Use those same objects so its packet and factory source hashes stay intact.
+    owners = [cell.cell_contents for cell in session.binding.close.__closure__ or ()]
+    runtimes = [owner for owner in owners if isinstance(owner, NativeRuntime)]
+    adapters = [owner for owner in owners if isinstance(owner, ParticleAdapter)]
+    if len(runtimes) != 1 or len(adapters) != 1 or runtimes[0].identity != session.binding.identity["model"]:
+        raise ValueError("expected the original Klein native factory owners")
+    runtime, adapter = runtimes[0], adapters[0]
+    if type(steps) is not int or not 2 <= steps <= 50:
+        raise ValueError("Klein requires its supported native step count")
+    if type(strength) not in (int, float) or not 0 <= strength <= 1:
+        raise ValueError("Klein nominal strength must be in [0,1]")
     values = resolve(strength, steps, step_gains)
     position = 0
     sigmas = None
@@ -45,7 +62,7 @@ def render(runtime, adapter, *, step_gains, strength, steps=8, **request):
         handles.callback(runtime.transformer.register_forward_pre_hook(before).remove)
         handles.callback(runtime.transformer.register_forward_hook(after, always_call=True).remove)
         handles.callback(scope.close)
-        image = render_image(runtime, adapter, strength=strength, steps=steps, **request)
+        image = session.render(strength=strength, steps=steps, **request)
     if position != steps:
         raise RuntimeError("Klein finished before applying all scheduled strengths")
     image.info["strength_schedule"] = {"sigmas": sigmas, "effective_strengths": values}
