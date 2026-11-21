@@ -135,6 +135,13 @@ native inference backend advertises its finished PIL callback for **new exports*
 Old source-bound exports remain tied to their original factory. They are not
 normalized or relabeled to make them load with changed code.
 
+The RAW Python session also accepts `step_gains` in `session.render(...)`.
+Pass one gain per native denoiser step, with every `strength * gain` in
+`[0, 1]`. The image exposes the actual sigma grid and applied strengths in
+`image.info["strength_schedule"]`. Constant gains matched the original
+finished pixels in the tiny native CPU fixture. The pretrained effect
+comparison is pending.
+
 ```sh
 klein-slider render --model-dir /absolute/staged/klein4b \
   --export /absolute/new-cohort/native-inference.pt --output /absolute/fresh/render \

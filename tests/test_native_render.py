@@ -10,6 +10,7 @@ from diffusers import AutoencoderKLFlux2, FlowMatchEulerDiscreteScheduler, Flux2
 from transformers import Qwen3Config, Qwen3ForCausalLM
 from klein_sliders.adapter import ParticleAdapter
 from klein_sliders.render import render_image, native_pipeline_state
+from klein_sliders.scheduled_render import render as render_scheduled
 from conftest import TinyRuntime
 
 
@@ -72,3 +73,27 @@ def test_real_native_pipeline_driver_matches_exact_OFF_and_finishes_ON():
         assert not torch.cuda.is_initialized()
     finally:
         adapter.close();runtime.close()
+
+
+def test_scheduled_render_uses_native_pipeline_and_restores_the_original_scope():
+    runtime = TinyRuntime()
+    pipe = tiny_native_pipeline(runtime)
+    adapter = ParticleAdapter(runtime.transformer)
+    view = SimpleNamespace(device=runtime.device, transformer=runtime.transformer,
+                           pipe=pipe, load_renderer=lambda: pipe)
+    request = dict(prompt="A watering can", height=256, width=256, steps=2,
+                   seed=7, strength=0.5)
+    scheduler = pipe.scheduler
+    try:
+        before = render_image(view, adapter, **request)
+        constant = render_scheduled(view, adapter, **request, step_gains=[1.0, 1.0])
+        assert constant.tobytes() == before.tobytes()
+        scheduled = render_scheduled(view, adapter, **request, step_gains=[1.5, 0.5])
+        receipt = scheduled.info["strength_schedule"]
+        assert receipt["effective_strengths"] == [0.75, 0.25]
+        assert len(receipt["sigmas"]) == 3
+        assert pipe.scheduler is scheduler and adapter.strength == 0.0
+        assert not runtime.transformer._forward_pre_hooks and not runtime.transformer._forward_hooks
+    finally:
+        adapter.close()
+        runtime.close()

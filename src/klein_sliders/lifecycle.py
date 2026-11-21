@@ -130,12 +130,15 @@ def preflight_inference(options, request, spec):
     native = request["native"]
     if request["operation"] == "render":
         from .render import validate_render_request
-        allowed = {"prompt", "height", "width", "steps", "images"}
+        allowed = {"prompt", "height", "width", "steps", "images", "step_gains"}
         if set(native) - allowed:
             raise ValueError("unknown native finished-render arguments")
         validate_render_request(prompt=native.get("prompt"), height=native.get("height", 512),
             width=native.get("width", 512), steps=native.get("steps", 8), seed=0,
             strength=request["strength"], images=native.get("images"), output_type=request["output_type"])
+        if "step_gains" in native:
+            from .scheduled_render import resolve
+            resolve(request["strength"], native.get("steps", 8), native["step_gains"])
         return
     required = {"latent", "embedding", "text_ids", "timestep"}
     if native and set(native) != required:
@@ -168,6 +171,10 @@ def prepare_inference(options, spec):
                 return backend._velocity(dict(embeds=embedding, text_ids=text_ids), latent,
                                          torch.as_tensor(timestep)).detach().clone()
         def render(*, strength, seed, images=None, output_type="pil", **native):
+            if "step_gains" in native:
+                from .scheduled_render import render as render_scheduled
+                return render_scheduled(runtime, adapter, strength=strength, seed=seed,
+                                        images=images, output_type=output_type, **native)
             from .render import render_image
             return render_image(runtime, adapter, strength=strength, seed=seed,
                                 images=images, output_type=output_type, **native)
