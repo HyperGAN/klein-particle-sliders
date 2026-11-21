@@ -197,3 +197,52 @@ fit. Historical packets stay source-bound; there is no migration or automatic
 training permission.
 
 Earlier configuration and qualification receipts remain available in the [archived source](https://github.com/HyperGAN/klein-particle-sliders/tree/98e13bea7ed14a3ee2477ea9eea74d5cec79c298).
+
+### Calibrated activation gating
+
+Use `gate_plan` on the same open RAW session. Klein averages the live packed
+latent across spatial tokens in FP32 before each conditional forward. At
+CFG 1 that forward occurs once per native Euler interval. CFP and CLABS
+project this vector onto a calibrated unit direction in packed channel space.
+The shared gate switches the saved routed adapter between OFF and the
+explicit nominal strength. This applies the paper's allocation equations to
+the native adapter residual. [Shared equations and calibration](https://github.com/HyperGAN/particle-sliders/blob/b1f780decc516808cfd3019d5e5b674457161f86/docs/strength-schedules.md#activation-dependent-steering)
+
+```python
+from klein_sliders.activation_gate import LatentGatePlan
+from klein_sliders.scheduled_render import render
+
+plan = LatentGatePlan(
+    core_wheel=steering_wheel,
+    method="cfp",
+    parameter=calibrated_threshold,
+    direction=fitted_packed_channel_direction,
+    calibration_sha256=calibration_record_sha256,
+)
+image = render(session, gate_plan=plan, strength=calibrated_strength, **native_request)
+receipt = image.info["strength_schedule"]
+```
+
+Build `steering_wheel` from core revision
+`b1f780decc516808cfd3019d5e5b674457161f86` under
+`packages/particle-sliders-core`. Klein verifies the exact steering module in
+that wheel and loads it separately from the installed core that owns strict
+RAW/FULL identities. For CLABS, supply the calibrated bias as `parameter`, an
+explicit `seed`, and `clabs` with `mean`, `std`, `epsilon`, `setpoint`,
+`proportional_gain`, `integral_gain`, and `beta`. The matched `random` control
+takes the firing rate as `parameter` and an explicit `seed`. Keep its direction
+unset. The receipt records each projection, firing probability, decision,
+effective strength, actual sigma grid, realized gate rate, and sigma-weighted
+strength. Replay a realized schedule with `step_gains` equal to those recorded
+effective strengths divided by the original nominal strength.
+
+The [Soft Diffuse Light prompt pairs](configs/diffuse-light-pairs.json) supply
+actual neutral and attribute prompts. Their archived 512-pixel BF16 eight-step
+cache stores both teacher velocities at each shared neutral-trajectory latent.
+Fit a direction from matched neutral and attribute latent trajectories at the
+intended native resolution and step grid. Use separate cases and seeds for
+active budget calibration and held-out evaluation. Compare against native OFF,
+a constant dose control, and matched random allocation using the same RAW.
+Rank by mean finished-image intended effect ON minus matched OFF and check
+catastrophic output independently. Adaptive gains remain unmeasured. The
+archived Final Boss and Soft Diffuse Light results are fixed controls.
