@@ -70,10 +70,10 @@ owns its conditioning provider, so `conditioning.py` extracts only the original
 fixed policy/projection/context/features block byte-exact from pinned core
 `3e8052250d593a55d9f071cebae503e764342d05`. Cache geometry, numeric operations,
 collision rules and policy name are unchanged; no GAN code is copied. Source
-provenance is recorded in `validation/conditioning-extraction.json`. This source
-comparison does not substitute for native numerical checks.
+provenance is recorded in the [original extraction receipt](https://github.com/HyperGAN/klein-particle-sliders/blob/5d65ba18dea3c0a912eda574e56c8d2b6aa4f20d/validation/conditioning-extraction.json).
+The native numerical checks are recorded separately.
 
-The previous the archived ParticleGAN release cohort passed the following checks among its 28 native CPU cases
+The archived cohort passed the following checks among its 28 native CPU cases
 ([actual receipt](NATIVE-CPU-20261109.md)); this paragraph preserves the original
 check plan, not a request to rerun completed tests:
 actual tiny random native Klein full2 vs split1/exact-resume1, RAW-only export and
