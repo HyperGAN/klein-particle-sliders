@@ -236,6 +236,12 @@ effective strength, actual sigma grid, realized gate rate, and sigma-weighted
 strength. Replay a realized schedule with `step_gains` equal to those recorded
 effective strengths divided by the original nominal strength.
 
+The Final Boss RAW64 pilot calibrated both gates to 8 of 16 firings. On
+five held-out cases, mean gains versus the equal-dose constant were
+−0.03533 for CFP, −0.05400 for CLABS and +0.03467 for random gating. All
+included images passed the independent integrity check.
+[Per-case scores and applied strengths](evidence/final-boss-raw64-adaptive-steering.json)
+
 The [Soft Diffuse Light prompt pairs](configs/diffuse-light-pairs.json) supply
 actual neutral and attribute prompts. Their archived 512-pixel BF16 eight-step
 cache stores both teacher velocities at each shared neutral-trajectory latent.

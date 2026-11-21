@@ -1,0 +1,718 @@
+{
+  "slider": "Final Boss",
+  "raw_update": 64,
+  "raw_sha256": "5bdc87d1cbe728da682359d4afd87fa7041d32f5b9921f5f332293192b95b1f1",
+  "weights": "raw",
+  "ema_decay": null,
+  "nominal_strength": 1.0,
+  "native_geometry": {
+    "width": 512,
+    "height": 512,
+    "steps": 8,
+    "guidance": 1.0,
+    "max_sequence_length": 128,
+    "text_encoder_layers": [
+      9,
+      18,
+      27
+    ],
+    "dtype": "bfloat16"
+  },
+  "paper": "https://arxiv.org/abs/2611.18274",
+  "core": "b1f780decc516808cfd3019d5e5b674457161f86",
+  "fit": {
+    "pairs": 2,
+    "native_vectors": 32,
+    "selected_positive": 5,
+    "selected_zero": 5
+  },
+  "calibration": {
+    "cases": 2,
+    "target_rate": 0.5,
+    "CLABS": {
+      "epsilon": 1e-06,
+      "setpoint": 0.75,
+      "proportional_gain": 1.0,
+      "integral_gain": 0.2,
+      "beta": 0.2,
+      "mean": 0.035571155342040583,
+      "std": 0.06267707125268443
+    },
+    "gates": {
+      "cfp": {
+        "status": "calibrated",
+        "parameter": 0.043178949970752015,
+        "rate": 0.5,
+        "trials": [
+          {
+            "parameter": -0.03037745133042336,
+            "fired": 0,
+            "eligible": 16
+          },
+          {
+            "parameter": 0.5580737590789796,
+            "fired": 16,
+            "eligible": 16
+          },
+          {
+            "parameter": 0.2638481538742781,
+            "fired": 13,
+            "eligible": 16
+          },
+          {
+            "parameter": 0.11673535127192738,
+            "fired": 11,
+            "eligible": 16
+          },
+          {
+            "parameter": 0.043178949970752015,
+            "fired": 8,
+            "eligible": 16
+          }
+        ]
+      },
+      "clabs": {
+        "status": "calibrated",
+        "parameter": 0.0,
+        "rate": 0.5,
+        "trials": [
+          {
+            "parameter": -10.103548481199839,
+            "fired": 0,
+            "eligible": 16
+          },
+          {
+            "parameter": 10.103548481199839,
+            "fired": 16,
+            "eligible": 16
+          },
+          {
+            "parameter": 0.0,
+            "fired": 8,
+            "eligible": 16
+          }
+        ]
+      }
+    }
+  },
+  "held_out_cases": 5,
+  "metric": "Equal-case mean finished Final Boss intended-effect intensity ON minus the matched OFF.",
+  "integrity": "Independent catastrophic output checks passed for all included images.",
+  "independent_new_effect_observations": 22,
+  "methods": {
+    "cfp": {
+      "mean_gate_minus_off": -0.0006666666666666932,
+      "mean_constant_minus_off": 0.03466666666666664,
+      "mean_gate_minus_constant": -0.03533333333333333,
+      "integrity": "pass",
+      "cases": [
+        {
+          "case": "94d4528ac716ebbe6bce3a9be569d286307f251cc6797b1567084168f552dae8",
+          "seed": 742904,
+          "sigmas": [
+            1.0,
+            0.981072187423706,
+            0.9569222927093506,
+            0.9250432848930359,
+            0.881017804145813,
+            0.816270112991333,
+            0.7116665244102478,
+            0.5140448212623596,
+            0.0
+          ],
+          "gate_strengths": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "matched_constant_strength": 0.11898219585418701,
+          "image_sha256": {
+            "off": "94d4528ac716ebbe6bce3a9be569d286307f251cc6797b1567084168f552dae8",
+            "gate": "14fda2beed8d4a09a70584de3b3c7d0373b93129d672f26f8d7af2d60ac7c85d",
+            "constant": "fb8eadb639491265f6aca47678c803e25a1a7a7bc5c6fda95e71ca06122ba201"
+          },
+          "intended_effect": {
+            "off": 0.35666666666666674,
+            "gate": 0.26666666666666666,
+            "constant": 0.4366666666666667
+          },
+          "gate_minus_off": -0.09000000000000008,
+          "constant_minus_off": 0.07999999999999996,
+          "integrity": "pass"
+        },
+        {
+          "case": "bbbf5a81223a74f4505a1cadc608c421ecf37600445b9f0c1a060f6491ba07ec",
+          "seed": 742906,
+          "sigmas": [
+            1.0,
+            0.981072187423706,
+            0.9569222927093506,
+            0.9250432848930359,
+            0.881017804145813,
+            0.816270112991333,
+            0.7116665244102478,
+            0.5140448212623596,
+            0.0
+          ],
+          "gate_strengths": [
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "matched_constant_strength": 0.043077707290649414,
+          "image_sha256": {
+            "off": "bbbf5a81223a74f4505a1cadc608c421ecf37600445b9f0c1a060f6491ba07ec",
+            "gate": "fd59c111981cdd8ec60654bc2ac3c80ee627252b1f94935d58a7a09d13385624",
+            "constant": "c98ec0bf4c913b45b2e20241921169d102ac1f2831137b25bd2fa65ed79a2916"
+          },
+          "intended_effect": {
+            "off": 0.66,
+            "gate": 0.6566666666666666,
+            "constant": 0.6966666666666667
+          },
+          "gate_minus_off": -0.0033333333333334103,
+          "constant_minus_off": 0.036666666666666625,
+          "integrity": "pass"
+        },
+        {
+          "case": "f03f59a15fee99ff5c948693b38702c40b6ced77cc49d77df62610328b03f0bc",
+          "seed": 742908,
+          "sigmas": [
+            1.0,
+            0.981072187423706,
+            0.9569222927093506,
+            0.9250432848930359,
+            0.881017804145813,
+            0.816270112991333,
+            0.7116665244102478,
+            0.5140448212623596,
+            0.0
+          ],
+          "gate_strengths": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "matched_constant_strength": 0.11898219585418701,
+          "image_sha256": {
+            "off": "f03f59a15fee99ff5c948693b38702c40b6ced77cc49d77df62610328b03f0bc",
+            "gate": "15bd91216153e8001dfe0057bd563ac11ac4a1ba05516cda18af219c5431f8bb",
+            "constant": "75a7af3a7627b91c50795f219827110273cc1c82946b57585d1e995553327fec"
+          },
+          "intended_effect": {
+            "off": 0.5966666666666667,
+            "gate": 0.6766666666666666,
+            "constant": 0.59
+          },
+          "gate_minus_off": 0.07999999999999996,
+          "constant_minus_off": -0.00666666666666671,
+          "integrity": "pass"
+        },
+        {
+          "case": "643bd681b345bb9023b8e051c5967636b6ab236ae40068dd5234fcf21e8ea283",
+          "seed": 742902,
+          "sigmas": [
+            1.0,
+            0.981072187423706,
+            0.9569222927093506,
+            0.9250432848930359,
+            0.881017804145813,
+            0.816270112991333,
+            0.7116665244102478,
+            0.5140448212623596,
+            0.0
+          ],
+          "gate_strengths": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "matched_constant_strength": 0.11898219585418701,
+          "image_sha256": {
+            "off": "643bd681b345bb9023b8e051c5967636b6ab236ae40068dd5234fcf21e8ea283",
+            "gate": "d3af2fee49e5f55501c276ec98e2d7dacdb7f8433ea7b6a483716c00f5b7f622",
+            "constant": "bd0854d057cfd70d12f1a06b2281927ee37f2020724e1729d8909fd9a3c3849b"
+          },
+          "intended_effect": {
+            "off": 0.4333333333333333,
+            "gate": 0.59,
+            "constant": 0.48
+          },
+          "gate_minus_off": 0.15666666666666668,
+          "constant_minus_off": 0.04666666666666669,
+          "integrity": "pass"
+        },
+        {
+          "case": "f22b1c6dd1eef5df551257a16a763fc56d9fbf0ae8567c81d5221e2000b74d4c",
+          "seed": 742903,
+          "sigmas": [
+            1.0,
+            0.981072187423706,
+            0.9569222927093506,
+            0.9250432848930359,
+            0.881017804145813,
+            0.816270112991333,
+            0.7116665244102478,
+            0.5140448212623596,
+            0.0
+          ],
+          "gate_strengths": [
+            1.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "matched_constant_strength": 0.07495671510696411,
+          "image_sha256": {
+            "off": "f22b1c6dd1eef5df551257a16a763fc56d9fbf0ae8567c81d5221e2000b74d4c",
+            "gate": "747f5c85e849a4b8e3dce41891fe64dff309ba70159eb6332b95457c71765a9e",
+            "constant": "a2fa18ac44b618a90d00860b621d19c981a12c06a99b7ef3b044e54ce950d99a"
+          },
+          "intended_effect": {
+            "off": 0.84,
+            "gate": 0.6933333333333334,
+            "constant": 0.8566666666666666
+          },
+          "gate_minus_off": -0.1466666666666666,
+          "constant_minus_off": 0.016666666666666607,
+          "integrity": "pass"
+        }
+      ]
+    },
+    "clabs": {
+      "mean_gate_minus_off": -0.01066666666666668,
+      "mean_constant_minus_off": 0.04333333333333332,
+      "mean_gate_minus_constant": -0.054,
+      "integrity": "pass",
+      "cases": [
+        {
+          "case": "94d4528ac716ebbe6bce3a9be569d286307f251cc6797b1567084168f552dae8",
+          "seed": 742904,
+          "sigmas": [
+            1.0,
+            0.981072187423706,
+            0.9569222927093506,
+            0.9250432848930359,
+            0.881017804145813,
+            0.816270112991333,
+            0.7116665244102478,
+            0.5140448212623596,
+            0.0
+          ],
+          "gate_strengths": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "matched_constant_strength": 0.11898219585418701,
+          "image_sha256": {
+            "off": "94d4528ac716ebbe6bce3a9be569d286307f251cc6797b1567084168f552dae8",
+            "gate": "14fda2beed8d4a09a70584de3b3c7d0373b93129d672f26f8d7af2d60ac7c85d",
+            "constant": "fb8eadb639491265f6aca47678c803e25a1a7a7bc5c6fda95e71ca06122ba201"
+          },
+          "intended_effect": {
+            "off": 0.35666666666666674,
+            "gate": 0.26666666666666666,
+            "constant": 0.4366666666666667
+          },
+          "gate_minus_off": -0.09000000000000008,
+          "constant_minus_off": 0.07999999999999996,
+          "integrity": "pass"
+        },
+        {
+          "case": "bbbf5a81223a74f4505a1cadc608c421ecf37600445b9f0c1a060f6491ba07ec",
+          "seed": 742906,
+          "sigmas": [
+            1.0,
+            0.981072187423706,
+            0.9569222927093506,
+            0.9250432848930359,
+            0.881017804145813,
+            0.816270112991333,
+            0.7116665244102478,
+            0.5140448212623596,
+            0.0
+          ],
+          "gate_strengths": [
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "matched_constant_strength": 0.043077707290649414,
+          "image_sha256": {
+            "off": "bbbf5a81223a74f4505a1cadc608c421ecf37600445b9f0c1a060f6491ba07ec",
+            "gate": "fd59c111981cdd8ec60654bc2ac3c80ee627252b1f94935d58a7a09d13385624",
+            "constant": "c98ec0bf4c913b45b2e20241921169d102ac1f2831137b25bd2fa65ed79a2916"
+          },
+          "intended_effect": {
+            "off": 0.66,
+            "gate": 0.6566666666666666,
+            "constant": 0.6966666666666667
+          },
+          "gate_minus_off": -0.0033333333333334103,
+          "constant_minus_off": 0.036666666666666625,
+          "integrity": "pass"
+        },
+        {
+          "case": "f03f59a15fee99ff5c948693b38702c40b6ced77cc49d77df62610328b03f0bc",
+          "seed": 742908,
+          "sigmas": [
+            1.0,
+            0.981072187423706,
+            0.9569222927093506,
+            0.9250432848930359,
+            0.881017804145813,
+            0.816270112991333,
+            0.7116665244102478,
+            0.5140448212623596,
+            0.0
+          ],
+          "gate_strengths": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "matched_constant_strength": 0.11898219585418701,
+          "image_sha256": {
+            "off": "f03f59a15fee99ff5c948693b38702c40b6ced77cc49d77df62610328b03f0bc",
+            "gate": "15bd91216153e8001dfe0057bd563ac11ac4a1ba05516cda18af219c5431f8bb",
+            "constant": "75a7af3a7627b91c50795f219827110273cc1c82946b57585d1e995553327fec"
+          },
+          "intended_effect": {
+            "off": 0.5966666666666667,
+            "gate": 0.6766666666666666,
+            "constant": 0.59
+          },
+          "gate_minus_off": 0.07999999999999996,
+          "constant_minus_off": -0.00666666666666671,
+          "integrity": "pass"
+        },
+        {
+          "case": "643bd681b345bb9023b8e051c5967636b6ab236ae40068dd5234fcf21e8ea283",
+          "seed": 742902,
+          "sigmas": [
+            1.0,
+            0.981072187423706,
+            0.9569222927093506,
+            0.9250432848930359,
+            0.881017804145813,
+            0.816270112991333,
+            0.7116665244102478,
+            0.5140448212623596,
+            0.0
+          ],
+          "gate_strengths": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "matched_constant_strength": 0.183729887008667,
+          "image_sha256": {
+            "off": "643bd681b345bb9023b8e051c5967636b6ab236ae40068dd5234fcf21e8ea283",
+            "gate": "9beb12ea21f13307d053c8a5de03a07ca3c999143623f0eab56f5d1303fb1dc3",
+            "constant": "a92e2f21ff703d55d484ee01a39c2faf78b8eeda8da503aacd1884c8bd651e6b"
+          },
+          "intended_effect": {
+            "off": 0.4333333333333333,
+            "gate": 0.54,
+            "constant": 0.5233333333333334
+          },
+          "gate_minus_off": 0.10666666666666674,
+          "constant_minus_off": 0.09000000000000014,
+          "integrity": "pass"
+        },
+        {
+          "case": "f22b1c6dd1eef5df551257a16a763fc56d9fbf0ae8567c81d5221e2000b74d4c",
+          "seed": 742903,
+          "sigmas": [
+            1.0,
+            0.981072187423706,
+            0.9569222927093506,
+            0.9250432848930359,
+            0.881017804145813,
+            0.816270112991333,
+            0.7116665244102478,
+            0.5140448212623596,
+            0.0
+          ],
+          "gate_strengths": [
+            1.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "matched_constant_strength": 0.07495671510696411,
+          "image_sha256": {
+            "off": "f22b1c6dd1eef5df551257a16a763fc56d9fbf0ae8567c81d5221e2000b74d4c",
+            "gate": "747f5c85e849a4b8e3dce41891fe64dff309ba70159eb6332b95457c71765a9e",
+            "constant": "a2fa18ac44b618a90d00860b621d19c981a12c06a99b7ef3b044e54ce950d99a"
+          },
+          "intended_effect": {
+            "off": 0.84,
+            "gate": 0.6933333333333334,
+            "constant": 0.8566666666666666
+          },
+          "gate_minus_off": -0.1466666666666666,
+          "constant_minus_off": 0.016666666666666607,
+          "integrity": "pass"
+        }
+      ]
+    },
+    "random": {
+      "mean_gate_minus_off": 0.017333333333333333,
+      "mean_constant_minus_off": -0.01733333333333331,
+      "mean_gate_minus_constant": 0.034666666666666644,
+      "integrity": "pass",
+      "cases": [
+        {
+          "case": "94d4528ac716ebbe6bce3a9be569d286307f251cc6797b1567084168f552dae8",
+          "seed": 742904,
+          "sigmas": [
+            1.0,
+            0.981072187423706,
+            0.9569222927093506,
+            0.9250432848930359,
+            0.881017804145813,
+            0.816270112991333,
+            0.7116665244102478,
+            0.5140448212623596,
+            0.0
+          ],
+          "gate_strengths": [
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          "matched_constant_strength": 0.12875348329544067,
+          "image_sha256": {
+            "off": "94d4528ac716ebbe6bce3a9be569d286307f251cc6797b1567084168f552dae8",
+            "gate": "37d17f21a64997bb840fb1af3fbc21bfaff255daea5a1d5875a8f3480ff718d2",
+            "constant": "be897487d9bf9d4516726dbbfd72f1f553f60b886955b1182f6b6257c3bff2b6"
+          },
+          "intended_effect": {
+            "off": 0.35666666666666674,
+            "gate": 0.3700000000000001,
+            "constant": 0.3833333333333333
+          },
+          "gate_minus_off": 0.013333333333333364,
+          "constant_minus_off": 0.02666666666666656,
+          "integrity": "pass"
+        },
+        {
+          "case": "bbbf5a81223a74f4505a1cadc608c421ecf37600445b9f0c1a060f6491ba07ec",
+          "seed": 742906,
+          "sigmas": [
+            1.0,
+            0.981072187423706,
+            0.9569222927093506,
+            0.9250432848930359,
+            0.881017804145813,
+            0.816270112991333,
+            0.7116665244102478,
+            0.5140448212623596,
+            0.0
+          ],
+          "gate_strengths": [
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "matched_constant_strength": 0.7358164191246033,
+          "image_sha256": {
+            "off": "bbbf5a81223a74f4505a1cadc608c421ecf37600445b9f0c1a060f6491ba07ec",
+            "gate": "8e4b89dee48ef455aabd2983425ea9ec958feb4bb64d632c76c1047841ec8812",
+            "constant": "bdbf0e384a9f8b1454b93385f4353738ea7e18e5620a0e099562c3ae266e7ec8"
+          },
+          "intended_effect": {
+            "off": 0.66,
+            "gate": 0.7066666666666667,
+            "constant": 0.7400000000000001
+          },
+          "gate_minus_off": 0.046666666666666634,
+          "constant_minus_off": 0.08000000000000007,
+          "integrity": "pass"
+        },
+        {
+          "case": "f03f59a15fee99ff5c948693b38702c40b6ced77cc49d77df62610328b03f0bc",
+          "seed": 742908,
+          "sigmas": [
+            1.0,
+            0.981072187423706,
+            0.9569222927093506,
+            0.9250432848930359,
+            0.881017804145813,
+            0.816270112991333,
+            0.7116665244102478,
+            0.5140448212623596,
+            0.0
+          ],
+          "gate_strengths": [
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          "matched_constant_strength": 0.14768129587173462,
+          "image_sha256": {
+            "off": "f03f59a15fee99ff5c948693b38702c40b6ced77cc49d77df62610328b03f0bc",
+            "gate": "32fae7f9134518315cdb2d5baf89eaf587cc800efc37a9e4f479f8bdccf879ad",
+            "constant": "658f1f97bb5e84e31e9dc01c8af31ecd0cec7c502d24a907fe927e087a30d1d8"
+          },
+          "intended_effect": {
+            "off": 0.5966666666666667,
+            "gate": 0.6366666666666667,
+            "constant": 0.54
+          },
+          "gate_minus_off": 0.040000000000000036,
+          "constant_minus_off": -0.05666666666666664,
+          "integrity": "pass"
+        },
+        {
+          "case": "643bd681b345bb9023b8e051c5967636b6ab236ae40068dd5234fcf21e8ea283",
+          "seed": 742902,
+          "sigmas": [
+            1.0,
+            0.981072187423706,
+            0.9569222927093506,
+            0.9250432848930359,
+            0.881017804145813,
+            0.816270112991333,
+            0.7116665244102478,
+            0.5140448212623596,
+            0.0
+          ],
+          "gate_strengths": [
+            1.0,
+            1.0,
+            0.0,
+            1.0,
+            0.0,
+            0.0,
+            1.0,
+            0.0
+          ],
+          "matched_constant_strength": 0.2847248911857605,
+          "image_sha256": {
+            "off": "643bd681b345bb9023b8e051c5967636b6ab236ae40068dd5234fcf21e8ea283",
+            "gate": "1634046aaf5c6bc7424da2f35df23684ac08bda68913703df896742d2c54867b",
+            "constant": "bad117034d6ef45b1d136436bd3a9098750a13d0c9a60f017900d2b81ffd0058"
+          },
+          "intended_effect": {
+            "off": 0.4333333333333333,
+            "gate": 0.5499999999999999,
+            "constant": 0.5100000000000001
+          },
+          "gate_minus_off": 0.11666666666666664,
+          "constant_minus_off": 0.07666666666666683,
+          "integrity": "pass"
+        },
+        {
+          "case": "f22b1c6dd1eef5df551257a16a763fc56d9fbf0ae8567c81d5221e2000b74d4c",
+          "seed": 742903,
+          "sigmas": [
+            1.0,
+            0.981072187423706,
+            0.9569222927093506,
+            0.9250432848930359,
+            0.881017804145813,
+            0.816270112991333,
+            0.7116665244102478,
+            0.5140448212623596,
+            0.0
+          ],
+          "gate_strengths": [
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matched_constant_strength": 0.8999456167221069,
+          "image_sha256": {
+            "off": "f22b1c6dd1eef5df551257a16a763fc56d9fbf0ae8567c81d5221e2000b74d4c",
+            "gate": "a1062a1d2d4453524c70623e0238aafeadaff6c88bcfe8a8c680cf213a92d667",
+            "constant": "7ba139bbb45c1db8fec5c31e529f40270823fc3b6a63c3a37b17aa471f509e6e"
+          },
+          "intended_effect": {
+            "off": 0.84,
+            "gate": 0.71,
+            "constant": 0.6266666666666666
+          },
+          "gate_minus_off": -0.13,
+          "constant_minus_off": -0.21333333333333337,
+          "integrity": "pass"
+        }
+      ]
+    }
+  },
+  "optimizer_updates": 0,
+  "source_sha256": {
+    "native": "e0e2c576d39d223342732bbfb406fac6096cf857223158399b5a2e0cd523ce62",
+    "observations": "411e922cbaad8f8116196644ae39d4e838beff53bb51d997e36b45d7b82ab577"
+  }
+}
