@@ -48,7 +48,7 @@ G=`lr`, D=`lr*d_lr_mult`, bank=`lr*prior_lr_mult`. The saved actual D for both
 is0.018000000000000002. The bank products are respectively0.03 and
 0.030000000000000002; preserve that recorded binary difference rather than
 silently normalizing the recipes. The product passes the literal members to
-`ConditionalPG095(recipe_overrides=...)`; the shared official GAN, full native
+`ConditionalParticleGAN(recipe_overrides=...)`; the shared official GAN, full native
 penalty and optimizer formula are unchanged. Omitted values keep declared
 upstream defaults, not a claim of optimization.
 
