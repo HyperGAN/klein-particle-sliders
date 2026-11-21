@@ -1,0 +1,327 @@
+{
+  "profile": "Final Boss RAW64 archived native Vibe profile",
+  "raw_sha256": "5bdc87d1cbe728da682359d4afd87fa7041d32f5b9921f5f332293192b95b1f1",
+  "matched_held_out_cases": 8,
+  "geometry": {
+    "width": 512,
+    "height": 512,
+    "steps": 8,
+    "guidance": 1.0,
+    "max_sequence_length": 128,
+    "text_encoder_layers": [
+      9,
+      18,
+      27
+    ],
+    "dtype": "bfloat16"
+  },
+  "sampler": "FlowMatchEulerDiscreteScheduler",
+  "measure": "Mean finished-image intended Final Boss effect ON minus matched OFF",
+  "independent_integrity_passes": 40,
+  "winning_arm": "constant1",
+  "exact_independent_winning_replays": 8,
+  "arms": {
+    "constant1": {
+      "nominal_strength": 1.0,
+      "actual_sigmas": [
+        1.0,
+        0.981072187423706,
+        0.9569222927093506,
+        0.9250432848930359,
+        0.881017804145813,
+        0.816270112991333,
+        0.7116665244102478,
+        0.5140448212623596,
+        0.0
+      ],
+      "effective_strengths": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "mean_effect_gain": 0.010833333333333299,
+      "cases": [
+        {
+          "seed": 742904,
+          "gain": 0.09666666666666668,
+          "on_sha256": "e887aa3d092f8dec2d106a9eda8b4b42455111cb05e467ce3a61aa7e9158c612",
+          "off_sha256": "94d4528ac716ebbe6bce3a9be569d286307f251cc6797b1567084168f552dae8"
+        },
+        {
+          "seed": 742906,
+          "gain": 0.026666666666666616,
+          "on_sha256": "59006c5bcef2b28f2927b2a3f59b21ae3720e790f1427b9902f92cf39877d7be",
+          "off_sha256": "bbbf5a81223a74f4505a1cadc608c421ecf37600445b9f0c1a060f6491ba07ec"
+        },
+        {
+          "seed": 742908,
+          "gain": 0.036666666666666625,
+          "on_sha256": "24e1790457d2ea294ee314383f6ecfad85ecb6e934089b1d589e21be8892d6b3",
+          "off_sha256": "f03f59a15fee99ff5c948693b38702c40b6ced77cc49d77df62610328b03f0bc"
+        },
+        {
+          "seed": 742902,
+          "gain": 0.036666666666666625,
+          "on_sha256": "a57cebebdf2541ecfba83eaad0197dc195d45f7b35098d5140c7bf436b797f65",
+          "off_sha256": "78a9776bd1e218821e258852de07c0d09e23a06b8594001126177bd2c0db481a"
+        },
+        {
+          "seed": 742906,
+          "gain": -0.05666666666666664,
+          "on_sha256": "15bb0788334f7ba635447cee5bc98ac427bd38939ba7452939c79b63ba76317f",
+          "off_sha256": "8686dff8327027c2c1ae423f979c21ddca2921f32dfde949eedb2eaa4cb0b957"
+        },
+        {
+          "seed": 742902,
+          "gain": 0.22333333333333333,
+          "on_sha256": "31289cb797adb2d90a97fa800e1d7db0b8596e4d169c444f0d2cc74c47e9640b",
+          "off_sha256": "643bd681b345bb9023b8e051c5967636b6ab236ae40068dd5234fcf21e8ea283"
+        },
+        {
+          "seed": 742903,
+          "gain": -0.13666666666666671,
+          "on_sha256": "e1a0b31c215ce360779289fad2ba0eb746b2fcbb862b63102ddc0ab118a983ff",
+          "off_sha256": "f22b1c6dd1eef5df551257a16a763fc56d9fbf0ae8567c81d5221e2000b74d4c"
+        },
+        {
+          "seed": 742908,
+          "gain": -0.14000000000000012,
+          "on_sha256": "b62dd02ad90a2e54a6f42ff1c5af7a073f39ede5cb0426c5e47adda5c946e110",
+          "off_sha256": "533ab12fb8d70754ed4bc182fb5e121014833439e0d9ed72cb0ba7b6e03346ca"
+        }
+      ]
+    },
+    "constant2of3": {
+      "nominal_strength": 0.6666666666666666,
+      "actual_sigmas": [
+        1.0,
+        0.981072187423706,
+        0.9569222927093506,
+        0.9250432848930359,
+        0.881017804145813,
+        0.816270112991333,
+        0.7116665244102478,
+        0.5140448212623596,
+        0.0
+      ],
+      "effective_strengths": [
+        0.6666666666666666,
+        0.6666666666666666,
+        0.6666666666666666,
+        0.6666666666666666,
+        0.6666666666666666,
+        0.6666666666666666,
+        0.6666666666666666,
+        0.6666666666666666
+      ],
+      "mean_effect_gain": -0.01916666666666665,
+      "cases": [
+        {
+          "seed": 742904,
+          "gain": -0.04666666666666669,
+          "on_sha256": "52c0393cb6de67b6f91757ffac57f6ce2cbd2a44d3faa03d208b33131d362fbe",
+          "off_sha256": "94d4528ac716ebbe6bce3a9be569d286307f251cc6797b1567084168f552dae8"
+        },
+        {
+          "seed": 742906,
+          "gain": 0.026666666666666616,
+          "on_sha256": "3124edf1227038eb61316d401c96376dfb957d27c0d433a4faff360ed0f19f7d",
+          "off_sha256": "bbbf5a81223a74f4505a1cadc608c421ecf37600445b9f0c1a060f6491ba07ec"
+        },
+        {
+          "seed": 742908,
+          "gain": 0.020000000000000018,
+          "on_sha256": "0c21e7269a8d30e5bc78a69894b4ee15d8aa1b55c1ea8eca9a18f904c2a0ed3e",
+          "off_sha256": "f03f59a15fee99ff5c948693b38702c40b6ced77cc49d77df62610328b03f0bc"
+        },
+        {
+          "seed": 742902,
+          "gain": -0.029999999999999916,
+          "on_sha256": "7f322f3a5c2e590a342831ecf32006c7eed92cc202698c37ed602a3acb32791d",
+          "off_sha256": "78a9776bd1e218821e258852de07c0d09e23a06b8594001126177bd2c0db481a"
+        },
+        {
+          "seed": 742906,
+          "gain": -0.040000000000000036,
+          "on_sha256": "ca62a372085ebba1e932d8050b30961f8d4d25940754658b371b5dd9bbb3160d",
+          "off_sha256": "8686dff8327027c2c1ae423f979c21ddca2921f32dfde949eedb2eaa4cb0b957"
+        },
+        {
+          "seed": 742902,
+          "gain": 0.12333333333333335,
+          "on_sha256": "4c6155f0a94b7e98c37f3ef3d1617c1303e554b2015c28e0dfb6ebe9008dabb8",
+          "off_sha256": "643bd681b345bb9023b8e051c5967636b6ab236ae40068dd5234fcf21e8ea283"
+        },
+        {
+          "seed": 742903,
+          "gain": -0.1399999999999999,
+          "on_sha256": "9f0cbd71b01e81638c4dc1fe66e36174606ae39e19266364e750043008db38d9",
+          "off_sha256": "f22b1c6dd1eef5df551257a16a763fc56d9fbf0ae8567c81d5221e2000b74d4c"
+        },
+        {
+          "seed": 742908,
+          "gain": -0.06666666666666665,
+          "on_sha256": "e0e4937ece0911785513968a5765d43ff2603f0d81c3f3dcf54b342369319ed7",
+          "off_sha256": "533ab12fb8d70754ed4bc182fb5e121014833439e0d9ed72cb0ba7b6e03346ca"
+        }
+      ]
+    },
+    "early2of3": {
+      "nominal_strength": 0.6666666666666666,
+      "actual_sigmas": [
+        1.0,
+        0.981072187423706,
+        0.9569222927093506,
+        0.9250432848930359,
+        0.881017804145813,
+        0.816270112991333,
+        0.7116665244102478,
+        0.5140448212623596,
+        0.0
+      ],
+      "effective_strengths": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.35154811497807936
+      ],
+      "mean_effect_gain": -0.024999999999999994,
+      "cases": [
+        {
+          "seed": 742904,
+          "gain": 0.08999999999999986,
+          "on_sha256": "f9ed707dc53021287bfd8c30650aecb5c76e84a44999a8209fc8d2e1172defa6",
+          "off_sha256": "94d4528ac716ebbe6bce3a9be569d286307f251cc6797b1567084168f552dae8"
+        },
+        {
+          "seed": 742906,
+          "gain": 0.020000000000000018,
+          "on_sha256": "10ad369c40288059fe38ec8f80f2bb600bcde53feaaa45530cecd43113063620",
+          "off_sha256": "bbbf5a81223a74f4505a1cadc608c421ecf37600445b9f0c1a060f6491ba07ec"
+        },
+        {
+          "seed": 742908,
+          "gain": 0.020000000000000018,
+          "on_sha256": "89008f0ca1b3886d0b2630823919bcc6ee09fb81b648de4e31090185d8e0a0dc",
+          "off_sha256": "f03f59a15fee99ff5c948693b38702c40b6ced77cc49d77df62610328b03f0bc"
+        },
+        {
+          "seed": 742902,
+          "gain": 0.013333333333333308,
+          "on_sha256": "e3283cc56815106023290cefaaed2f1936f29d2b060e00c308eb58154a3d5efb",
+          "off_sha256": "78a9776bd1e218821e258852de07c0d09e23a06b8594001126177bd2c0db481a"
+        },
+        {
+          "seed": 742906,
+          "gain": -0.05666666666666664,
+          "on_sha256": "e6633447df1532581f228e242bbfff7c807631fe1f4c0001f827d1b35f3d8b58",
+          "off_sha256": "8686dff8327027c2c1ae423f979c21ddca2921f32dfde949eedb2eaa4cb0b957"
+        },
+        {
+          "seed": 742902,
+          "gain": 0.0,
+          "on_sha256": "71f512af1d71062d575408d87a97a7df4f9a4a60da8fa4a49ef5f15c91b1bc43",
+          "off_sha256": "643bd681b345bb9023b8e051c5967636b6ab236ae40068dd5234fcf21e8ea283"
+        },
+        {
+          "seed": 742903,
+          "gain": -0.17666666666666653,
+          "on_sha256": "dd00acf8adb5fd6c07e24d329d7ed72e049b2d80fcd6690000fa9bb8888d89ed",
+          "off_sha256": "f22b1c6dd1eef5df551257a16a763fc56d9fbf0ae8567c81d5221e2000b74d4c"
+        },
+        {
+          "seed": 742908,
+          "gain": -0.10999999999999999,
+          "on_sha256": "a3fab50e7865cb6efa2c83bffd259c65d149bc12488c59dd09597dca0461a979",
+          "off_sha256": "533ab12fb8d70754ed4bc182fb5e121014833439e0d9ed72cb0ba7b6e03346ca"
+        }
+      ]
+    },
+    "late2of3": {
+      "nominal_strength": 0.6666666666666666,
+      "actual_sigmas": [
+        1.0,
+        0.981072187423706,
+        0.9569222927093506,
+        0.9250432848930359,
+        0.881017804145813,
+        0.816270112991333,
+        0.7116665244102478,
+        0.5140448212623596,
+        0.0
+      ],
+      "effective_strengths": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333,
+        0.9817852183552539
+      ],
+      "mean_effect_gain": -0.01708333333333336,
+      "cases": [
+        {
+          "seed": 742904,
+          "gain": 0.033333333333333215,
+          "on_sha256": "5fb1ea478e5ba7d65ba6c01fc4cce9634db9094aa17da5753055ac71fb2870f5",
+          "off_sha256": "94d4528ac716ebbe6bce3a9be569d286307f251cc6797b1567084168f552dae8"
+        },
+        {
+          "seed": 742906,
+          "gain": 0.036666666666666625,
+          "on_sha256": "a6ec8907c6aa68ff6b58c198b7739c87b4bc53f5040eacf74d92fd5a392e767f",
+          "off_sha256": "bbbf5a81223a74f4505a1cadc608c421ecf37600445b9f0c1a060f6491ba07ec"
+        },
+        {
+          "seed": 742908,
+          "gain": 0.0033333333333332993,
+          "on_sha256": "0a98a874295cd66a89cd5a1cf1834762ce0112c7f8e5b5cafbcd6b39fcb8d0e9",
+          "off_sha256": "f03f59a15fee99ff5c948693b38702c40b6ced77cc49d77df62610328b03f0bc"
+        },
+        {
+          "seed": 742902,
+          "gain": 0.033333333333333326,
+          "on_sha256": "9c64ba3751638abac47e1c5a7d9ba446078b5442a31d386d30810c8f2f4a3fee",
+          "off_sha256": "78a9776bd1e218821e258852de07c0d09e23a06b8594001126177bd2c0db481a"
+        },
+        {
+          "seed": 742906,
+          "gain": 0.00666666666666671,
+          "on_sha256": "e573a92d66f36e379a725a4cff92024c2092f70a73bbdf4e6ad8ecc00f394ea3",
+          "off_sha256": "8686dff8327027c2c1ae423f979c21ddca2921f32dfde949eedb2eaa4cb0b957"
+        },
+        {
+          "seed": 742902,
+          "gain": 0.04333333333333328,
+          "on_sha256": "e6568b03b72a6ff9f742372a79387280b3e229b37052ce0180322ff044d74b36",
+          "off_sha256": "643bd681b345bb9023b8e051c5967636b6ab236ae40068dd5234fcf21e8ea283"
+        },
+        {
+          "seed": 742903,
+          "gain": -0.23666666666666658,
+          "on_sha256": "499e1b6fe00dc2389321897fab4357c79ed0d0869e1ea241f6409ae202b2e892",
+          "off_sha256": "f22b1c6dd1eef5df551257a16a763fc56d9fbf0ae8567c81d5221e2000b74d4c"
+        },
+        {
+          "seed": 742908,
+          "gain": -0.056666666666666754,
+          "on_sha256": "f3e466da59eb39f35fd85c3fcbe2bf402b82567cc151cc9e3670d389ceaf1c0d",
+          "off_sha256": "533ab12fb8d70754ed4bc182fb5e121014833439e0d9ed72cb0ba7b6e03346ca"
+        }
+      ]
+    }
+  },
+  "new_optimizer_updates": 0,
+  "ema_decay": null
+}

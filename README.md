@@ -140,8 +140,14 @@ with `step_gains` and the original render arguments. Supply one gain per native
 denoiser step, with every `strength * gain` in `[0, 1]`. The image exposes the
 actual sigma grid and applied strengths in
 `image.info["strength_schedule"]`. Constant gains matched the original
-finished pixels in the tiny native CPU fixture. The pretrained effect
-comparison is pending.
+finished pixels in the tiny native CPU fixture.
+
+On the archived Final Boss RAW64 profile, constant strength 1.0 led the
+eight-case held-out comparison at +0.01083 mean finished-image gain.
+At the same 2/3 nominal strength, late-heavy scored −0.01708, constant
+scored −0.01917, and early-heavy scored −0.02500. All 40 images passed
+independent integrity, and the eight winning outputs reproduced byte
+for byte. [Per-case evidence](evidence/final-boss-raw64-scheduled-strength.json)
 
 ```sh
 klein-slider render --model-dir /absolute/staged/klein4b \
