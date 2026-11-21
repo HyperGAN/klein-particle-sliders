@@ -10,7 +10,7 @@ from conftest import TinyRuntime, response_row
 
 
 def klein_config(*args, **options):
-    return SessionConfig(*args, **(dict(pg_version="0.11.0", pg_source_profile="release-0.11.0",
+    return SessionConfig(*args, **(dict(pg_version="0.11.1", pg_source_profile="release-0.11.1",
                                       initialization_policy=INITIALIZATION_POLICY) | options))
 
 
@@ -54,7 +54,7 @@ def test_native_core_training_resume_and_export(tmp_path, bound):
         split = open_training(config, runtime=split_runtime); sessions.append(split)
         assert full.game.prior.z is full.game.network.particles
         assert full.game._signature["generator_arm"] == "routed_particle_gan"
-        assert full.game._signature["pg_version"] == "0.11.0"
+        assert full.game._signature["pg_version"] == "0.11.1"
         overrides = {key: config.options[key] for key in ("lr", "d_lr_mult", "prior_lr_mult")}
         assert all(getattr(full.game.recipe, key) == value for key, value in overrides.items())
         assert [group["lr"] for group in full.game.opt_g.param_groups] == [
@@ -247,7 +247,7 @@ def test_missing_intent_and_old_source_refused_before_native_allocation(tmp_path
     with pytest.raises(ValueError, match="open_training"):
         product.prepare(config.options)
     historical = SessionConfig("flux2_klein", "old094", model_dir=str(tmp_path), cache_dir=str(cache))
-    with pytest.raises(ValueError, match="new ParticleGAN 0.11.0"):
+    with pytest.raises(ValueError, match="new ParticleGAN 0.11.1"):
         open_training(historical)
 
 

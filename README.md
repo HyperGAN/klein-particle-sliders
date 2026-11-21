@@ -12,10 +12,10 @@ comparison. Both are complete provisional model-instrument results with
 `trait_qualified:false`; the50-step instrument saturated on all OFF/ONs.
 No unique G, new default, formal trait validation or released weights is claimed.
 See [rates, exact scopes and actual how-to](docs/finished-output-learning-rates.md)
-and [portable choice/evidence metadata](docs/finished-output-rate.json).
+and [portable choice/evidence metadata](https://github.com/HyperGAN/klein-particle-sliders/blob/98e13bea7ed14a3ee2477ea9eea74d5cec79c298/docs/finished-output-rate.json).
 G0.012 remains manually stopped; old results and false-negative records remain.
 
-The retained pretrained cohort used explicit PG0.9.5 scoped initialization and
+The retained pretrained cohort used explicit the archived ParticleGAN release scoped initialization and
 RAW/noEMA. Its matched native images and separate categorical results supersede
 old “not yet run” statements as historical progress, without changing captured
 factories or transferring a score/guard between sampling profiles.
@@ -29,13 +29,13 @@ See [PUBLICATION.md](PUBLICATION.md) for sanitation, lineage and current CPU/CI 
 
 Native routed Particle Sliders for **[FLUX.2-klein-base-4B](https://huggingface.co/black-forest-labs/FLUX.2-klein-base-4B)**, the undistilled Apache 2.0 model.
 
-This source integration retains its historical CPU qualification; later pretrained results are documented separately above. The original qualification used a small, randomly initialized native Klein transformer on CPU. This fresh Source cohort requires `ema_decay=None`, refuses any non-None value before model/cache allocation, and exports RAW weights only. The original `.995`/EMA cohort is retained under `configs/historical/`; its old Source, packets and CPU receipt remain historical. They are not migrated or relabeled by this change. The combined PG0.9.5/scoped-init/RAW-render source passed 28 native CPU checks on 2026-11-09 in its matching isolated environment. The old18-test receipt remains historical. See [the November 9 CPU receipt](NATIVE-CPU-20261109.md).
+This source integration retains its historical CPU qualification; later pretrained results are documented separately above. The original qualification used a small, randomly initialized native Klein transformer on CPU. This fresh Source cohort requires `ema_decay=None`, refuses any non-None value before model/cache allocation, and exports RAW weights only. The original `.995`/EMA cohort is retained under `configs/historical/`; its old Source, packets and CPU receipt remain historical. They are not migrated or relabeled by this change. The combined the archived ParticleGAN release/scoped-init/RAW-render source passed 28 native CPU checks on 2026-11-09 in its matching isolated environment. The old18-test receipt remains historical. See [the November 9 CPU receipt](NATIVE-CPU-20261109.md).
 
 The first recipe learns **neutral → soft diffuse lighting** at strengths 0..1. It is unipolar: strength 0 preserves the base model and strength 1 applies the learned adapter. Negative strengths, reference-image edits and ordinary LoRA/ComfyUI loading are outside this interface. Native finished-image rendering is exposed below and CPU-qualified with tiny random components; pretrained quality remains unqualified. The four example prompt pairs are a starter dataset for qualification, not a production training set.
 
 ## Architecture
 
-Dependency direction is this product → pinned `particle-sliders-core` → released ParticleGAN 0.11.0. The product owns native model loading, frozen teacher data, Klein latent/position geometry and adapter hooks. The shared core owns all GAN objectives, regularizers, optimizer laws, sampling, raw-weight training/resume packets and native inference exports. There is no copied GAN trainer.
+Dependency direction is this product → pinned `particle-sliders-core` → released ParticleGAN 0.11.1. The product owns native model loading, frozen teacher data, Klein latent/position geometry and adapter hooks. The shared core owns all GAN objectives, regularizers, optimizer laws, sampling, raw-weight training/resume packets and native inference exports. There is no copied GAN trainer.
 
 Adapters follow Anima's rank-8 routed-branch structure, calling the shared `winning_formulation().bridge()` and exposing the actual 128×4 particle parameter to the shared game's prior. Klein targets are double-stream attention Q/K/V/output and single-stream fused QKV/MLP-input/output projections. Text conditioning and the pretrained transformer stay frozen; adapter leaves and the spatial field critic are FP32. This is a new source/policy cohort, not an adoption of Anima checkpoints or its quality receipts. It uses the core's native `FieldCritic`, not Anima's historical global-mix error critic.
 
@@ -54,7 +54,7 @@ CUDA_VISIBLE_DEVICES='' .venv/bin/python -m pytest -q
 .venv/bin/klein-slider plan --config configs/diffuse-light.json
 ```
 
-Dependencies are exact source pins in `pyproject.toml` and `backend.lock.json`. The core is installed from its repository subdirectory at `c13890f8e2a1ecf1dc8eb9f2a37f9187cb9fea78`, not an assumed PyPI release. Current source uses an explicitly fresh ParticleGAN 0.11.0 cohort with RAW weights. The November 9 ParticleGAN 0.9.5 cohort passed 28 native CPU checks. The old18-test receipt used Python3.12.15/Torch2.13/Transformers5.22.1/Diffusers35087 with PG0.9.4 and EMA; it remains historical. The new source retains the exact Diffusers35087 guards; the earlier environment is recorded in [NATIVE-CPU-20261109.md](NATIVE-CPU-20261109.md).
+Dependencies are exact source pins in `pyproject.toml` and `backend.lock.json`. The core is installed from its repository subdirectory at `ec1161f5d74481be3540cb0dfa63d0e8f8b54e90`, not an assumed PyPI release. Current source uses an explicitly fresh ParticleGAN 0.11.1 cohort with RAW weights. The November 9 the archived ParticleGAN release cohort passed 28 native CPU checks. The old18-test receipt used Python3.12.15/Torch2.13/Transformers5.22.1/Diffusers35087 with the archived ParticleGAN release and EMA; it remains historical. The new source retains the exact Diffusers35087 guards; the earlier environment is recorded in [NATIVE-CPU-20261109.md](NATIVE-CPU-20261109.md).
 
 ## Historical first-qualification commands (do not repeat completed work)
 
@@ -120,7 +120,7 @@ This returns a native velocity field. The separate finished-image renderer below
 
 Source code is MIT, with the upstream Anima notice preserved in `LICENSE` and attribution in `NOTICE`. The pretrained model is separately Apache 2.0. Model weights are neither included nor published. This is an independent integration and does not imply Black Forest Labs endorsement.
 
-- [Pinned shared core](https://github.com/HyperGAN/particle-sliders/tree/c13890f8e2a1ecf1dc8eb9f2a37f9187cb9fea78/packages/particle-sliders-core)
+- [Pinned shared core](https://github.com/HyperGAN/particle-sliders/tree/ec1161f5d74481be3540cb0dfa63d0e8f8b54e90/packages/particle-sliders-core)
 - [Anima routed-branch reference](https://github.com/HyperGAN/anima-particle-sliders/blob/c018f32759f49a05c2360a04b4a83924a6851913/lumen_studio/particles.py)
 - [Native Klein pipeline](https://github.com/huggingface/diffusers/blob/35087a644038eb531f48581708d4763044cb4852/src/diffusers/pipelines/flux2/pipeline_flux2_klein.py)
 
@@ -171,3 +171,5 @@ DiT/VAE/Qwen3 and a synthetic tokenizer. This establishes native software
 conformance for the combined source, not pretrained image quality or memory
 fit. Historical packets stay source-bound; there is no migration or automatic
 training permission.
+
+Earlier configuration and qualification receipts remain available in the [archived source](https://github.com/HyperGAN/klein-particle-sliders/tree/98e13bea7ed14a3ee2477ea9eea74d5cec79c298).

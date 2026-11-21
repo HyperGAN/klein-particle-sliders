@@ -1,8 +1,8 @@
 # Current raw-weight initialization cohort
 
 This source profile pins shared core main merge
-`c13890f8e2a1ecf1dc8eb9f2a37f9187cb9fea78` and uses its public
-`initialize_fresh_components` helper. It does not migrate original PG0.9.4/EMA
+`ec1161f5d74481be3540cb0dfa63d0e8f8b54e90` and uses its public
+`initialize_fresh_components` helper. It does not migrate original the archived ParticleGAN release/EMA
 or intermediate RAW-only packets. Keep their original loaders and source pins.
 The new config, source profile and complete initialization receipt participate in
 training/export identities. Old18-test evidence is retained unchanged.
@@ -73,7 +73,7 @@ collision rules and policy name are unchanged; no GAN code is copied. Source
 provenance is recorded in `validation/conditioning-extraction.json`. This source
 comparison does not substitute for native numerical checks.
 
-The previous ParticleGAN 0.9.5 cohort passed the following checks among its 28 native CPU cases
+The previous the archived ParticleGAN release cohort passed the following checks among its 28 native CPU cases
 ([actual receipt](NATIVE-CPU-20261109.md)); this paragraph preserves the original
 check plan, not a request to rerun completed tests:
 actual tiny random native Klein full2 vs split1/exact-resume1, RAW-only export and

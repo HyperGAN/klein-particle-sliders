@@ -14,7 +14,7 @@ from .cache import CachedResponses
 
 CAPABILITIES = Capabilities("routed_particle_gan", render=False, render_outputs=(),
     base_precisions=("bfloat16", "float32"),
-    qualification="New ParticleGAN 0.11.0/fresh-init source; matching native CPU, pretrained and GPU checks pending",
+    qualification="New ParticleGAN 0.11.1/fresh-init source; matching native CPU, pretrained and GPU checks pending",
     unavailable_reasons=(("render", "Pretrained native sampler/decoder and reference editing need qualification"),))
 
 
@@ -122,7 +122,7 @@ def validate_inference(options, spec):
             or configuration["weight_policy"] != WEIGHT_POLICY
             or configuration["source_profile"] != SOURCE_PROFILE
             or configuration["initialization_policy"] != INITIALIZATION_POLICY):
-        raise ValueError("requires the new ParticleGAN 0.11.0 RAW-only Klein export; historical artifacts retain original source")
+        raise ValueError("requires the new ParticleGAN 0.11.1 RAW-only Klein export; historical artifacts retain original source")
     validate_receipt(configuration["initialization"], cohort=configuration["initialization"].get("cohort_id"))
 
 

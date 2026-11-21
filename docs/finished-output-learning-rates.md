@@ -13,7 +13,7 @@ confirmation or repeated-rating gate is needed to report them honestly.
 | 50 steps / CFG4 | 0.0 | 0.0 | Four equally weighted cases; every OFF/ON saturated |
 
 Each arm completed32 updates at horizon128/batch2/rank8/seed7, with the same
-128×4 bank and fresh scoped PG0.9.5 policy. Cases are teapot7, woman19, plant7 and
+128×4 bank and fresh scoped the archived ParticleGAN release policy. Cases are teapot7, woman19, plant7 and
 bedroom19; OFFstrength0 and ONstrength1 use matched requests/seeds. The original
 8-step normalized intensity pairs for **both** arms are teapot0.75→1.0,
 woman1.0→1.0, plant0.75→0.75 and bedroom1.0→1.0: gains0.25/0/0/0 average0.0625.
@@ -29,7 +29,7 @@ G0.012 remains manually stopped after cyan/no-object collapse; its old detector
 false negatives and saved checkpoints remain evidence, not an eligible winner.
 A weak effect is separate from catastrophic failure.
 
-[The portable summary](finished-output-rate.json) keeps both profiles, all
+[The portable summary](https://github.com/HyperGAN/klein-particle-sliders/blob/98e13bea7ed14a3ee2477ea9eea74d5cec79c298/docs/finished-output-rate.json) keeps both profiles, all
 per-case values, exact floating-point actual rates, RAW/FULL metadata and original
 result/decision hashes. Retained RAWs, caches and first responses are private,
 source-bound campaign artifacts, not new released weights or bundled downloads.
@@ -80,7 +80,7 @@ before optimizers. It preserves zero-UP/nonzero down, actual Parameters and froz
 base. Exact `open_training(config, resume=FULL)` retains the original receipt
 without reinitialization; inference never initializes. Adapter, critic and bank
 use RAW current weights with `ema_decay=None`; no weight EMA/averaging is allowed.
-Official scalar optimizer running statistics are unchanged. The old PG0.9.4/EMA
+Official scalar optimizer running statistics are unchanged. The old the archived ParticleGAN release/EMA
 cohort remains historical, never migrated or proposed for fresh training.
 
 ## One metric, separate catastrophic eligibility
