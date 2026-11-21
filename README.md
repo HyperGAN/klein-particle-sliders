@@ -147,7 +147,10 @@ eight-case held-out comparison at +0.01083 mean finished-image gain.
 At the same 2/3 nominal strength, late-heavy scored −0.01708, constant
 scored −0.01917, and early-heavy scored −0.02500. All 40 images passed
 independent integrity, and the eight winning outputs reproduced byte
-for byte. [Per-case evidence](evidence/final-boss-raw64-scheduled-strength.json)
+for byte. A follow-up at equal mean strength 0.90 averaged −0.00750
+constant, −0.00583 early-heavy and −0.00208 late-heavy on the same cases.
+All 24 new images passed integrity. Constant strength 1.0 remains the
+best tested profile. [Per-case evidence](evidence/final-boss-raw64-scheduled-strength.json)
 
 ```sh
 klein-slider render --model-dir /absolute/staged/klein4b \
