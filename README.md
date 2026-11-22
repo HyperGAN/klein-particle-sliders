@@ -198,6 +198,51 @@ training permission.
 
 Earlier configuration and qualification receipts remain available in the [archived source](https://github.com/HyperGAN/klein-particle-sliders/tree/98e13bea7ed14a3ee2477ea9eea74d5cec79c298).
 
+### Fitted S-PSR on native Euler velocity
+
+The opt-in `klein_sliders.velocity_steering` renderer accepts an authenticated
+eight-step, 512-pixel scale-zero RAW fit. The shared affine-ReLU probe reads
+the FP32 channel mean of the packed velocity. The render applies its fitted
+direction to the velocity consumed by the stock CFG 1 Euler scheduler. The
+original stock owner loads and supplies the frozen RAW adapter, native
+pipeline, and request. Existing fixed and gate entry points remain available.
+
+Construct `VelocitySteeringPlan(core_wheel=..., binding_path=...,
+binding_sha256=..., fit_path=...)` from a sealed replay binding. The JSON
+binding records `schema="klein-native8-velocity-replay-v1"`, the fitted
+probe and fit-plan hashes, exact RAW and native model identity hashes,
+the packed velocity shape, and the full native sigma grid. The model
+identity hash uses `klein_sliders.contracts.digest`. Use a fitted
+`weights="raw"`, `ema_decay=None` probe and pass a strength selected on the
+separate calibration cases.
+
+```python
+from klein_sliders.velocity_steering import render_native_velocity
+
+base = dict(
+    plan=plan, transformer=runtime.transformer, pipeline=lambda: pipe,
+    adapter=adapter, raw_path=raw, model_identity=runtime.identity,
+    request=dict(seed=seed, initial_sha256=start_sha256,
+                 conditioning_sha256=embedding_sha256,
+                 text_ids_sha256=text_ids_sha256),
+    check_live=check_live,
+)
+adaptive, trace = render_native_velocity(draw, **base, alpha=alpha)
+constant, constant_trace = render_native_velocity(
+    draw, **base, alpha=alpha, mode="same-atom-constant", from_adaptive=trace,
+)
+off, off_trace = render_native_velocity(draw, **base, alpha=0, mode="off")
+```
+
+Here `draw` runs one stock native request per call and reconstructs its
+original RNG, conditioning, and scheduler state. The tensor hashes cover
+the contiguous native bytes. The constant validates the same request, fit
+and alpha against the adaptive trace, then uses the nearest-even FP32 value
+of its exact sigma-weighted coefficient dose. Each receipt records the
+applied coefficients, exact coefficient-space dose, and measured BF16 edit
+norm integrated separately. Native calibration and held-out output evidence
+remain separate from the fit.
+
 ### Calibrated activation gating
 
 Use `gate_plan` on the same open RAW session. Klein averages the live packed
