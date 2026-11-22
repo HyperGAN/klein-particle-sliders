@@ -1,0 +1,141 @@
+{
+  "study": "Soft Diffuse Light RAW8, prospective receiver geometry panel",
+  "raw_update": 8,
+  "raw_sha256": "27d7c0c6107e60766de619f526817127c09a03aa8ef551c0da414a853b73f70c",
+  "weights": "raw",
+  "ema_decay": null,
+  "optimizer_updates": 0,
+  "native_geometry": {
+    "width": 512,
+    "height": 512,
+    "steps": 50,
+    "guidance": 1.0
+  },
+  "nominal_strength": 0.5,
+  "calibration_evidence": "soft-diffuse-light-raw8-adaptive-steering.json",
+  "frozen_heldout_cases": 4,
+  "independent_integrity_passed_timed_outputs": 15,
+  "independent_geometry_registrations": 19,
+  "metric": "Normalized 10–90% cast-shadow edge width at frozen registrations. Each case contributes equally to mean ON minus OFF.",
+  "dose_control": "Same starting latent and per-case sigma-weighted constant for each completed pair.",
+  "methods": {
+    "cfp": {
+      "complete_panel_scored": true,
+      "matched_pairs": 4,
+      "full_panel_mean_gate_minus_off": -0.0031579239498964948,
+      "full_panel_mean_constant_minus_off": -0.0038093183897522226,
+      "full_panel_mean_gate_minus_matched_constant": 0.0006513944398557278,
+      "per_case": [
+        {
+          "case": 1,
+          "off": 0.42102978569653515,
+          "gate": 0.42557300111555946,
+          "matched_constant": 0.41507488508227847,
+          "gate_minus_off": 0.004543215419024305,
+          "gate_minus_matched_constant": 0.01049811603328099,
+          "sigma_weighted_constant_strength": 0.0626528263092041,
+          "fired_intervals": 22,
+          "eligible_intervals": 50
+        },
+        {
+          "case": 2,
+          "off": 0.2698299703793264,
+          "gate": 0.23857635326848384,
+          "matched_constant": 0.26152986389211785,
+          "gate_minus_off": -0.03125361711084254,
+          "gate_minus_matched_constant": -0.022953510623634016,
+          "sigma_weighted_constant_strength": 0.04293060302734375,
+          "fired_intervals": 17,
+          "eligible_intervals": 50
+        },
+        {
+          "case": 3,
+          "off": 0.3753211736306381,
+          "gate": 0.38939987952287036,
+          "matched_constant": 0.3743389071730944,
+          "gate_minus_off": 0.014078705892232257,
+          "gate_minus_matched_constant": 0.015060972349775936,
+          "sigma_weighted_constant_strength": 0.046509385108947754,
+          "fired_intervals": 18,
+          "eligible_intervals": 50
+        },
+        {
+          "case": 4,
+          "off": 0.0,
+          "gate": 0.0,
+          "matched_constant": 0.0,
+          "gate_minus_off": 0.0,
+          "gate_minus_matched_constant": 0.0,
+          "sigma_weighted_constant_strength": 0.058315426111221313,
+          "fired_intervals": 21,
+          "eligible_intervals": 50
+        }
+      ]
+    },
+    "clabs": {
+      "complete_panel_scored": false,
+      "matched_pairs": 3,
+      "full_panel_mean_gate_minus_off": null,
+      "full_panel_mean_constant_minus_off": null,
+      "full_panel_mean_gate_minus_matched_constant": null,
+      "per_case": [
+        {
+          "case": 1,
+          "off": 0.42102978569653515,
+          "gate": 0.4265060809806401,
+          "matched_constant": 0.4267393819018106,
+          "gate_minus_off": 0.005476295284104926,
+          "gate_minus_matched_constant": -0.0002333009211705206,
+          "sigma_weighted_constant_strength": 0.07276758551597595,
+          "fired_intervals": 24,
+          "eligible_intervals": 50
+        },
+        {
+          "case": 2,
+          "off": 0.2698299703793264,
+          "gate": 0.24310905334784064,
+          "matched_constant": 0.25794844225739044,
+          "gate_minus_off": -0.02672091703148574,
+          "gate_minus_matched_constant": -0.014839388909549805,
+          "sigma_weighted_constant_strength": 0.050440192222595215,
+          "fired_intervals": 19,
+          "eligible_intervals": 50
+        },
+        {
+          "case": 3,
+          "off": 0.3753211736306381,
+          "gate": 0.38845063387642775,
+          "matched_constant": null,
+          "gate_minus_off": 0.013129460245789648,
+          "gate_minus_matched_constant": null,
+          "sigma_weighted_constant_strength": 0.05930149555206299,
+          "fired_intervals": 21,
+          "eligible_intervals": 50
+        },
+        {
+          "case": 4,
+          "off": 0.0,
+          "gate": 0.0,
+          "matched_constant": 0.0,
+          "gate_minus_off": 0.0,
+          "gate_minus_matched_constant": 0.0,
+          "sigma_weighted_constant_strength": 0.06172016263008118,
+          "fired_intervals": 21,
+          "eligible_intervals": 50
+        }
+      ]
+    }
+  },
+  "absent_comparator": {
+    "case": 3,
+    "method": "clabs",
+    "disposition": "Its guarded native attempt stopped after committing the call. The result remains unmeasured."
+  },
+  "evidence_sha256": {
+    "finished_output_scores": "017d792bf69e9d9d0bb51cc60b2df0237c362c00a6b165ac6414f8058a17151b",
+    "native": "477bb66343126f81c1ae192eb76b04b8c8755dae71a1d0d49956597516b9c184",
+    "independent_integrity": "672784e67bcb8fcd7e64f643f8a7a4db1ab27ad338d040c59f69e9a1153afe93",
+    "blind_registration": "e5d707842d70731709fd0b0ea4e37b107e8def7ed4513a50f8329635ebd651ba",
+    "off_qualification": "8132b7df7a347510826d1ea04c4c5a454049983943ab9cfcad8c8b63ac391c14"
+  }
+}
