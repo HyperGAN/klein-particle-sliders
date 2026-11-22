@@ -266,5 +266,17 @@ intended native resolution and step grid. Use separate cases and seeds for
 active budget calibration and held-out evaluation. Compare against native OFF,
 a constant dose control, and matched random allocation using the same RAW.
 Rank by mean finished-image intended effect ON minus matched OFF and check
-catastrophic output independently. Adaptive gains remain unmeasured. The
-archived Final Boss and Soft Diffuse Light results are fixed controls.
+catastrophic output independently.
+
+The Soft Diffuse Light RAW8 pilot fitted on portraits and calibrated on two
+plant cases at nominal strength 0.5. Each gate fired on 50 of 100 calibration
+intervals. The teapot and bedroom evaluations used 50 native Euler steps at
+512 pixels and CFG 1. Both gates and their constant controls shared the
+starting latent, and each constant matched the integrated sigma dose of its
+gate.
+
+Across the two held-out cases, CFP averaged −0.00560 versus OFF and +0.00162
+versus its dose-matched constant. CLABS averaged −0.00867 versus OFF and
++0.00467 versus its dose-matched constant. All eight new renders passed
+independent integrity checks. These results leave both settings experimental.
+[Per-case scores, calibration, and applied intervals](evidence/soft-diffuse-light-raw8-adaptive-steering.json)

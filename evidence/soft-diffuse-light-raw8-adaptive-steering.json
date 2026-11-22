@@ -1,0 +1,306 @@
+{
+  "slider": "Soft Diffuse Light",
+  "raw_update": 8,
+  "raw_sha256": "27d7c0c6107e60766de619f526817127c09a03aa8ef551c0da414a853b73f70c",
+  "weights": "raw",
+  "ema_decay": null,
+  "optimizer_updates": 0,
+  "paper": "https://arxiv.org/abs/2611.18274",
+  "native_geometry": {
+    "width": 512,
+    "height": 512,
+    "steps": 50,
+    "guidance": 1.0
+  },
+  "nominal_strength": 0.5,
+  "sigmas": [
+    1.0,
+    0.9962928295135498,
+    0.992460310459137,
+    0.9884960055351257,
+    0.9843929409980774,
+    0.9801437258720398,
+    0.9757404923439026,
+    0.9711744785308838,
+    0.9664367437362671,
+    0.961517333984375,
+    0.9564054608345032,
+    0.9510898590087891,
+    0.9455578327178955,
+    0.9397960305213928,
+    0.933789849281311,
+    0.9275233149528503,
+    0.9209793210029602,
+    0.9141387939453125,
+    0.9069812297821045,
+    0.8994840383529663,
+    0.8916224241256714,
+    0.8833691477775574,
+    0.8746943473815918,
+    0.8655646443367004,
+    0.855943500995636,
+    0.8457900285720825,
+    0.8350588083267212,
+    0.8236991763114929,
+    0.8116541504859924,
+    0.798859715461731,
+    0.7852438688278198,
+    0.7707247138023376,
+    0.7552094459533691,
+    0.738591730594635,
+    0.7207499146461487,
+    0.7015434503555298,
+    0.6808095574378967,
+    0.6583584547042847,
+    0.6339677572250366,
+    0.6073746085166931,
+    0.5782666206359863,
+    0.546269416809082,
+    0.5109302997589111,
+    0.4716968238353729,
+    0.42788779735565186,
+    0.37865325808525085,
+    0.32291868329048157,
+    0.2593059241771698,
+    0.18601757287979126,
+    0.10066439211368561,
+    0.0
+  ],
+  "calibration": {
+    "cases": [
+      "plant-7",
+      "plant-19"
+    ],
+    "active": true,
+    "target_rate": 0.5,
+    "cfp": {
+      "threshold": 0.12178355258583909,
+      "fired": 50,
+      "eligible": 100
+    },
+    "clabs": {
+      "bias": -0.7469590170931739,
+      "fired": 50,
+      "eligible": 100
+    }
+  },
+  "heldout": {
+    "cases": [
+      "teapot-7",
+      "bedroom-31"
+    ],
+    "fit_families": [
+      "portrait"
+    ],
+    "independent_integrity_passes": 8,
+    "blinded_geometry_tiles": 10,
+    "gate_comparator": "Each case and method uses a constant at the realized sigma-weighted gate dose.",
+    "intended_effect": "Normalized 10–90% cast-shadow edge width at frozen registrations. Each case contributes equally to mean ON minus OFF.",
+    "per_case": [
+      {
+        "case": "teapot-7",
+        "seed": 7,
+        "method": "cfp",
+        "eligible": 50,
+        "sigma_weighted_strength": 0.050257980823516846,
+        "intended_effect": {
+          "off": 0.1584120455325571,
+          "gate": 0.14715970291351313,
+          "constant": 0.1539088827439494,
+          "gate_minus_off": -0.011252342619043981,
+          "constant_minus_off": -0.004503162788607712,
+          "timing_gain": -0.006749179830436269
+        },
+        "png_sha256": {
+          "gate": "22ccdb0c2e00512df7ca76f39310bf20528573481c10bc80d32991c80e767d19",
+          "constant": "c07fc90aaf19504f44883e7777ac4af6ebf90b2997717b4c6cd68e1bc3787579",
+          "off": "bb963ba8f3e56abe2784caa13ecbfd215c8ee6c001d6d1d4baf7e707d0514521"
+        },
+        "independent_integrity": {
+          "gate": "pass",
+          "constant": "pass"
+        },
+        "fired_intervals": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18
+        ],
+        "fired_count": 19
+      },
+      {
+        "case": "teapot-7",
+        "seed": 7,
+        "method": "clabs",
+        "eligible": 50,
+        "sigma_weighted_strength": 0.05494740605354309,
+        "intended_effect": {
+          "off": 0.1584120455325571,
+          "gate": 0.14754765852385598,
+          "constant": 0.139233150646797,
+          "gate_minus_off": -0.010864387008701126,
+          "constant_minus_off": -0.019178894885760106,
+          "timing_gain": 0.00831450787705898
+        },
+        "png_sha256": {
+          "gate": "15a08c73e9316dacda55f1dd45c98c1e39f24424e32046cbfb65963f1a0e1ce6",
+          "constant": "46c161792efd9f17b2c9fb40103ba26bc5a19c04f0241906358a63c462420bd4",
+          "off": "bb963ba8f3e56abe2784caa13ecbfd215c8ee6c001d6d1d4baf7e707d0514521"
+        },
+        "independent_integrity": {
+          "gate": "pass",
+          "constant": "pass"
+        },
+        "fired_intervals": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          18,
+          19,
+          21
+        ],
+        "fired_count": 20
+      },
+      {
+        "case": "bedroom-31",
+        "seed": 31,
+        "method": "cfp",
+        "eligible": 50,
+        "sigma_weighted_strength": 0.0395103394985199,
+        "intended_effect": {
+          "off": 0.15155487712417298,
+          "gate": 0.15161068982550652,
+          "constant": 0.14161582943212775,
+          "gate_minus_off": 5.581270133353522e-05,
+          "constant_minus_off": -0.009939047692045233,
+          "timing_gain": 0.009994860393378768
+        },
+        "png_sha256": {
+          "gate": "eee4010f507d8cfdb786ef361b12e9cedd20b939a7270fd68696fd224ea0b97d",
+          "constant": "1f8b86294f06221ab5cc8843b5c6e90b7807a14be7392a59c54bf40eeeb1a6ff",
+          "off": "36e29ada1d74ac814331dc5f50a8879993842c10218824f735184c8cc8d00d97"
+        },
+        "independent_integrity": {
+          "gate": "pass",
+          "constant": "pass"
+        },
+        "fired_intervals": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "fired_count": 16
+      },
+      {
+        "case": "bedroom-31",
+        "seed": 31,
+        "method": "clabs",
+        "eligible": 50,
+        "sigma_weighted_strength": 0.04736402630805969,
+        "intended_effect": {
+          "off": 0.15155487712417298,
+          "gate": 0.14507461364023364,
+          "constant": 0.14404450326204282,
+          "gate_minus_off": -0.006480263483939347,
+          "constant_minus_off": -0.00751037386213016,
+          "timing_gain": 0.0010301103781908127
+        },
+        "png_sha256": {
+          "gate": "88dd171802cf9bc679ba271fc70d83a9d5c8879e7bc5284ad0b35d4d640a48fe",
+          "constant": "7d3378850b002c769dbf248b50185191e317f84cdb1c840878bc26047332a1da",
+          "off": "36e29ada1d74ac814331dc5f50a8879993842c10218824f735184c8cc8d00d97"
+        },
+        "independent_integrity": {
+          "gate": "pass",
+          "constant": "pass"
+        },
+        "fired_intervals": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          16,
+          17,
+          20
+        ],
+        "fired_count": 18
+      }
+    ],
+    "aggregate": {
+      "cfp": {
+        "gate_minus_off": -0.005598264958855223,
+        "constant_minus_off": -0.0072211052403264725,
+        "timing_gain": 0.0016228402814712495,
+        "status": "measured"
+      },
+      "clabs": {
+        "gate_minus_off": -0.008672325246320237,
+        "constant_minus_off": -0.013344634373945133,
+        "timing_gain": 0.004672309127624896,
+        "status": "measured"
+      }
+    },
+    "qualifies_new_default": false
+  },
+  "source_sha256": {
+    "calibration": "2b1724f2a173317291e7e21768f937d3ebace512a7630ff6064c0f6779b3ea6e",
+    "native": "24c1824b93d50a8230c4c60731af9dd31ec82891750c10ab8014ae128d46568b",
+    "closeout": "8df2982f144b9ec1f34f98c582831d0c06234b099287bc0decf7ac9de667498b",
+    "integrity": "792225dfb7549d68f156de7cf3553ad7a4127badd5ef50803a5f41d04624a599",
+    "blinded_registration": "629701042a98f5b4ac26b0d9ff0fb0258d4cddb15861622b82b8e22f29eb0342",
+    "verified_result": "803a7c1b8dcc20bef9274337d3320b6484b8d5e1a966c8845cf24827f0e65a3b"
+  }
+}
