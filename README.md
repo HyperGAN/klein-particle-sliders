@@ -201,7 +201,7 @@ Earlier configuration and qualification receipts remain available in the [archiv
 ### Fitted S-PSR on native Euler velocity
 
 The opt-in `klein_sliders.velocity_steering` renderer accepts an authenticated
-eight-step, 512-pixel scale-zero RAW fit. The shared affine-ReLU probe reads
+eight- or 50-step, 512-pixel scale-zero RAW fit. The shared affine-ReLU probe reads
 the FP32 channel mean of the packed velocity. The render applies its fitted
 direction to the velocity consumed by the stock CFG 1 Euler scheduler. The
 original stock owner loads and supplies the frozen RAW adapter, native
@@ -209,9 +209,11 @@ pipeline, and request. Existing fixed and gate entry points remain available.
 
 Construct `VelocitySteeringPlan(core_wheel=..., binding_path=...,
 binding_sha256=..., fit_path=...)` from a sealed replay binding. The JSON
-binding records `schema="klein-native8-velocity-replay-v1"`, the fitted
-probe and fit-plan hashes, exact RAW and native model identity hashes,
-the packed velocity shape, and the full native sigma grid. The model
+binding uses `schema="klein-native8-velocity-replay-v1"` for eight steps or
+`schema="klein-native50-velocity-replay-v1"` for 50 steps. Each binding records
+the fitted probe and fit-plan hashes, exact RAW and native model identity
+hashes, the packed velocity shape, and the full native sigma grid. The fit,
+binding, and live scheduler must share the same grid. The model
 identity hash uses `klein_sliders.contracts.digest`. Use a fitted
 `weights="raw"`, `ema_decay=None` probe and pass a strength selected on the
 separate calibration cases.

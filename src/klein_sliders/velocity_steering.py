@@ -19,6 +19,8 @@ from .contracts import digest
 
 
 SCHEMA = "klein-native8-velocity-replay-v1"
+NATIVE50_SCHEMA = "klein-native50-velocity-replay-v1"
+_STEPS_BY_SCHEMA = {SCHEMA: 8, NATIVE50_SCHEMA: 50}
 VELOCITY_SHAPE = (1, 1024, 128)
 CORE_REVISION = "28745b7d47435f89bb55b86d1761adce6b8f1b06"
 _SHARED_LOCK = Lock()
@@ -80,17 +82,20 @@ class VelocitySteeringPlan:
 
     def __init__(self, *, core_wheel, binding_path, binding_sha256, fit_path):
         binding = json.loads(_read(binding_path, binding_sha256, "binding"))
-        if (not isinstance(binding, dict) or binding.get("schema") != SCHEMA
+        if (not isinstance(binding, dict) or not isinstance(binding.get("schema"), str)
+                or binding["schema"] not in _STEPS_BY_SCHEMA
                 or binding.get("weights") != "raw" or "ema_decay" not in binding or binding["ema_decay"] is not None):
             raise ValueError("Expected an authenticated Klein RAW velocity replay binding")
         for key in ("fit_sha256", "fit_plan_sha256", "raw_sha256", "model_identity_sha256"):
             if not _sha(binding.get(key)):
                 raise ValueError(f"Klein velocity replay binding lacks {key}")
         grid = binding.get("sigmas")
+        steps = _STEPS_BY_SCHEMA[binding["schema"]]
         if (binding.get("velocity_shape") != list(VELOCITY_SHAPE) or not isinstance(grid, list)
-                or len(grid) != 9 or grid[-1] != 0 or any(type(v) not in (float, int) or not isfinite(v) for v in grid)
+                or len(grid) != steps + 1 or grid[-1] != 0
+                or any(type(v) not in (float, int) or not isfinite(v) for v in grid)
                 or any(a <= b for a, b in pairwise(grid))):
-            raise ValueError("Expected the measured eight-step Klein velocity geometry and grid")
+            raise ValueError(f"Expected the measured {steps}-step Klein velocity geometry and grid")
         fit = torch.load(BytesIO(_read(fit_path, binding["fit_sha256"], "probe fit")), map_location="cpu", weights_only=True)
         if (not isinstance(fit, Mapping) or fit.get("weights") != "raw" or "ema_decay" not in fit or fit["ema_decay"] is not None
                 or fit.get("native_raw_strength") != 0 or fit.get("velocity_shape") != list(VELOCITY_SHAPE)

@@ -8,12 +8,14 @@ from pathlib import Path
 from types import SimpleNamespace
 
 from diffusers import FlowMatchEulerDiscreteScheduler
+from diffusers.pipelines.flux2.pipeline_flux2_klein import compute_empirical_mu, retrieve_timesteps
+import numpy as np
 import pytest
 import torch
 
 from klein_sliders.contracts import digest
 from klein_sliders.velocity_steering import (
-    SCHEMA, VELOCITY_SHAPE, VelocitySteeringPlan, render_native_velocity,
+    NATIVE50_SCHEMA, SCHEMA, VELOCITY_SHAPE, VelocitySteeringPlan, render_native_velocity,
 )
 
 
@@ -25,15 +27,23 @@ def tensor_sha(value):
     return sha256(value.contiguous().view(torch.uint8).numpy().tobytes()).hexdigest()
 
 
-def clock():
-    scheduler = FlowMatchEulerDiscreteScheduler()
-    scheduler.set_timesteps(sigmas=[1, .95, .85, .8, .7, .55, .4, .2], device="cpu")
+def clock(steps):
+    if steps == 8:
+        scheduler = FlowMatchEulerDiscreteScheduler()
+        scheduler.set_timesteps(sigmas=[1, .95, .85, .8, .7, .55, .4, .2], device="cpu")
+    else:
+        assert steps == 50
+        scheduler = FlowMatchEulerDiscreteScheduler(shift=3.0, use_dynamic_shifting=True)
+        retrieve_timesteps(scheduler, steps, "cpu", sigmas=np.linspace(1., 1 / steps, steps),
+                           mu=compute_empirical_mu(image_seq_len=VELOCITY_SHAPE[1], num_steps=steps))
+        evidence = Path(__file__).resolve().parents[1] / "evidence/soft-diffuse-light-raw8-adaptive-steering.json"
+        assert scheduler.sigmas.tolist() == json.loads(evidence.read_bytes())["sigmas"]
     scheduler.set_begin_index(0)
     return scheduler
 
 
-@pytest.fixture
-def owned(tmp_path):
+@pytest.fixture(params=(8, 50), ids=("8-step", "50-step"))
+def owned(tmp_path, request):
     supplied = os.environ.get("KLEIN_SPSR_CORE_WHEEL")
     if not supplied:
         pytest.skip("Set KLEIN_SPSR_CORE_WHEEL to the pinned shared wheel")
@@ -44,7 +54,8 @@ def owned(tmp_path):
     adapter.strength = 0
     torch.save(dict(network=adapter.state_dict(), weights="raw", ema_decay=None), raw)
     identity = {"fixture": "stock CPU Euler / packed Klein geometry"}
-    grid = clock().sigmas.tolist()
+    steps = request.param
+    grid = clock(steps).sigmas.tolist()
     train = "a" * 64
     module = "67ee03066e255fe105735820b0edba53757d943b93239b1279de707d23dbae59"
     state = {"probe.weight": torch.ones(1, 128)/128, "probe.bias": torch.tensor([0.125]),
@@ -52,11 +63,13 @@ def owned(tmp_path):
     torch.save(dict(probe=state, velocity_shape=list(VELOCITY_SHAPE), weights="raw", ema_decay=None,
                     native_raw_strength=0, plan={"sha256": train}, raw_checkpoint={"sha256": file_sha(raw)},
                     sigmas=grid, core_module_sha256=module), fit)
-    ref.write_text(json.dumps(dict(schema=SCHEMA, weights="raw", ema_decay=None, fit_sha256=file_sha(fit),
+    schema = SCHEMA if steps == 8 else NATIVE50_SCHEMA
+    ref.write_text(json.dumps(dict(schema=schema, weights="raw", ema_decay=None, fit_sha256=file_sha(fit),
         fit_plan_sha256=train, raw_sha256=file_sha(raw), model_identity_sha256=digest(identity),
         velocity_shape=list(VELOCITY_SHAPE), sigmas=grid)))
     plan = VelocitySteeringPlan(core_wheel=supplied, binding_path=ref, binding_sha256=file_sha(ref), fit_path=fit)
-    return dict(plan=plan, adapter=adapter, raw_path=raw, model_identity=identity, binding=ref, fit=fit, grid=grid)
+    return dict(plan=plan, adapter=adapter, raw_path=raw, model_identity=identity, binding=ref, fit=fit, grid=grid,
+                steps=steps)
 
 
 def native_request(seed=71):
@@ -68,11 +81,13 @@ def native_request(seed=71):
     return start, cond, text, request
 
 
-def run(scope, *, alpha, mode="adaptive", trace=None, requested=None, cfg=False, wrong_text=False, mutate_grid=False):
+def run(scope, *, alpha, mode="adaptive", trace=None, requested=None, cfg=False, wrong_text=False,
+        mutate_grid=False, native_steps=None, begin_index=0):
     start, cond, text, native = native_request()
     if wrong_text:
         text += 1
-    velocities = [torch.full_like(start, value / 8) for value in range(8)]
+    steps = scope["steps"] if native_steps is None else native_steps
+    velocities = [torch.full_like(start, value / steps) for value in range(steps)]
     seen = []
 
     class Transformer(torch.nn.Module):
@@ -86,9 +101,10 @@ def run(scope, *, alpha, mode="adaptive", trace=None, requested=None, cfg=False,
             return (value,)
 
     model = Transformer().eval()
-    scheduler = clock()
+    scheduler = clock(steps)
     if mutate_grid:
-        scheduler.sigmas[1] = 0.875
+        scheduler.sigmas[1] = (scheduler.sigmas[0] + scheduler.sigmas[1]) / 2
+    scheduler.set_begin_index(begin_index)
     pipe = SimpleNamespace(transformer=model, scheduler=scheduler, do_classifier_free_guidance=cfg)
 
     def render():
@@ -122,6 +138,7 @@ def test_adaptive_euler_identity_and_exact_bound_constant(owned):
     assert {row["applied_coefficient"] for row in constant["steps"]} == {adaptive["nearest_even_constant"]}
     assert constant["exact_coefficient_dose"] == adaptive["exact_nearest_constant_dose"]
     assert adaptive["sigmas"] == owned["grid"]
+    assert len(adaptive["steps"]) == len(constant["steps"]) == owned["steps"]
     assert adaptive["integrated_realized_mean_BF16_edit_norm"] > 0
     assert all(row["interval"] == i for i, row in enumerate(constant["steps"]))
     assert all(a > b for a, b in pairwise(owned["grid"]))
@@ -162,6 +179,27 @@ def test_rejects_owner_model_clock_and_condition_change(owned):
         run(owned, alpha=0, wrong_text=True)
     with pytest.raises(RuntimeError, match="CFG1"):
         run(owned, alpha=0, cfg=True)
+    with pytest.raises(RuntimeError, match="per Euler interval"):
+        run(owned, alpha=0, begin_index=1)
+
+
+def test_fit_and_live_clock_cannot_cross_profiles(owned):
+    other_steps = 50 if owned["steps"] == 8 else 8
+    with pytest.raises(RuntimeError, match="Euler grid differs"):
+        run(owned, alpha=0, native_steps=other_steps)
+    binding_path = owned["binding"]
+    binding = json.loads(binding_path.read_bytes())
+    other_schema = NATIVE50_SCHEMA if other_steps == 50 else SCHEMA
+    changed = dict(binding, schema=other_schema)
+    binding_path.write_text(json.dumps(changed))
+    with pytest.raises(ValueError, match=f"measured {other_steps}-step"):
+        VelocitySteeringPlan(core_wheel=os.environ["KLEIN_SPSR_CORE_WHEEL"], binding_path=binding_path,
+            binding_sha256=file_sha(binding_path), fit_path=owned["fit"])
+    changed["sigmas"] = clock(other_steps).sigmas.tolist()
+    binding_path.write_text(json.dumps(changed))
+    with pytest.raises(ValueError, match="Probe fit differs"):
+        VelocitySteeringPlan(core_wheel=os.environ["KLEIN_SPSR_CORE_WHEEL"], binding_path=binding_path,
+            binding_sha256=file_sha(binding_path), fit_path=owned["fit"])
 
 
 def test_refuses_fit_file_replacement(owned):
