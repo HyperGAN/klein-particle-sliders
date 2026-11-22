@@ -242,6 +242,22 @@ five held-out cases, mean gains versus the equal-dose constant were
 included images passed the independent integrity check.
 [Per-case scores and applied strengths](evidence/final-boss-raw64-adaptive-steering.json)
 
+A later exploratory comparison used the paper's 20% and 80% firing targets.
+The 80% target rounded to 13 of 16 calibration intervals. Both CFP and CLABS
+beat their own equal-dose constants on the reused exploratory cases.
+[Exploratory firing-budget evidence](evidence/final-boss-raw64-exploratory-firing-budgets.json)
+
+The first family-disjoint confirmation panel stopped when one OFF image failed
+integrity. A separate, preregistered five-family panel kept the same RAW64
+weights, sampler and 13-of-16 calibration. On that panel, CFP and CLABS fired
+on all eight steps in every case, producing byte-identical images to their
+equal-dose constants. Both methods averaged +0.02267 intended effect versus
+OFF and exactly 0 versus the equal-dose constant. One random-gated image and
+its constant failed integrity in the same case, so random has no aggregate
+effect result. The confirmation supported keeping the existing constant
+strength.
+[Fresh confirmation traces and scores](evidence/final-boss-raw64-fresh-confirmation.json)
+
 The [Soft Diffuse Light prompt pairs](configs/diffuse-light-pairs.json) supply
 actual neutral and attribute prompts. Their archived 512-pixel BF16 eight-step
 cache stores both teacher velocities at each shared neutral-trajectory latent.

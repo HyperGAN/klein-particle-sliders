@@ -1,0 +1,455 @@
+{
+  "slider": "Final Boss",
+  "raw_update": 64,
+  "raw_sha256": "5bdc87d1cbe728da682359d4afd87fa7041d32f5b9921f5f332293192b95b1f1",
+  "weights": "raw",
+  "ema_decay": null,
+  "optimizer_updates": 0,
+  "paper": "https://arxiv.org/abs/2611.18274",
+  "core": "b1f780decc516808cfd3019d5e5b674457161f86",
+  "native_geometry": {
+    "width": 512,
+    "height": 512,
+    "steps": 8,
+    "guidance": 1.0,
+    "max_sequence_length": 128,
+    "text_encoder_layers": [
+      9,
+      18,
+      27
+    ],
+    "dtype": "bfloat16"
+  },
+  "nominal_strength": 1.0,
+  "sigmas": [
+    1.0,
+    0.981072187423706,
+    0.9569222927093506,
+    0.9250432848930359,
+    0.881017804145813,
+    0.816270112991333,
+    0.7116665244102478,
+    0.5140448212623596,
+    0.0
+  ],
+  "cohort": {
+    "frozen_cases": 5,
+    "prompt_family_and_seed_disjoint_from_fit_calibration_exploration_and_first_confirmation": true,
+    "qualified_OFFs": 5,
+    "prompt_families_frozen_before_outputs": true,
+    "case_replacements": 0,
+    "scope": "Second independently frozen confirmation panel. The first independent panel stopped at OFF qualification before timed renders."
+  },
+  "paper_firing_target": 0.8,
+  "calibration_target": 0.8125,
+  "accepted_calibration": {
+    "cfp": {
+      "parameter": 0.2638481538742781,
+      "fired": 13,
+      "eligible": 16,
+      "measured_trials": 3
+    },
+    "clabs": {
+      "parameter": 2.5258871202999598,
+      "fired": 13,
+      "eligible": 16,
+      "measured_trials": 5
+    }
+  },
+  "random_firing_probability": 0.8125,
+  "metric": "Equal-case mean finished Final Boss intended-effect ON minus matched OFF.",
+  "comparison": "Subtract the equal-dose constant mean from the gate mean. Match dose over native sigma widths.",
+  "observer": {
+    "provider": "NanoGPT",
+    "resolved_model": "typesafe/jev-1.14-20261014",
+    "matched_ON_and_OFF": true,
+    "first_OFF_judgments": 5,
+    "first_ON_judgments": 5
+  },
+  "screen": "Independent catastrophic output check. A failed method has no aggregate effect result.",
+  "methods": {
+    "cfp": {
+      "integrity": "pass",
+      "realized_firing": {
+        "fired": 40,
+        "eligible": 40
+      },
+      "mean": {
+        "gate_minus_off": 0.02266666666666664,
+        "constant_minus_off": 0.02266666666666664,
+        "gate_minus_constant": 0.0
+      },
+      "wins": 0,
+      "ties": 5,
+      "losses": 0,
+      "cases": [
+        {
+          "case": "17eb351888d68c04f9495606473bf1553bc634b7cbed7247e1782a0c3164a40e",
+          "seed": 4434965527963871041,
+          "fired": 8,
+          "eligible": 8,
+          "gate_strengths": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matched_constant_strength": 1.0,
+          "image_sha256": {
+            "off": "17eb351888d68c04f9495606473bf1553bc634b7cbed7247e1782a0c3164a40e",
+            "gated": "a3c568d11a718945ed378819fbeeec0844cbaf4f16e00d4591f9b900ec8e3427",
+            "constant": "a3c568d11a718945ed378819fbeeec0844cbaf4f16e00d4591f9b900ec8e3427"
+          },
+          "intended_effect": {
+            "off": 0.15,
+            "gated": 0.21666666666666665,
+            "constant": 0.21666666666666665
+          },
+          "first_effect_sha256": {
+            "off": "e1917927df11cf7cf6154bc3228a90dcac3672136172a4b5d80e16109579758b",
+            "gated": "9c5967de687a90c372f1e974611356842ef8db5c49954dfce9da7965300c92fd",
+            "constant": "9c5967de687a90c372f1e974611356842ef8db5c49954dfce9da7965300c92fd"
+          }
+        },
+        {
+          "case": "8b285a5c53c49bb1504fb75ca998d05c92cc9d0de4e634d875355c9c7801d71e",
+          "seed": 5089503330940037978,
+          "fired": 8,
+          "eligible": 8,
+          "gate_strengths": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matched_constant_strength": 1.0,
+          "image_sha256": {
+            "off": "8b285a5c53c49bb1504fb75ca998d05c92cc9d0de4e634d875355c9c7801d71e",
+            "gated": "f5105da97a73f0f233fe66ec0bf111f62a3329f6ec8ba9e904d9aa5f15218765",
+            "constant": "f5105da97a73f0f233fe66ec0bf111f62a3329f6ec8ba9e904d9aa5f15218765"
+          },
+          "intended_effect": {
+            "off": 0.04666666666666671,
+            "gated": 0.06666666666666665,
+            "constant": 0.06666666666666665
+          },
+          "first_effect_sha256": {
+            "off": "3f6be861641992bcdd87a4226361d757b9c20a1d595c20fd0b5003b16bc75349",
+            "gated": "93f42c8cc66e01cc40549320114e4787bcc116ff73f7134d49e0ce6e3e820a85",
+            "constant": "93f42c8cc66e01cc40549320114e4787bcc116ff73f7134d49e0ce6e3e820a85"
+          }
+        },
+        {
+          "case": "1ac86c97f60d4cf13c313d09df31e965383b6e9370db439b8fadbba2767f86cc",
+          "seed": 4514158007193435794,
+          "fired": 8,
+          "eligible": 8,
+          "gate_strengths": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matched_constant_strength": 1.0,
+          "image_sha256": {
+            "off": "1ac86c97f60d4cf13c313d09df31e965383b6e9370db439b8fadbba2767f86cc",
+            "gated": "aad16eb01e81368cfb3e99da7f703410cb02163f289f98051681e94823dce3de",
+            "constant": "aad16eb01e81368cfb3e99da7f703410cb02163f289f98051681e94823dce3de"
+          },
+          "intended_effect": {
+            "off": 0.06999999999999999,
+            "gated": 0.08333333333333333,
+            "constant": 0.08333333333333333
+          },
+          "first_effect_sha256": {
+            "off": "8e6811978598dee88bdbcbe924983dc8be43a3f7a32e6dbe191bc306def96648",
+            "gated": "0fe9b5f71244569d7ff01860c0c4d3dc74254d985baf91486b2565d298cb689e",
+            "constant": "0fe9b5f71244569d7ff01860c0c4d3dc74254d985baf91486b2565d298cb689e"
+          }
+        },
+        {
+          "case": "51437cd6ec71add38d7a05258bc04b45eba187b5246ceaf11442b94e8cfddda5",
+          "seed": 3494366946041587179,
+          "fired": 8,
+          "eligible": 8,
+          "gate_strengths": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matched_constant_strength": 1.0,
+          "image_sha256": {
+            "off": "51437cd6ec71add38d7a05258bc04b45eba187b5246ceaf11442b94e8cfddda5",
+            "gated": "3744c7c56743894328be3108f4a1ed08ebe41935a6de6ee95de398d4d471f102",
+            "constant": "3744c7c56743894328be3108f4a1ed08ebe41935a6de6ee95de398d4d471f102"
+          },
+          "intended_effect": {
+            "off": 0.21333333333333337,
+            "gated": 0.23666666666666666,
+            "constant": 0.23666666666666666
+          },
+          "first_effect_sha256": {
+            "off": "5514a37a157d34ea21d1ceecf3b5b6c3ce4a477d91dd0e473c4c653267c38af2",
+            "gated": "50c0500051b48b38fbd1536d8b6a49d6916f56f66b8c39437ebea573587bf766",
+            "constant": "50c0500051b48b38fbd1536d8b6a49d6916f56f66b8c39437ebea573587bf766"
+          }
+        },
+        {
+          "case": "4965d4e157e12fbefc978067a111a98e6fa49edd715b316d7cc247be73f5bd96",
+          "seed": 1398472183948692323,
+          "fired": 8,
+          "eligible": 8,
+          "gate_strengths": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matched_constant_strength": 1.0,
+          "image_sha256": {
+            "off": "4965d4e157e12fbefc978067a111a98e6fa49edd715b316d7cc247be73f5bd96",
+            "gated": "3b7f6a7c0d2da61fd6172e8e5411c1cb4138b6fcfc7c4fdc7dafa703e44932c3",
+            "constant": "3b7f6a7c0d2da61fd6172e8e5411c1cb4138b6fcfc7c4fdc7dafa703e44932c3"
+          },
+          "intended_effect": {
+            "off": 0.06666666666666665,
+            "gated": 0.05666666666666664,
+            "constant": 0.05666666666666664
+          },
+          "first_effect_sha256": {
+            "off": "0582cf7984cafdd9cf9989d78214eb212226ac8415e6cf6722b85c02b009cdad",
+            "gated": "0827f391c3bd5eb18563bb89effd55ca4a246e39faee320a702e29d87c91815b",
+            "constant": "0827f391c3bd5eb18563bb89effd55ca4a246e39faee320a702e29d87c91815b"
+          }
+        }
+      ]
+    },
+    "clabs": {
+      "integrity": "pass",
+      "realized_firing": {
+        "fired": 40,
+        "eligible": 40
+      },
+      "mean": {
+        "gate_minus_off": 0.02266666666666664,
+        "constant_minus_off": 0.02266666666666664,
+        "gate_minus_constant": 0.0
+      },
+      "wins": 0,
+      "ties": 5,
+      "losses": 0,
+      "cases": [
+        {
+          "case": "17eb351888d68c04f9495606473bf1553bc634b7cbed7247e1782a0c3164a40e",
+          "seed": 4434965527963871041,
+          "fired": 8,
+          "eligible": 8,
+          "gate_strengths": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matched_constant_strength": 1.0,
+          "image_sha256": {
+            "off": "17eb351888d68c04f9495606473bf1553bc634b7cbed7247e1782a0c3164a40e",
+            "gated": "a3c568d11a718945ed378819fbeeec0844cbaf4f16e00d4591f9b900ec8e3427",
+            "constant": "a3c568d11a718945ed378819fbeeec0844cbaf4f16e00d4591f9b900ec8e3427"
+          },
+          "intended_effect": {
+            "off": 0.15,
+            "gated": 0.21666666666666665,
+            "constant": 0.21666666666666665
+          },
+          "first_effect_sha256": {
+            "off": "e1917927df11cf7cf6154bc3228a90dcac3672136172a4b5d80e16109579758b",
+            "gated": "9c5967de687a90c372f1e974611356842ef8db5c49954dfce9da7965300c92fd",
+            "constant": "9c5967de687a90c372f1e974611356842ef8db5c49954dfce9da7965300c92fd"
+          }
+        },
+        {
+          "case": "8b285a5c53c49bb1504fb75ca998d05c92cc9d0de4e634d875355c9c7801d71e",
+          "seed": 5089503330940037978,
+          "fired": 8,
+          "eligible": 8,
+          "gate_strengths": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matched_constant_strength": 1.0,
+          "image_sha256": {
+            "off": "8b285a5c53c49bb1504fb75ca998d05c92cc9d0de4e634d875355c9c7801d71e",
+            "gated": "f5105da97a73f0f233fe66ec0bf111f62a3329f6ec8ba9e904d9aa5f15218765",
+            "constant": "f5105da97a73f0f233fe66ec0bf111f62a3329f6ec8ba9e904d9aa5f15218765"
+          },
+          "intended_effect": {
+            "off": 0.04666666666666671,
+            "gated": 0.06666666666666665,
+            "constant": 0.06666666666666665
+          },
+          "first_effect_sha256": {
+            "off": "3f6be861641992bcdd87a4226361d757b9c20a1d595c20fd0b5003b16bc75349",
+            "gated": "93f42c8cc66e01cc40549320114e4787bcc116ff73f7134d49e0ce6e3e820a85",
+            "constant": "93f42c8cc66e01cc40549320114e4787bcc116ff73f7134d49e0ce6e3e820a85"
+          }
+        },
+        {
+          "case": "1ac86c97f60d4cf13c313d09df31e965383b6e9370db439b8fadbba2767f86cc",
+          "seed": 4514158007193435794,
+          "fired": 8,
+          "eligible": 8,
+          "gate_strengths": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matched_constant_strength": 1.0,
+          "image_sha256": {
+            "off": "1ac86c97f60d4cf13c313d09df31e965383b6e9370db439b8fadbba2767f86cc",
+            "gated": "aad16eb01e81368cfb3e99da7f703410cb02163f289f98051681e94823dce3de",
+            "constant": "aad16eb01e81368cfb3e99da7f703410cb02163f289f98051681e94823dce3de"
+          },
+          "intended_effect": {
+            "off": 0.06999999999999999,
+            "gated": 0.08333333333333333,
+            "constant": 0.08333333333333333
+          },
+          "first_effect_sha256": {
+            "off": "8e6811978598dee88bdbcbe924983dc8be43a3f7a32e6dbe191bc306def96648",
+            "gated": "0fe9b5f71244569d7ff01860c0c4d3dc74254d985baf91486b2565d298cb689e",
+            "constant": "0fe9b5f71244569d7ff01860c0c4d3dc74254d985baf91486b2565d298cb689e"
+          }
+        },
+        {
+          "case": "51437cd6ec71add38d7a05258bc04b45eba187b5246ceaf11442b94e8cfddda5",
+          "seed": 3494366946041587179,
+          "fired": 8,
+          "eligible": 8,
+          "gate_strengths": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matched_constant_strength": 1.0,
+          "image_sha256": {
+            "off": "51437cd6ec71add38d7a05258bc04b45eba187b5246ceaf11442b94e8cfddda5",
+            "gated": "3744c7c56743894328be3108f4a1ed08ebe41935a6de6ee95de398d4d471f102",
+            "constant": "3744c7c56743894328be3108f4a1ed08ebe41935a6de6ee95de398d4d471f102"
+          },
+          "intended_effect": {
+            "off": 0.21333333333333337,
+            "gated": 0.23666666666666666,
+            "constant": 0.23666666666666666
+          },
+          "first_effect_sha256": {
+            "off": "5514a37a157d34ea21d1ceecf3b5b6c3ce4a477d91dd0e473c4c653267c38af2",
+            "gated": "50c0500051b48b38fbd1536d8b6a49d6916f56f66b8c39437ebea573587bf766",
+            "constant": "50c0500051b48b38fbd1536d8b6a49d6916f56f66b8c39437ebea573587bf766"
+          }
+        },
+        {
+          "case": "4965d4e157e12fbefc978067a111a98e6fa49edd715b316d7cc247be73f5bd96",
+          "seed": 1398472183948692323,
+          "fired": 8,
+          "eligible": 8,
+          "gate_strengths": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "matched_constant_strength": 1.0,
+          "image_sha256": {
+            "off": "4965d4e157e12fbefc978067a111a98e6fa49edd715b316d7cc247be73f5bd96",
+            "gated": "3b7f6a7c0d2da61fd6172e8e5411c1cb4138b6fcfc7c4fdc7dafa703e44932c3",
+            "constant": "3b7f6a7c0d2da61fd6172e8e5411c1cb4138b6fcfc7c4fdc7dafa703e44932c3"
+          },
+          "intended_effect": {
+            "off": 0.06666666666666665,
+            "gated": 0.05666666666666664,
+            "constant": 0.05666666666666664
+          },
+          "first_effect_sha256": {
+            "off": "0582cf7984cafdd9cf9989d78214eb212226ac8415e6cf6722b85c02b009cdad",
+            "gated": "0827f391c3bd5eb18563bb89effd55ca4a246e39faee320a702e29d87c91815b",
+            "constant": "0827f391c3bd5eb18563bb89effd55ca4a246e39faee320a702e29d87c91815b"
+          }
+        }
+      ]
+    },
+    "random": {
+      "integrity": "fail",
+      "mean": null,
+      "failed_arms": [
+        {
+          "case": "51437cd6ec71add38d7a05258bc04b45eba187b5246ceaf11442b94e8cfddda5",
+          "arm": "gate",
+          "image_sha256": "e30cc4b7d16251aec4dfce7482a6a88a7e889f813f0608de2b0b5f9a103b7a0f"
+        },
+        {
+          "case": "51437cd6ec71add38d7a05258bc04b45eba187b5246ceaf11442b94e8cfddda5",
+          "arm": "constant",
+          "image_sha256": "e768becc2afe303fbec388d95b61246e4c0baec6fa990c2e72384fa581abeb90"
+        }
+      ]
+    }
+  },
+  "schedule_promoted": false,
+  "evidence_sha256": {
+    "frozen_panel": "3f1d9aa8a189b437442da8f647f6d204fdd543598b4ab67819264c8acc7efefc",
+    "analysis_plan": "acfaeca59882410be2d8d3538846d894c64803a1a7136b39a76bedfe3a37d3c2",
+    "frozen_calibration": "6b165254ad4939f1bf8215360ad6334e97f9990922d5e1acca1940e09afe5e66",
+    "first_panel_closeout": "14e081a438119f5eacfcb355381fdb8873fc5bf1e9b14f7056e31de3d6bcf22e",
+    "native_bank": "4051bdd5c468a69dc5cee98f7ad8c95fd5a6f37ff47af9e5934c8bbf402a47a4",
+    "independent_integrity": "c7df9ea68b2a2ab2439255653057f184565ecc7f3b37893873111664d91c9246",
+    "original_random_stop": "5fe6a549cac53483f8df9762daa01e34384de8fbb39b84dd5e14606acabd11ad",
+    "off_qualification": "7a568c16ab00843287d6d7e4c0ad97d84bb5042b6674f80ddace78618579b24c",
+    "observer_recovery": "8b9be2c85788ae98fee0ddcc87a3ab48ba049bcf67d8f03ca42513046f0a1028",
+    "observed_result": "149dbb5cba6809d2e2a632e4ab90d035889e26fc720155d65f6a8d501c3d6f9a"
+  }
+}
