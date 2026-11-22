@@ -280,3 +280,10 @@ versus its dose-matched constant. CLABS averaged −0.00867 versus OFF and
 +0.00467 versus its dose-matched constant. All eight new renders passed
 independent integrity checks. These results leave both settings experimental.
 [Per-case scores, calibration, and applied intervals](evidence/soft-diffuse-light-raw8-adaptive-steering.json)
+
+A separate prospective panel fixed four additional receiver and silhouette
+registrations before timing. CFP averaged −0.00316 versus OFF and +0.00065
+versus the same-dose constant. All 15 returned timing outputs passed
+independent integrity. CLABS has three measured pairs because the third
+scene’s matched constant remains unmeasured after the native memory stop.
+[Four-case receiver evidence](evidence/soft-diffuse-light-raw8-receiver-timing-heldout.json)
