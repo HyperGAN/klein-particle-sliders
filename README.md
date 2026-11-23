@@ -245,6 +245,12 @@ applied coefficients, exact coefficient-space dose, and measured BF16 edit
 norm integrated separately. Native calibration and held-out output evidence
 remain separate from the fit.
 
+For the measured Final Boss RAW64 eight-step profile, use `alpha=1.0` with
+its sealed fit and sigma grid. The four fresh 512-pixel CFG 1 cases averaged
++0.0325 intended effect over OFF and +0.0300 over the nearest representable
+binary32 constant. All 12 renders passed independent integrity.
+[Calibration identity and per-case evaluation](evidence/final-boss-raw64-native8-photographic-spsr-heldout.json)
+
 ### Calibrated activation gating
 
 Use `gate_plan` on the same open RAW session. Klein averages the live packed
