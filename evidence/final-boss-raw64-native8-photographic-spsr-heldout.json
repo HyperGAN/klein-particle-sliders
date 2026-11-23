@@ -1,0 +1,189 @@
+{
+  "profile": "Klein Final Boss RAW64 native eight-step photographic S-PSR",
+  "date": "2026-11-23",
+  "statement": "Across four fresh preregistered photographic cases, the frozen adaptive profile improved mean intended effect over OFF and the closest representable constant-dose control.",
+  "intended_effect": "fantasy RPG final boss, imposing antagonist silhouette, epic battle scene",
+  "effect_aggregation": "equal arithmetic mean of within-case contrasts",
+  "frozen_strength": 1.0,
+  "fit": "Prompt steering regression on the native Euler velocity receiver",
+  "model": {
+    "base": "black-forest-labs/FLUX.2-klein-base-4B",
+    "revision": "a3b4f4849157f664bdbc776fd7453c2783562f4d",
+    "raw_step": 64,
+    "RAW_sha256": "5bdc87d1cbe728da682359d4afd87fa7041d32f5b9921f5f332293192b95b1f1",
+    "fit_replay_verification_sha256": "ec7b17487a7757fdb5e46e38261c968e039f446ba1ee3dbe0066cff0dcdbc173"
+  },
+  "comparison": {
+    "kind": "same fitted direction and uniquely nearest representable binary32 constant under the authenticated sigma-weighted interval integral",
+    "maximum_absolute_integrated_coefficient_residual": 2.6119998608464812e-08,
+    "maximum_absolute_integrated_coefficient_residual_exact": [
+      3676063,
+      140737488355328
+    ],
+    "rational_equality_per_case": [
+      false,
+      false,
+      false,
+      false
+    ],
+    "fixed_scope": "The four case roles and strength were frozen before evaluation."
+  },
+  "means": {
+    "adaptive_minus_OFF": 0.03250000000000005,
+    "adaptive_minus_constant": 0.030000000000000034,
+    "constant_minus_OFF": 0.002500000000000016
+  },
+  "cases": [
+    {
+      "case": "film-rewind-projection-booth",
+      "effect": {
+        "OFF": 0.4166666666666667,
+        "adaptive": 0.35666666666666674,
+        "matched_constant": 0.37666666666666665
+      },
+      "independent_integrity": {
+        "OFF": "pass",
+        "adaptive": "pass",
+        "matched_constant": "pass"
+      },
+      "nearest_binary32_constant": 0.30690228939056396,
+      "adaptive_coefficient_dose": [
+        345541268030689,
+        1125899906842624
+      ],
+      "constant_coefficient_dose": [
+        2574483,
+        8388608
+      ],
+      "constant_minus_adaptive_coefficient_dose": [
+        -8996065,
+        1125899906842624
+      ],
+      "realized_bf16_edit_dose": {
+        "adaptive": 1.4938243091708756,
+        "matched_constant": 1.4938405281264053
+      },
+      "effect_first_sha256": {
+        "OFF": "7b0ea7c8562f35fe198fcb86b7e2af37f6b6f1e3ab239db080068aec1d104440",
+        "adaptive": "2b1fdf869d0e54cf95f16727a7cc4e25d4ea1028d245aace260e98814ef6e259",
+        "matched_constant": "db8f85e538dcc465a199e10120563299adbd730fea6b54d0127366c80e5898e9"
+      }
+    },
+    {
+      "case": "harbor-tide-staff",
+      "effect": {
+        "OFF": 0.2933333333333333,
+        "adaptive": 0.26666666666666666,
+        "matched_constant": 0.21666666666666665
+      },
+      "independent_integrity": {
+        "OFF": "pass",
+        "adaptive": "pass",
+        "matched_constant": "pass"
+      },
+      "nearest_binary32_constant": 0.07093913108110428,
+      "adaptive_coefficient_dose": [
+        319481441909891,
+        4503599627370496
+      ],
+      "constant_coefficient_dose": [
+        9521289,
+        134217728
+      ],
+      "constant_minus_adaptive_coefficient_dose": [
+        2392957,
+        4503599627370496
+      ],
+      "realized_bf16_edit_dose": {
+        "adaptive": 0.34597122142018666,
+        "matched_constant": 0.3461625997304285
+      },
+      "effect_first_sha256": {
+        "OFF": "010f7bb3fd315b08b0dc9064805c849f900fabc426d3589346805910285d8b20",
+        "adaptive": "f597e55d89fb742aeb9aefd779b65b1fa242c22c26ed0d014ba5d37dce7452a2",
+        "matched_constant": "85473951e13dc630589866b88c8a54622efe502565724fda222768b36f8bbd08"
+      }
+    },
+    {
+      "case": "laundromat-lint-screen-cleaning",
+      "effect": {
+        "OFF": 0.13666666666666663,
+        "adaptive": 0.17333333333333334,
+        "matched_constant": 0.25666666666666665
+      },
+      "independent_integrity": {
+        "OFF": "pass",
+        "adaptive": "pass",
+        "matched_constant": "pass"
+      },
+      "nearest_binary32_constant": 0.4191015362739563,
+      "adaptive_coefficient_dose": [
+        471866380852339,
+        1125899906842624
+      ],
+      "constant_coefficient_dose": [
+        7031357,
+        16777216
+      ],
+      "constant_minus_adaptive_coefficient_dose": [
+        -203891,
+        1125899906842624
+      ],
+      "realized_bf16_edit_dose": {
+        "adaptive": 2.0389078435652337,
+        "matched_constant": 2.038251300826971
+      },
+      "effect_first_sha256": {
+        "OFF": "97e4f1026904cea4511678966c2b935375a3396072d1d13d3e7e3fad9af34792",
+        "adaptive": "57505b9129be0ab35e253287db8de7e37edf2fd862d595128fe32340d0111c03",
+        "matched_constant": "685afa918903081e48f247e15b6ec66bc8f23233c7e865abf3d97b86cf5d2bf5"
+      }
+    },
+    {
+      "case": "badminton-net-fastening",
+      "effect": {
+        "OFF": 0.27666666666666667,
+        "adaptive": 0.4566666666666667,
+        "matched_constant": 0.2833333333333334
+      },
+      "independent_integrity": {
+        "OFF": "pass",
+        "adaptive": "pass",
+        "matched_constant": "pass"
+      },
+      "nearest_binary32_constant": 0.5477005839347839,
+      "adaptive_coefficient_dose": [
+        77082008229791,
+        140737488355328
+      ],
+      "constant_coefficient_dose": [
+        9188891,
+        16777216
+      ],
+      "constant_minus_adaptive_coefficient_dose": [
+        -3676063,
+        140737488355328
+      ],
+      "realized_bf16_edit_dose": {
+        "adaptive": 2.6646892800664688,
+        "matched_constant": 2.6643125243604118
+      },
+      "effect_first_sha256": {
+        "OFF": "942b039e5321078ab024e108eabe71febf43323cb42ce73724e0c5c75495837e",
+        "adaptive": "f69bc9fb8092b0ba211e228b37fcdaf63129c29e00e2ce03853c06b5690f743f",
+        "matched_constant": "7b985b37aee5ecb28e01ce3360803ea809961bd3e3334171622df2435b240d0e"
+      }
+    }
+  ],
+  "positive_cases": {
+    "adaptive_minus_OFF": 2,
+    "adaptive_minus_constant": 2
+  },
+  "provenance": {
+    "frozen_registration_sha256": "dde433df8be831cf9fab6c40c5b7a640cc212393daf67ca63c75638beb5c1a0f",
+    "frozen_strength_selection_sha256": "69b1ccb442ac14b2a043b0a2e063dcee1f28030c5eb6fc06ede31ba55df36f21",
+    "native_arms_and_coefficient_dose_sha256": "dc8752167e9b6256d7a72e5586ba63cedd2ba866d30f6a5704ad565c133c38bd",
+    "independent_categorical_qualification_sha256": "63ad0c0f795371edd44709451f8f0ebe986f9de87440285813d3ba47bf552378",
+    "full_effect_verification_sha256": "f83fd0f5842ecdf03ee357bdbeb49646092302aa1eebec621cf27fd594c115aa"
+  }
+}
